@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.management.as.mapper.BoardAttachMapper">
+  	<insert id="insert">
+  	
+  		insert into attach()
+  		values(#{uuid},#{uploadPath},#{fileName},#{fileType},#{bno})
+  		
+  	</insert>
+  	
+  	<select id="findByBno" resultType="com.management.as.domain.BoardAttachVO">
+  		
+  		select * from attach where bno = #{bno}
+  		
+  	</select>
+  
+  </mapper>

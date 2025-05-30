@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.management.as.mapper.CustomerMapper">
+	<!-- 해당 사용자의 AS 현황 목록 -->
+	<select id="list" resultType="com.management.as.domain.CustomerVO" >
+	SELECT
+		ROW_NUMBER() OVER (ORDER BY cnum DESC) AS rownum,
+		cnum,
+		cname,
+		cphone,
+		address,
+		unit,
+		model,
+		issue,
+		detail,
+		visitdate,
+		visitend,
+		yn,
+		prostatus,
+		star,
+		regdate,
+		proname,
+		visittime
+	FROM customer
+	WHERE cname = #{cname}
+	<!-- 검색 조건 -->
+	<if test="type != null and keyword != null and type == 'proname'">
+        AND proname LIKE CONCAT('%', #{keyword}, '%')
+    </if>
+    <if test="type != null and keyword != null and type == 'issue'">
+        AND issue LIKE CONCAT('%', #{keyword}, '%')
+    </if>
+    <if test="status_keyword != null and status_keyword != ''">
+        AND prostatus = #{status_keyword}
+    </if>
+	ORDER BY cnum DESC
+	LIMIT #{pageSize} OFFSET #{offset}
+	</select>
+	
+	<!-- 전체 게시글 개수 -->
+	<select id="totalCount" resultType="int">
+		SELECT 
+			COUNT(*) 
+		FROM customer
+		WHERE cname = #{cname}
+		<!-- 검색 조건 -->
+		<if test="type != null and keyword != null and type == 'proname'">
+	        AND proname LIKE CONCAT('%', #{keyword}, '%')
+	    </if>
+	    <if test="type != null and keyword != null and type == 'issue'">
+	        AND issue LIKE CONCAT('%', #{keyword}, '%')
+	    </if>
+	    <if test="status_keyword != null and status_keyword != ''">
+	        AND prostatus = #{status_keyword}
+	    </if>
+	</select>
+	
+	<select id="get" resultType="com.management.as.domain.CustomerVO">
+	SELECT
+		cnum
+		cname,
+		cphone,
+		address,
+		unit,
+		model,
+		issue,
+		detail,
+		visitdate,
+		visitend,
+		yn,
+		prostatus,
+		star,
+		regdate,
+		proname,
+		visittime,
+		comment
+	FROM customer
+	WHERE cnum = #{cnum}
+	</select>
+	
+	<!-- 제품 목록 -->
+	<select id="productList" resultType="com.management.as.domain.ProductVO">
+	SELECT
+		pno, category, proname
+	FROM product
+	</select>
+	
+	<!-- AS 접수 -->
+	<insert id="register">
+	INSERT INTO customer
+	(
+		cname,
+		cphone,
+		address,
+		unit,
+		model,
+		issue,
+		detail,
+		visitdate,
+		yn,
+		proname,
+		visittime
+	)
+	VALUES (
+		#{cname},
+		#{cphone},
+		#{address},
+		#{unit},
+		#{model},
+		#{issue},
+		#{detail},
+		#{visitdate},
+		#{yn},
+		#{proname},
+		#{visittime}
+	)
+	</insert>
+	
+	<!-- 후기 등록 -->
+	<update id="update">
+		UPDATE customer SET
+		star = #{star}, comment = #{comment}
+		WHERE cnum = #{cnum}
+	</update>
+</mapper>
