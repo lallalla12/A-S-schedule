@@ -134,7 +134,7 @@
       </div>
 
       <div class="circle green">
-        <a href="/employee/list" id="employee"style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+        <a href="/employee/schedule" id="employee"style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
           <img src="/resources/img/imployee.png" alt="learning" style="width: 150px"/>  
           <span>AS기사용</span>
         </a>
