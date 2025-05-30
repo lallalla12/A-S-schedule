@@ -5,7 +5,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 	<style type="text/css">
 	.pull-right  ul,li{
 		display:inline-block;
@@ -30,6 +31,7 @@
       padding: 1rem;
       box-shadow: 0 0 20px rgba(0,0,0,0.3);
       color: #000;
+      box-sizing: border-box;
     }
     
     .pagenum{
@@ -97,7 +99,7 @@
 			<td colspan="4"><a href="/admin/write">글쓰기</a></td>
 		</tr>
 	</table> --%>
-	<div class="container">
+	<div class="container mt-5">
     <h3>📋 공지사항</h3>
     <div class="board-wrapper">
     <form action="/admin/list" method="get">
