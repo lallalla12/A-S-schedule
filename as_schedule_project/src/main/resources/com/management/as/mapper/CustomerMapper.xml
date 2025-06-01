@@ -3,39 +3,85 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.management.as.mapper.CustomerMapper">
+	<!-- 회원가입 -->
+	<insert id="join" >
+	INSERT INTO user
+	(
+		user_id,
+		password,
+		username,
+		phone,
+		address,
+		detail
+	)
+	VALUES (
+		#{user_id},
+		#{password},
+		#{username},
+		#{phone},
+		#{address},
+		#{detail}
+	)
+	</insert>
+	
+	<select id="findByUserId" resultType="com.management.as.domain.UserVO" parameterType="String">
+	    SELECT 
+	    	uid,
+	    	user_id,
+	    	username,
+	    	password,
+	    	phone,
+	    	address,
+	    	detail
+	    FROM user WHERE user_id = #{user_id}
+	</select>
+	
+	<select id="idCheck" resultType="int">
+		SELECT COUNT(*) FROM user
+		WHERE user_id = #{id}
+	</select>
+
 	<!-- 해당 사용자의 AS 현황 목록 -->
+	<!-- 변수 초기화 쿼리 -->
+	<update id="initRowNum">
+	  SET @rownum := 0;
+	</update>
+
 	<select id="list" resultType="com.management.as.domain.CustomerVO" >
 	SELECT
-		ROW_NUMBER() OVER (ORDER BY cnum DESC) AS rownum,
-		cnum,
-		cname,
-		cphone,
-		address,
-		unit,
-		model,
-		issue,
-		detail,
-		visitdate,
-		visitend,
-		yn,
-		prostatus,
-		star,
-		regdate,
-		proname,
-		visittime
-	FROM customer
-	WHERE cname = #{cname}
+		@rownum := IFNULL(@rownum, 0) + 1 AS rownum,
+		c.cnum,
+	    c.uid,
+	    c.model,
+	    c.issue,
+	    c.detail,
+	    c.visitdate,
+	    c.visitend,
+	    c.yn,
+	    c.prostatus,
+	    c.star,
+	    c.regdate,
+	    c.proname,
+	    c.visittime,
+	    c.comment,
+	    u.user_id,
+	    u.username,
+	    u.phone,
+	    u.address,
+	    u.detail AS user_detail
+	FROM customer c JOIN user u ON c.uid = u.uid
+	WHERE u.user_id = #{user_id}
 	<!-- 검색 조건 -->
 	<if test="type != null and keyword != null and type == 'proname'">
-        AND proname LIKE CONCAT('%', #{keyword}, '%')
+        AND c.proname LIKE CONCAT('%', #{keyword}, '%')
     </if>
     <if test="type != null and keyword != null and type == 'issue'">
-        AND issue LIKE CONCAT('%', #{keyword}, '%')
+        AND c.issue LIKE CONCAT('%', #{keyword}, '%')
     </if>
     <if test="status_keyword != null and status_keyword != ''">
-        AND prostatus = #{status_keyword}
+        AND c.prostatus = #{status_keyword}
     </if>
-	ORDER BY cnum DESC
+	ORDER BY c.cnum DESC
 	LIMIT #{pageSize} OFFSET #{offset}
 	</select>
 	
@@ -43,40 +89,36 @@
 	<select id="totalCount" resultType="int">
 		SELECT 
 			COUNT(*) 
-		FROM customer
-		WHERE cname = #{cname}
+		FROM customer c JOIN user u ON c.uid = u.uid
+		WHERE u.user_id = #{user_id}
 		<!-- 검색 조건 -->
 		<if test="type != null and keyword != null and type == 'proname'">
-	        AND proname LIKE CONCAT('%', #{keyword}, '%')
+	        AND c.proname LIKE CONCAT('%', #{keyword}, '%')
 	    </if>
 	    <if test="type != null and keyword != null and type == 'issue'">
-	        AND issue LIKE CONCAT('%', #{keyword}, '%')
+	        AND c.issue LIKE CONCAT('%', #{keyword}, '%')
 	    </if>
 	    <if test="status_keyword != null and status_keyword != ''">
-	        AND prostatus = #{status_keyword}
+	        AND c.prostatus = #{status_keyword}
 	    </if>
 	</select>
 	
 	<select id="get" resultType="com.management.as.domain.CustomerVO">
 	SELECT
-		cnum
-		cname,
-		cphone,
-		address,
-		unit,
-		model,
-		issue,
-		detail,
-		visitdate,
-		visitend,
-		yn,
-		prostatus,
-		star,
-		regdate,
-		proname,
-		visittime,
-		comment
-	FROM customer
+		cnum,
+	    uid,
+	    model,
+	    issue,
+	    detail,
+	    visitdate,
+	    visitend,
+	    yn,
+	    prostatus,
+	    star,
+	    regdate,
+	    proname,
+	    visittime,
+	    comment
 	WHERE cnum = #{cnum}
 	</select>
 	
@@ -91,10 +133,7 @@
 	<insert id="register">
 	INSERT INTO customer
 	(
-		cname,
-		cphone,
-		address,
-		unit,
+		uid,
 		model,
 		issue,
 		detail,
@@ -104,10 +143,7 @@
 		visittime
 	)
 	VALUES (
-		#{cname},
-		#{cphone},
-		#{address},
-		#{unit},
+		#{uid},
 		#{model},
 		#{issue},
 		#{detail},

@@ -1,0 +1,374 @@
+@charset "UTF-8";
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css");
+/* input[type=submit] {
+	padding: 12px 20px;
+} */
+h5 {
+	padding: 15px 0 ;
+}
+.th {
+	font-weight:bold;
+	font-size:18px;
+}
+#idCheck {
+	color:red;
+	font-size:13px;
+}
+#duplicateCheck, #findPostcode {
+	width:20%;
+    padding: 15px 20px;
+    font-size: 14px;
+    background-color: #39664d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top:5px;
+}
+
+input[type=text], input[type=password] {
+    width:100%;
+    padding:12px 20px;
+    margin: 8px 0px 2px 0px;
+    box-sizing: border-box;
+    border : 2px solid #39664d;
+    border-radius: 4px;
+}
+
+#user_id, #postcode {
+	width : 80%;
+}
+.input-flex {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.input-flex input[type="text"] {
+  flex: 1;
+}
+
+/* 접수화면 */
+#datepicker {
+	background: url('/resources/img/calendar.png') no-repeat right 10px center;
+	background-size: 18px 18px;
+	padding-right: 40px;
+	cursor:pointer;
+}
+.info-table {
+  width: 100%;
+  max-width: 700px;
+  border-collapse: collapse;
+  background-color: #fff; /* 깨끗한 흰 배경 */
+  border: 2px solid #b0b0b0; /* 좀 더 진한 테두리 */
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12); /* 그림자 좀 더 선명하게 */
+  overflow: hidden;
+  margin-bottom: 24px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.info-table th,
+.info-table td {
+  padding: 16px 20px;
+  text-align: left;
+  border-bottom: 1.5px solid #ddd; /* 구분선 조금 진하게 */
+}
+
+.info-table th {
+  background-color: #f2f6fc; /* 연한 블루톤 배경으로 명확함 */
+  font-weight: 700;
+  color: #1a1a1a; /* 진한 검정에 가깝게 */
+  width: 140px;
+  letter-spacing: 0.03em;
+}
+
+.info-table td {
+  color: #333; /* 진한 회색으로 명확하게 */
+  font-weight: 500;
+}
+
+.info-table tr:last-child td {
+  border-bottom: none; /* 마지막 행은 구분선 제거 */
+}
+
+#detail {
+	width : 100%;
+	resize: none;
+	padding:12px 20px;
+    margin: 8px 0px 2px 0px;
+    box-sizing: border-box;
+    border : 2px solid #39664d;
+    border-radius: 4px;
+}
+
+#proname, #issue {
+	width:100%;
+    padding:12px 20px;
+    margin: 8px 0px 2px 0px;
+    box-sizing: border-box;
+    border : 2px solid #39664d;
+    border-radius: 4px;
+}
+#time-buttons {
+	padding : 7px 0;
+}
+.time-button {
+	    padding: 8px 12px;
+	    margin: 3px;
+	    background-color: #eee;
+	    border: 1px solid #ccc;
+	    cursor: pointer;
+	    border-radius: 4px;
+}
+.time-button.selected {
+    background-color: #39664d;
+    color: white;
+    font-weight: bold;
+}
+.agree-wrap {
+  display: flex;
+  justify-content: right; /* 가운데 정렬 */
+  padding: 30px 0 10px 0;
+}
+.agree-label {
+	font-weight: bold;
+	font-size: 17px;
+	color: #333;
+	display: flex;
+	align-items: center;
+	gap: 8px; /* 라디오버튼과 텍스트 간격 */
+	cursor: pointer;
+}
+
+/* 현황 목록 */
+#search_form {
+	padding-bottom: 30px;
+}
+#input_keyword {
+	width : 55%;
+}
+#select_type, #select_status {
+	width : 15%;
+	padding:12px 20px;
+    margin: 8px 0px 2px 0px;
+    box-sizing: border-box;
+    border : 2px solid #39664d;
+    border-radius: 4px;
+}
+#search_btn {
+	width:10%;
+    padding: 15px 20px;
+    font-size: 14px;
+    background-color: #39664d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top:5px;
+}
+
+#search_form select,
+#search_form input[type="text"],
+#search_form input[type="submit"] {
+  height: 50px;            /* 원하는 높이로 통일 */
+  vertical-align: middle;  /* 요소들 수직 중앙 정렬 */
+  font-size: 14px;
+  box-sizing: border-box;  /* 패딩, 보더가 높이에 포함되도록 */
+}
+
+#search_form input[type="submit"] {
+  cursor: pointer;
+}
+
+/* 헤더와 셀 기본 패딩, 정렬 */
+#list_table th,
+#list_table td {
+  padding: 12px 14px;
+  text-align: center;
+}
+
+/* 헤더 배경 및 아래 줄 */
+#list_table thead th {
+  background-color: #f7f7f7;
+  border-bottom: 2px solid #ddd;
+  font-weight: 600;
+  color: #333;
+}
+
+/* 본문 셀: 가로줄만 */
+#list_table tbody td {
+  border-bottom: 1px solid #eee;
+}
+
+/* 세로줄 제거 (기본 border 제거) */
+#list_table th,
+#list_table td {
+  border-left: none;
+  border-right: none;
+}
+
+#list_table tbody td[colspan] {
+  text-align: center;
+  color: #888;
+}
+
+#list_table tr.home-btn-row td {
+  border: none;
+  background-color: transparent;
+  text-align: right;
+  padding-top: 16px;
+}
+
+.comment_btn:not(:disabled) {
+  padding: 6px 12px;
+  font-size: 13px;
+  background-color: #39664d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.comment_btn:disabled {
+	padding: 6px 12px;
+  font-size: 13px;
+  border: none;
+  border-radius: 4px;
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* 레이어팝업 */
+#popup-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;       /* 가로 크기 */
+  max-width: 90%;     /* 최대 너비 조절 */
+  height: 400px;      /* 세로 크기 */
+  background-color: white;
+  padding: 20px;
+  box-sizing: border-box;
+  z-index: 1001;
+  border-radius: 8px;
+  color: black;
+}
+
+/* 팝업 배경 어둡게 */
+#popup-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 1000;
+  display: none;
+}
+
+/* 폼 내부 전체 패딩 */
+#popup-container #commentForm {
+  padding: 10px 0;
+  display: flex;
+  justify-content: center; /* 가로 중앙 정렬 */
+  gap: 10px; /* 버튼 사이 간격 */
+  margin-top: 20px; /* 위쪽 여백 (필요하면) */
+}
+
+/* 테이블 전체 너비 */
+#popup-container table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+/* tr 패딩 대신 td padding으로 변경 (tr는 padding 무효) */
+#popup-container table tr td {
+  padding: 10px 6px;
+  vertical-align: middle;
+  font-size: 16px;
+  color: #333;
+}
+
+/* 별점 td는 조금 굵게 */
+#popup-container table tr:first-child td {
+  font-weight: 600;
+  padding-bottom: 10px;
+}
+
+/* textarea 너비 100%, 높이 좀 조절 */
+#popup-container textarea {
+  width: 100%;
+  height: 100px;
+  padding: 8px 10px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: none;
+  box-sizing: border-box;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #333;
+  outline: none;
+}
+
+/* textarea 포커스 시 강조 */
+#popup-container textarea:focus {
+  border-color: #39664d;
+  box-shadow: 0 0 5px rgba(57,102,77,0.6);
+}
+
+/* 별점 스타 이미지 */
+#popup-container .stars {
+  display: inline-block;
+}
+
+#popup-container .star-img {
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  margin-right: 6px;
+  vertical-align: middle;
+  transition: transform 0.15s ease;
+}
+
+#popup-container .star-img:hover {
+  transform: scale(1.2);
+}
+
+/* 버튼 스타일 */
+#popup-container .btn {
+  padding: 6px 14px;
+  font-size: 13px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: white;
+  transition: background-color 0.3s ease;
+  margin: 0;
+}
+
+/* 등록 버튼 배경색 */
+#popup-container .btn {
+  background-color: #39664d;
+}
+
+#popup-container .btn:hover {
+  background-color: #2f4d39;
+}
+
+/* 닫기 버튼 배경색 */
+#popup-container .popup_close {
+  background-color: #555555;
+}
+
+#popup-container .popup_close:hover {
+  background-color: #333333;
+}
+
+#popup-container .button-group {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 10px;
+}

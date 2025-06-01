@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.management.as.domain.CustomerVO;
 import com.management.as.domain.ProductVO;
+import com.management.as.domain.UserVO;
 import com.management.as.mapper.CustomerMapper;
 
 @Service
@@ -26,13 +27,14 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public List<CustomerVO> list(String cname, String type, String keyword, String status_keyword, int offset, int pageSize) {
-		return mapper.list(cname, type, keyword, status_keyword, offset, pageSize);
+	public List<CustomerVO> list(String user_id, String type, String keyword, String status_keyword, int offset, int pageSize) {
+		mapper.initRowNum();
+		return mapper.list(user_id, type, keyword, status_keyword, offset, pageSize);
 	}
 
 	@Override
-	public int totalCount(String cname, String type, String keyword, String status_keyword) {
-		return mapper.totalCount(cname, type, keyword, status_keyword);
+	public int totalCount(String user_id, String type, String keyword, String status_keyword) {
+		return mapper.totalCount(user_id, type, keyword, status_keyword);
 	}
 
 	@Override
@@ -43,5 +45,20 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public void update(CustomerVO vo) {
 		mapper.update(vo);
+	}
+
+	@Override
+	public void join(UserVO vo) {
+		mapper.join(vo);
+	}
+
+	@Override
+	public UserVO findByUserId(String user_id) {
+		return mapper.findByUserId(user_id);
+	}
+
+	@Override
+	public int idCheck(String id) {
+		return mapper.idCheck(id);
 	}
 }

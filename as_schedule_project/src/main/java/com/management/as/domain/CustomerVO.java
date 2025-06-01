@@ -9,10 +9,6 @@ import lombok.Data;
 @Data
 public class CustomerVO {
 	private int cnum;
-	private String cname;
-	private String cphone;
-	private String address;
-	private String unit;
 	private String model;
 	private String issue;
 	private String detail;
@@ -28,6 +24,14 @@ public class CustomerVO {
 	private String proname;
 	private String visittime;
 	private String comment;
+	
+	// user 테이블 칼럼
+	private int uid;
+    private String user_id;
+    private String username;
+    private String phone;
+    private String address;
+    private String user_detail;
 	
 	private int rownum;
 	

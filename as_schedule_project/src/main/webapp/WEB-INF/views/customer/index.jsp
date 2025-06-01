@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>사용자 페이지</title>
+<title>고객 페이지</title>
 <c:if test="${not empty message}">
     <script>
         alert("${message}");
@@ -17,5 +17,6 @@
 <a href="#" >공지사항</a>
 <a href="/customer/register">AS 접수</a>
 <a href="/customer/mypage">AS 현황</a>
+<input type="button" value="로그아웃" onclick="location.href='/customer/logout';"/>
 </body>
 </html>
