@@ -31,6 +31,13 @@ public class EmployeeController {
 		model.addAttribute("schedule", service.getSchedule());
 	}
 	
+	@GetMapping("/index")
+	public String index(){
+		log.info("------------------------/employee/index로 이동-------------------------");
+		return"/employee/index";
+	}
+	
+	
 	@PostMapping("/login")
 	public String login(@RequestParam String id,
 					    @RequestParam String password,
