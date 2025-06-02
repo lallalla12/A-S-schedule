@@ -88,7 +88,7 @@
     }
 
     .circle a {
-      color: white;
+      color: black;
       text-decoration: none;
       font-weight: bold;
       display: flex;

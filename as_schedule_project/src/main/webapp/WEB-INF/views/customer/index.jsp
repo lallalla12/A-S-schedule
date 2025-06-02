@@ -88,7 +88,7 @@
     }
 
     .circle a {
-      color: white;
+      color: black;
       text-decoration: none;
       font-weight: bold;
       display: flex;
@@ -138,7 +138,7 @@
 
   <!-- Hero Text -->
   <div class="container">
-    <h1 class="hero-title">환영합니다 고객님 ^^</h1>
+    <h1 class="hero-title">환영합니다. 고객님.</h1>
     <p class="hero-subtitle">We are responsible for your temperature.</p>
 
     <!-- Circles -->
