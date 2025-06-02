@@ -20,8 +20,8 @@
 		</tr>
 		<tr>
 			<td colspan="2">
-				<a href="/board/modify?bno=${board.bno}">[수정]</a>
-				<a href="/board/remove?bno=${board.bno}">[삭제]</a>
+				<a href="/admin/board/modify?bno=${board.bno}">[수정]</a>
+				<a href="/admin/board/remove?bno=${board.bno}">[삭제]</a>
 			</td>
 		</tr>
 	</table>
@@ -155,47 +155,6 @@
 				showList();
 						
 			})
-		})
-		
-		// 첨부파일 관련
-		
-		bno = $("#bno").val();
-		
-		console.log(bno);
-		
-		var str =""
-			
-		$.getJSON("/board/getAttachList", {bno:bno},function(arr){
-			
-			console.log(arr);
-			
-			$(arr).each(function(i, obj){	// 파일 업로드를 하게되면
-				// ul 테그 안에 li 로 나타나게 만드는 작업
-				
-				console.log(obj)
-
-				if(!obj.fileType){	// 첨부 파일이 이미지가 아님
-					
-					var fileCallPath = encodeURIComponent(obj.uploadPath+"/"+obj.uuid+"_"+obj.fileName);
-					str += "<li><a href='/download?fileName=" + fileCallPath +"'>[다운로드]" + obj.fileName + "</a></li>"
-				}
-				else{		// 첨부 파일이 이미지 파일임
-				//str += "<li>" + obj.fileName + "</li>"
-			
-			
-					// 파일 이름에 한글이 들어가면 깨지는 현상을 막아줌
-					var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);	// 썸네일 파일 경로
-					var originPath = obj.uploadPath + "\\" + obj.uuid + "_" + obj.fileName;	//원본 이미지 파일 경로
-					originPath = originPath.replace(new RegExp(/\\/g),"/")
-					
-					str += "<li><a href=\"javascript:showImage(\'" + originPath + "\')\"><img src='/display?fileName="+fileCallPath+"'></a></li>";
-				}
-			
-			});			
-			$(".uploadResult ul").append(str);
-			
-			
-			
 		})
 		
 		

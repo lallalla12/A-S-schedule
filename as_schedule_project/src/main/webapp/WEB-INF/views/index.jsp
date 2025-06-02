@@ -122,7 +122,6 @@
         <button class="btn btn-buy">Login</button>
         
       </ul>
-      <button class="btn btn-buy">Join</button>
     </div>
   </nav>
 
@@ -134,7 +133,7 @@
     <!-- Circles -->
     <div class="circles">
       <div class="circle red">
-        <a href="/admin/list" id="admin" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+        <a href="/admin/board/list" id="admin" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
         <img src="/resources/img/admin.png" alt="business" style="width: 150px" />
         <span>관리자</span>
         </a>

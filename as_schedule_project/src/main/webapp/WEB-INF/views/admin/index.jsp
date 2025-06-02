@@ -14,7 +14,7 @@
 </c:if>
 </head>
 <body>
-<a href="/admin/list" >[게시판관리]</a>
-<a href="/admin/list">[as현황목록]</a>
+<a href="/admin/board/list" >[게시판관리]</a>
+<a href="/admin/board/list">[as현황목록]</a>
 </body>
 </html>

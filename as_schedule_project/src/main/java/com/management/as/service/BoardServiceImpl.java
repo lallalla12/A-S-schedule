@@ -4,11 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.management.as.domain.BoardAttachVO;
 import com.management.as.domain.BoardVO;
 import com.management.as.domain.Criterai;
-import com.management.as.mapper.BoardAttachMapper;
-import com.management.as.mapper.BoardMapper;
 import com.management.as.mapper.BoardMapper;
 
 import lombok.AllArgsConstructor;
@@ -23,7 +20,6 @@ public class BoardServiceImpl implements BoardService {	// 구현 하는 클래�
 	
 	private BoardMapper mapper;
 	
-	private BoardAttachMapper attachMapper;
 	
 	// paging 처리 X
 	public List<BoardVO> list() {
@@ -71,30 +67,7 @@ public class BoardServiceImpl implements BoardService {	// 구현 하는 클래�
 		
 		// tbl_board 테이블에 insert
 		mapper.insertSelectKey(board);
-		
-		
-		if(board.getAttachList() == null || board.getAttachList().size()<=0) {
-			return;
-		}
-		
-		board.getAttachList().forEach(attach ->{
-			
-			attach.setBno(board.getBno());
-			// tbl_attach 테이블에 insert
-			attachMapper.insert(attach);
-		});		
-		
-		
+
 	}
-	
-	// 첨부파일 조회
-	public List<BoardAttachVO> getAttachlist(int bno){
-		return attachMapper.findByBno(bno);
-	}
-	
-	
-	
-	
-	
-	
+
 }

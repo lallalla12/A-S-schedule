@@ -8,7 +8,7 @@
 </head>
 <body>
 	<h3>수정 화면으로 이동...</h3>
-	<form action="modify" method="post">
+	<form action="admin/board/modify" method="post">
 		<table border="1">
 		
 			<tr>

@@ -3,7 +3,6 @@ package com.management.as.service;
 
 import java.util.List;
 
-import com.management.as.domain.BoardAttachVO;
 import com.management.as.domain.BoardVO;
 import com.management.as.domain.Criterai;
 
@@ -30,6 +29,4 @@ public interface BoardService {		// 설계 클래쓰 -> BoardServiceImpl 구현
 	// 게시판 글쓰기 버튼 클릭
 	public void register(BoardVO board);
 	
-	// 첨부파일 조회
-	public List<BoardAttachVO> getAttachlist(int bno);
 }

@@ -38,7 +38,7 @@
     	margin : 10px;
     }
 
-    .btn-write {
+    .btn-write{
       margin : 10px;
       float : right;
       background-color: #29c76f;
@@ -102,7 +102,7 @@
 	<div class="container mt-5">
     <h3>📋 공지사항</h3>
     <div class="board-wrapper">
-    <form action="/admin/list" method="get">
+    <form action="/admin/board/list" method="get">
     	<div class="pagenum">
 			<input type="hidden" value="${pageMaker.cri.pageNum}" name="pageNum">
 			<input type="hidden" value="${pageMaker.cri.amount}" name="amount">
@@ -111,8 +111,10 @@
 				<option value="C">내용</option>
 				<option value="W">작성자</option>
 			</select>
+			
 			<input type="text" name="keyword">
 			<input type="submit" value="검색">
+			
 		</div>
 	</form>
       <table>
@@ -129,7 +131,7 @@
           	<tr>
 				<td>${board.rownum}</td>
 			
-				<td><a href="/admin/get?bno=${board.bno}">${board.title}</a></td>
+				<td><a href="/admin/board/get?bno=${board.bno}">${board.title}</a></td>
 				
 				<td>${board.writer}</td>
 				
@@ -138,12 +140,12 @@
           	</c:forEach>
         </tbody>
       </table>
-      <button class="btn btn-write" onclick="location.href='/admin/write'">글쓰기</button>
+      <button class="btn btn-write" onclick="location.href='/admin/board/write'">글쓰기</button>
       <div style="text-align:center; margin-top: 5px;">
 			<ul class="pull-right">
 				<c:if test="${pageMaker.prev}">
 					<li>
-						<a href="/admin/list?pageNum=${pageMaker.startPage -1}
+						<a href="/admin/board/list?pageNum=${pageMaker.startPage -1}
 						&amount=${pageMaker.cri.amount}&type=${pageMaker.cri.type}
 						&keyword=${pageMaker.cri.keyword}">Previous</a>
 					</li>
@@ -151,7 +153,7 @@
 				
 				<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
 					<li>
-						<a href="/admin/list?pageNum=${num}
+						<a href="/admin/board/list?pageNum=${num}
 						&amount=${pageMaker.cri.amount}&type=${pageMaker.cri.type}
 						&keyword=${pageMaker.cri.keyword}">${num}</a>
 					</li>
@@ -159,7 +161,7 @@
 				
 				<c:if test="${pageMaker.next}">
 					<li>
-						<a href="/admin/list?pageNum=${pageMaker.endPage +1}
+						<a href="/admin/board/list?pageNum=${pageMaker.endPage +1}
 						&amount=${pageMaker.cri.amount}&type=${pageMaker.cri.type}
 						&keyword=${pageMaker.cri.keyword}">Next</a>
 					</li>
