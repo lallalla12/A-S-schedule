@@ -61,4 +61,13 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return mapper.getTotalCount(keyword,type);
 	}
 
+	@Override
+	public EmployeeVO login(String id, String password) {
+		EmployeeVO emp = mapper.findById(id);
+        if (emp != null && emp.getPassword().equals(password)) {
+            return emp;
+        }
+        return null;
+	}
+
 }

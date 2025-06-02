@@ -73,6 +73,10 @@
 			</if>
 		</where>
 	</select>
+	
+	<select id="findById" resultType="com.management.as.domain.EmployeeVO" parameterType="String">
+	select * from employee where eno = #{eno}
+	</select>
 
 
 </mapper>
