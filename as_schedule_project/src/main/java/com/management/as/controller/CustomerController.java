@@ -156,10 +156,21 @@ public class CustomerController {
 	
 	// 공지사항
 	@GetMapping("/board/list")
-	public void list(Criterai cri, Model model) {
+	public String list(Criterai cri, Model model) {
 		log.info("게시판 리스트 목록 보기 화면으로 이동(고객)");
-		//model.addAttribute("list", boardService.getListWithPaging("C", cri));
-		//int total = boardService.getTotalCount("C", cri);
-		//model.addAttribute("pageMaker", new PageDTO(cri, total));
+		cri.setBoardType("C");
+		log.info("Criterai: {}", cri);
+		model.addAttribute("list", boardService.getListWithPaging(cri));
+		int total = boardService.getTotalCount(cri);
+		model.addAttribute("pageMaker", new PageDTO(cri, total));
+		model.addAttribute("keyword", cri.getKeyword());
+		return "/customer/board/list";
+	}
+	
+	// 목록 리스트에서 제목을 클릭하여 상세내용 화면으로 이동
+	@GetMapping("/board/get")
+	public String get(@RequestParam("bno") int bno, Model model) {
+		model.addAttribute("board", boardService.get(bno));
+		return "/customer/board/view";
 	}
 }
