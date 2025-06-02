@@ -28,4 +28,18 @@ public interface CustomerMapper {
 	public int idCheck(@Param("id") String id);
 
 	public void initRowNum();
+	
+    // 게시글 목록 조회
+    List<CustomerVO> alllist(
+        @Param("type") String type,
+        @Param("keyword") String keyword,
+        @Param("status_keyword") String status_keyword,
+        @Param("offset") int offset,
+        @Param("pageSize") int pageSize);
+
+    // 전체 게시글 수 조회
+    int alltotalCount(
+        @Param("type") String type,
+        @Param("keyword") String keyword,
+        @Param("status_keyword") String status_keyword);
 }

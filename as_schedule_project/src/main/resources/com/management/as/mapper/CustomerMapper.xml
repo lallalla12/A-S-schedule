@@ -84,7 +84,7 @@
 	ORDER BY c.cnum DESC
 	LIMIT #{pageSize} OFFSET #{offset}
 	</select>
-	
+
 	<!-- 전체 게시글 개수 -->
 	<select id="totalCount" resultType="int">
 		SELECT 
@@ -160,4 +160,130 @@
 		star = #{star}, comment = #{comment}
 		WHERE cnum = #{cnum}
 	</update>
+	
+	
+	
+	
+	
+	    <!-- ✅ 전체 리스트 조회 (검색, 페이징 포함) -->
+    <select id="alllist" resultType="com.management.as.domain.CustomerVO">
+        SELECT
+            @rownum := @rownum + 1 AS rownum,
+            sub.cnum,
+            sub.uid,
+            sub.model,
+            sub.issue,
+            sub.detail,
+            sub.visitdate,
+            sub.visitend,
+            sub.yn,
+            sub.prostatus,
+            sub.star,
+            sub.regdate,
+            sub.proname,
+            sub.visittime,
+            sub.comment,
+            sub.user_id,
+            sub.username,
+            sub.phone,
+            sub.address,
+            sub.user_detail
+        FROM (
+            SELECT
+                c.cnum,
+                c.uid,
+                c.model,
+                c.issue,
+                c.detail,
+                c.visitdate,
+                c.visitend,
+                c.yn,
+                c.prostatus,
+                c.star,
+                c.regdate,
+                c.proname,
+                c.visittime,
+                c.comment,
+                u.user_id,
+                u.username,
+                u.phone,
+                u.address,
+                u.detail AS user_detail
+            FROM customer c
+            JOIN user u ON c.uid = u.uid
+            WHERE 1 = 1
+                <if test="type != null and keyword != null and type == 'proname'">
+                    AND c.proname LIKE CONCAT('%', #{keyword}, '%')
+                </if>
+                <if test="type != null and keyword != null and type == 'issue'">
+                    AND c.issue LIKE CONCAT('%', #{keyword}, '%')
+                </if>
+                <if test="status_keyword != null and status_keyword != ''">
+                    AND c.prostatus = #{status_keyword}
+                </if>
+            ORDER BY c.cnum DESC
+            LIMIT #{pageSize} OFFSET #{offset}
+        ) AS sub,
+        (SELECT @rownum := 0) AS r
+    </select>
+
+    <!-- ✅ 전체 데이터 수 (페이징용 카운트) -->
+    <select id="alltotalCount" resultType="int">
+        SELECT COUNT(*)
+        FROM customer c
+        JOIN user u ON c.uid = u.uid
+        WHERE 1 = 1
+            <if test="type != null and keyword != null and type == 'proname'">
+                AND c.proname LIKE CONCAT('%', #{keyword}, '%')
+            </if>
+            <if test="type != null and keyword != null and type == 'issue'">
+                AND c.issue LIKE CONCAT('%', #{keyword}, '%')
+            </if>
+            <if test="status_keyword != null and status_keyword != ''">
+                AND c.prostatus = #{status_keyword}
+            </if>
+    </select>
+
+    <!-- ✅ 특정 고객 정보 가져오기 -->
+    <select id="get2" resultType="com.management.as.domain.CustomerVO">
+        SELECT
+            cnum,
+            uid,
+            model,
+            issue,
+            detail,
+            visitdate,
+            visitend,
+            yn,
+            prostatus,
+            star,
+            regdate,
+            proname,
+            visittime,
+            comment
+        FROM customer
+        WHERE cnum = #{cnum}
+    </select>
+
+    <!-- ✅ 제품 목록 조회 -->
+    <select id="productList2" resultType="com.management.as.domain.ProductVO">
+        SELECT
+            pno,
+            category,
+            proname
+        FROM product
+    </select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
 </mapper>

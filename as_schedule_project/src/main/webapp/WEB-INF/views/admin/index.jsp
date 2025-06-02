@@ -149,7 +149,7 @@
       </div>
 
       <div class="circle green">
-        <a href="/admin/board/list">
+        <a href="/admin/service/asindex">
 
           <span>AS현황</span>
         </a>
