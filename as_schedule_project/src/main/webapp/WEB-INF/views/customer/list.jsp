@@ -131,7 +131,7 @@
 	    <c:if test="${totalPages > 1}">
 		<div class="pagination">
 		    <c:if test="${currentPage > 1}">
-		       <a class="prev" href="/customer/mypage?page=${currentPage - 1}" class="prev">&laquo; 이전</a>
+		       <a href="/customer/mypage?page=${currentPage - 1}" class="prev">&laquo; 이전</a>
 		   </c:if>
 		
 		   <c:forEach begin="1" end="${totalPages}" var="pageNum">
@@ -146,7 +146,7 @@
 		   </c:forEach>
 	
 		   <c:if test="${currentPage < totalPages}">
-		       <a class="next" href="/customer/mypage?page=${currentPage + 1}" class="next">다음 &raquo;</a>
+		       <a href="/customer/mypage?page=${currentPage + 1}" class="next">다음 &raquo;</a>
 		   </c:if>
 		</div>
 		</c:if>

@@ -43,7 +43,14 @@ public class CustomerController {
 			redirectAttributes.addFlashAttribute("message", "로그인이 필요합니다.");
 			return "redirect:/login"; 
 		}
-		return "/customer/index";
+		int count = service.idCheck(user_id);
+		if(count > 0 ) {
+			return "/customer/index";
+		} else {
+			redirectAttributes.addFlashAttribute("message", "고객정보가 없습니다.");
+			session.invalidate();
+			return "redirect:/login";
+		}
 	}
 	
 	@GetMapping("/join")
