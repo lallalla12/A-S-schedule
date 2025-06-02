@@ -18,5 +18,7 @@ public interface EmployeeService {
 	public List<EmployeeVO> getPagedListWithSearch(String keyword, String type, int offset, int size);
 
 	public int getTotalCount(String keyword, String type);
+
+	EmployeeVO login(String id, String password);
 	
 }

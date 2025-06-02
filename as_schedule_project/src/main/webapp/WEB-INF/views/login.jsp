@@ -140,7 +140,14 @@
 		    return false;
 		}
 	}
+	
 </script>
+<c:if test="${not empty error}">
+    <script>
+        alert("${error}");
+    </script>
+</c:if>
+
 </head>
 <body>
 	<div class="container mt-5">
