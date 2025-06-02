@@ -140,7 +140,7 @@
     <!-- Circles -->
     <div class="circles">
       <div class="circle red">
-        <a href="/customer/board/list" id="notification">
+        <a href="/employee/board/list" id="notification">
           <span>공지사항</span>
         </a>
       </div>
