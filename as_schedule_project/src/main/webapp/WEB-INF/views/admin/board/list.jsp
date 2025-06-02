@@ -45,7 +45,7 @@
     .btn-write{
       margin : 10px;
       float : right;
-      background-color: #29c76f;
+      background-color: #39664d;
       border: none;
       color: white;
       border-radius: 20px;

@@ -98,13 +98,22 @@ input[type="submit"] {
 
 }
 
-input[type="submit"]:hover {
-    background-color: #1ea55c;
-}
+	input[type="submit"]:hover {
+	    background-color: #1ea55c;
+	}
 
-#btn{
-text-align:right;
-}
+    .btn-write{
+      margin : 10px;
+      background-color: #39664d!important;
+      border: none;
+      color: white;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+    
+	#btn{
+	text-align:right;
+	}
 </style>
 </head>
 <body>
@@ -148,7 +157,7 @@ text-align:right;
         </table>
 		
 		<div id="btn">
-        	<input type="submit" value="등록">
+        	<input type="submit"  class="btn-write" value="등록">
         </div>
     </form>
 </div>
