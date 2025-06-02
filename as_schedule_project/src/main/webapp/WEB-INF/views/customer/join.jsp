@@ -29,6 +29,9 @@
       box-shadow: 0 0 20px rgba(0,0,0,0.3);
       color: #000;
       box-sizing: border-box;
+      
+      max-width : 1000px;
+      margin : 0 auto;
    	}
    	table {
       width: 100%;

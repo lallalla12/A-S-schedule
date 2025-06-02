@@ -55,13 +55,13 @@ public class HomeController {
 				redirectAttributes.addFlashAttribute("message", "아이디 및 비밀번호가 일치하지 않습니다.");
 				return "redirect:/login";
 			} else {
-				session.setAttribute("id", "admin");
-				return "/admin/index";
+				session.setAttribute("user_id", "admin");
+				return "redirect:/admin/index";
 			}
 		} else if(gubun.equals("emp")) {
-			return "/employee/login";
+			return "redirect:/employee/login";
 		} else if(gubun.equals("ctm")) {
-			return "/customer/login";
+			return "redirect:/customer/login";
 		} else {
 			redirectAttributes.addFlashAttribute("message", "잘못된 요청입니다.");
 			return "redirect:/login";

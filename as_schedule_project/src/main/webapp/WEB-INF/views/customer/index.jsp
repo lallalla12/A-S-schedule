@@ -6,6 +6,7 @@
 <html>
 <head>
 <style>
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css");
     * {
       margin: 0;
       padding: 0;
@@ -131,8 +132,7 @@
   <nav class="navbar">
     <a class="navbar-brand" href="ai.html">🅰 404</a>
     <div class="nav-buttons">
-      <button class="btn-buy">Login</button>
-      <button class="btn-buy">Join</button>
+      <button class="btn-buy" onclick="location.href='/customer/logout';">Logout</button>
     </div>
   </nav>
 
@@ -145,7 +145,6 @@
     <div class="circles">
       <div class="circle red">
         <a href="#" id="notification">
-          
           <span>공지사항</span>
         </a>
       </div>
@@ -164,6 +163,5 @@
       </div>
     </div>
   </div>
-
 </body>
 </html>

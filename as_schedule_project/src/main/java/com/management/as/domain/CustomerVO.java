@@ -39,4 +39,6 @@ public class CustomerVO {
 	private String type;
 	private String keyword;
 	
+	private String eno;
+	
 }
