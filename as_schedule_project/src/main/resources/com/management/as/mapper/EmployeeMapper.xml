@@ -2,10 +2,77 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
+
 <mapper namespace="com.management.as.mapper.EmployeeMapper">
-<select id="getSchedule" resultType="com.management.as.domain.ScheduleVO">
-select username, address, u.detail, visitdate, visittime from user u join customer c on u.uid=c.uid
-</select>
+	<select id="getSchedule"
+		resultType="com.management.as.domain.ScheduleVO">
+		select username, address, u.detail, visitdate, visittime
+		from user u join
+		customer c on u.uid=c.uid
+	</select>
+
+	<select id="selectAll"
+		resultType="com.management.as.domain.EmployeeVO">
+		select * from employee
+	</select>
+
+	<insert id="insert"
+		parameterType="com.management.as.domain.EmployeeVO">
+		insert into employee(eno, password, ename, ephone,
+		hiredate, position)
+		values(#{eno}, #{password}, #{ename}, #{ephone},
+		#{hiredate},
+		#{position})
+	</insert>
+
+	<select id="selectByKeyword" parameterType="map"
+		resultType="com.management.as.domain.EmployeeVO">
+		SELECT * FROM employee
+		<where>
+			<if test="type == 'ename'">
+				ename LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="type == 'eno'">
+				eno LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="type == 'position'">
+				position LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+		</where>
+	</select>
+
+	<select id="getPagedListWithSearch" parameterType="map"
+		resultType="com.management.as.domain.EmployeeVO">
+		select * from employee
+		<where>
+			<if test="type == 'ename'">
+				ename like concat('%', #{keyword}, '%')
+			</if>
+			<if test="type == 'eno'">
+				eno like concat('%', #{keyword}, '%')
+			</if>
+			<if test="type == 'position'">
+				position like concat('%', #{keyword}, '%')
+			</if>
+		</where>
+		order by eno
+		limit #{offset}, #{size}
+	</select>
+
+	<select id="getTotalCount" parameterType="map" resultType="int">
+		select count(*) FROM employee
+		<where>
+			<if test="type == 'ename'">
+				ename like concat ('%', #{keyword}, '%')
+			</if>
+			<if test="type == 'eno'">
+				eno like concat('%', #{keyword}, '%')
+			</if>
+			<if test="type == 'position'">
+				position like concat ('%', #{keyword}, '%')
+			</if>
+		</where>
+	</select>
+
 
 </mapper>
