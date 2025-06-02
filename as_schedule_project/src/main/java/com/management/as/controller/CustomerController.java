@@ -43,6 +43,7 @@ public class CustomerController {
 			redirectAttributes.addFlashAttribute("message", "로그인이 필요합니다.");
 			return "redirect:/login"; 
 		}
+		
 		int count = service.idCheck(user_id);
 		if(count > 0 ) {
 			return "/customer/index";
