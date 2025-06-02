@@ -120,7 +120,6 @@
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav ms-auto me-3">
         <button class="btn btn-buy">Login</button>
-        
       </ul>
     </div>
   </nav>
