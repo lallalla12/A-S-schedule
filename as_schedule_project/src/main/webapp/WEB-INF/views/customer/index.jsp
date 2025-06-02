@@ -151,7 +151,7 @@
       </div>
 
       <div class="circle green">
-        <a href="/employee/list" id="ASreceipt">
+        <a href="/customer/register" id="ASreceipt">
 
           <span>AS 접수</span>
         </a>
