@@ -1,5 +1,6 @@
 package com.management.as.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.management.as.domain.CustomerVO;
@@ -24,4 +25,7 @@ public interface CustomerService {
 	public UserVO findByUserId(String user_id);
 
 	public int idCheck(String id);
+	
+	//enddate 업데이트
+	public void updateEndDate(String username, LocalDate endDate);
 }

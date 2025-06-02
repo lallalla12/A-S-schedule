@@ -1,5 +1,6 @@
 package com.management.as.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,5 +61,11 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public int idCheck(String id) {
 		return mapper.idCheck(id);
+	}
+
+	@Override //enddate 업데이트
+	public void updateEndDate(String username, LocalDate endDate) {
+		// TODO Auto-generated method stub
+		mapper.updateEndDate(username, endDate);
 	}
 }

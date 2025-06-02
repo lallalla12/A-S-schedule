@@ -172,6 +172,10 @@ a {
 					<!-- 지도 -->
 					<div id="map" style="width: 600px; height: 350px;"></div>
 					
+					<div class='mt-2'>
+						<input type="date" id="endDate">
+						<button class='btn btn-secondary' onclick='submitEndDate()'>종료</button>
+					</div>
 					<a href="#" id='nav' class='btn btn-success mt-2'>길찾기</a>
 				</div>
 			</div>
@@ -288,6 +292,37 @@ a {
 		} else {
 			alert("이 브라우저는 Geolocation을 지원하지 않습니다.");
 		}
+	</script>
+	<script>
+		function submitEndDate() {
+			const customer = document.getElementById("cus").innerText;
+			const endDate = document.getElementById("endDate").value;
+	
+		  if (!customer || !endDate) {
+		    alert("고객을 선택하고 날짜를 입력하세요.");
+		    return;
+		  }
+	
+		  // AJAX 요청
+		  fetch('/customer/updateEndDate', {
+		    method: 'POST',
+		    headers: {
+		      'Content-Type': 'application/json'
+		    },
+		    body: JSON.stringify({
+		      username: customer,
+		      endDate: endDate
+		    })
+		  })
+		  .then(response => {
+		    if (response.ok) {
+		      alert("종료일이 저장되었습니다.");
+		    } else {
+		      alert("저장 실패");
+		    }
+		  });
+		}
+
 	</script>
 </body>
 </html>
