@@ -12,7 +12,7 @@
 body {
     background-color: #0d0d0d;
     color: white;
-    padding: 2rem;
+    padding: 0px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -21,6 +21,40 @@ h2 {
     margin-bottom: 2rem;
     color: #ffffff;
 }
+    /* 네비게이션바 */
+    .navbar {
+      background-color: #0d0d0d;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .navbar-brand {
+      font-size: 1.5rem;
+      text-decoration: none;
+      color: white;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .navbar-brand:hover {
+  color: white;
+  text-decoration: none;
+}
+ /* 버튼 스타일 */
+    .btn-buy {
+      background-color: #29c76f;
+      border: none;
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      font-weight: 500;
+      color: white;
+      cursor: pointer;
+    }
 
 .form-wrapper {
     background-color: #fff;
@@ -74,8 +108,15 @@ text-align:right;
 </style>
 </head>
 <body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a class="navbar-brand" href="/">🅰 404</a>
+    <div class="nav-buttons">
+      <button class="btn-buy" onclick="location.href='/customer/logout';">Logout</button>
+    </div>
+  </nav>
 
-<h2>👤 직원 등록</h2>
+<h2> 직원 등록</h2>
 
 <div class="form-wrapper">
     <form action="/admin/employee/register" method="post">
