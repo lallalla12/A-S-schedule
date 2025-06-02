@@ -14,71 +14,31 @@
 		select * from( 
 			select @rownum:=@rownum+1 as rownum, b.*
 			from (select @rownum:=0) as rownumTable, board b
-			
-			<choose>
-				<when test="type=='T'.toString()">
+	        <choose>
+	            <when test="type=='T'.toString()">
 					where title like concat('%',#{keyword},'%')
 				</when>
 				<when test="type=='C'.toString()">
 					where content like concat('%',#{keyword},'%')
 				</when>
-				<when test="type=='W'.toString()">
-					where writer like concat('%',#{keyword},'%')
-				</when>
-				<when test="type=='TC'.toString()">
-					where title like concat('%',#{keyword},'%') 
-					or content like concat('%',#{keyword},'%')
-				</when>
-				<when test="type=='TW'.toString()">
-					where title like concat('%',#{keyword},'%') 
-					or writer like concat('%',#{keyword},'%')
-				</when>
-				<when test="type=='TWC'.toString()">
-					where title like concat('%',#{keyword},'%') 
-					or writer like concat('%',#{keyword},'%') 
-					or content like concat('%',#{keyword},'%')
-				</when> 
-			</choose>
-			
-			
+	        </choose>
 			order by bno desc ) as rownumBoardList
 		<![CDATA[
 		where rownum > (#{pageNum} - 1 ) * 10 and rownum <= (#{pageNum} *10 )
   		]]>
-  	
   	</select>
   	
   	<select id="getTotalCount" resultType="int">
   		select count(*) from board
-  		
-			<choose>
-				<when test="type=='T'.toString()">
+	        <choose>
+	            <when test="type=='T'.toString()">
 					where title like concat('%',#{keyword},'%')
 				</when>
 				<when test="type=='C'.toString()">
 					where content like concat('%',#{keyword},'%')
 				</when>
-				<when test="type=='W'.toString()">
-					where writer like concat('%',#{keyword},'%')
-				</when>
-				<when test="type=='TC'.toString()">
-					where title like concat('%',#{keyword},'%') 
-					or content like concat('%',#{keyword},'%')
-				</when>
-				<when test="type=='TW'.toString()">
-					where title like concat('%',#{keyword},'%') 
-					or writer like concat('%',#{keyword},'%')
-				</when>
-				<when test="type=='TWC'.toString()">
-					where title like concat('%',#{keyword},'%') 
-					or writer like concat('%',#{keyword},'%') 
-					or content like concat('%',#{keyword},'%')
-				</when> 
-			</choose>
-
+	        </choose>
   	</select>
-  	
-  	
   	
   	
   	<select id="read" resultType="com.management.as.domain.BoardVO">
@@ -90,43 +50,30 @@
 		set title = #{title},
 			content = #{content},
 		    updatedate = sysdate()
-		where bno = #{bno}    
-;
+		where bno = #{bno}
   	</update>
   	
   	<update id="CountUpdate">
-  		
   		update board
   		set count = count + 1
   		where bno = #{bno}
-  	
   	</update>
-  	
-  	
   	
   	<delete id="delete">
   		delete from board
   		where bno = #{bno}
   	</delete>
   	
-  	
   	<insert id="insert">
-  		insert into board(title, content, writer)
-  		values(#{title}, #{content}, #{writer})
+  		insert into board(title, content, writer, type)
+  		values(#{title}, #{content}, #{writer}, #{type})
   	</insert>
   	
   	<insert id="insertSelectKey">
-  		
   		<selectKey keyProperty = "bno" order="BEFORE" resultType="int">
   			select max(bno) +1 bno from board
   		</selectKey>
-  		
-  		insert into board(bno, title, content, writer)
-  		values(#{bno}, #{title}, #{content}, #{writer})
-  	
+  		insert into board(bno, title, content, writer, type)
+  		values(#{bno}, #{title}, #{content}, #{writer}, #{type})
   	</insert>
-  	
-  	
-  	
-  	
   </mapper>
