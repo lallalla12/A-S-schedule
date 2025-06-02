@@ -2,6 +2,8 @@ package com.management.as.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.management.as.domain.EmployeeVO;
 import com.management.as.service.EmployeeService;
@@ -25,8 +28,14 @@ public class AdminController {
 	private EmployeeService service;
 	
 	@GetMapping("/index")
-	public String index() {
+	public String index(HttpSession session, RedirectAttributes redirectAttributes) {
 		log.info("------------------------/admin/index로 이동-------------------------");
+		// 사용자 정보 조회
+		String user_id = (String) session.getAttribute("user_id"); 
+		if (!"admin".equals(user_id)) { 
+			redirectAttributes.addFlashAttribute("message", "권한이 없습니다.");
+			return "redirect:/login"; 
+		}
 		return "/admin/index";
 	}
 	

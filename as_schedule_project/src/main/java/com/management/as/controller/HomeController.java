@@ -58,10 +58,6 @@ public class HomeController {
 				session.setAttribute("user_id", "admin");
 				return "redirect:/admin/index";
 			}
-		} else if(gubun.equals("emp")) {
-			return "redirect:/employee/login";
-		} else if(gubun.equals("ctm")) {
-			return "redirect:/customer/login";
 		} else {
 			redirectAttributes.addFlashAttribute("message", "잘못된 요청입니다.");
 			return "redirect:/login";

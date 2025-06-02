@@ -160,7 +160,7 @@
 			</div>
 			
 			<div class="tab-content active" id="admin">
-				<form name="adm_loginForm" action="/admin/login" method="post" onsubmit="return validateForm(this)">
+				<form name="adm_loginForm" action="/login" method="post" onsubmit="return validateForm(this)">
 					<input type="hidden" name="gubun" value="adm" />
 			    	<!-- 관리자 로그인 폼 -->
 			    	<input type="text" id="admin_id" name="id" placeholder="관리자 아이디" /><br />
