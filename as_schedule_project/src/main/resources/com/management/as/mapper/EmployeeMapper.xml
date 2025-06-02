@@ -5,7 +5,7 @@
   
 <mapper namespace="com.management.as.mapper.EmployeeMapper">
 <select id="getSchedule" resultType="com.management.as.domain.ScheduleVO">
-select cname, address, unit, visitdate, visitend from customer 
+select username, address, u.detail, visitdate, visittime from user u join customer c on u.uid=c.uid
 </select>
 
 </mapper>
