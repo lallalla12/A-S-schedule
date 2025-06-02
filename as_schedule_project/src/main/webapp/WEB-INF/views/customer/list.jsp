@@ -140,7 +140,7 @@
 		               <span class="current">${pageNum}</span>
 		           </c:when>
 		           <c:otherwise>
-		               <a href="/customer/mypage?page=${pageNum}">${pageNum}</a>
+		               <a class="notcurrent" href="/customer/mypage?page=${pageNum}">${pageNum}</a>
 		           </c:otherwise>
 		       </c:choose>
 		   </c:forEach>

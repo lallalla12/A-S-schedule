@@ -220,6 +220,19 @@ input[type=text], input[type=password] {
   text-align: right;
   padding-top: 16px;
 }
+/* 페이징 */
+span.current {
+	background-color: #39664d;
+	color: #fff;
+	font-weight: bold;
+}
+.notcurrent {
+	text-decoration: none;
+	margin: 10px 0px;
+	color: black;
+	padding: 6px 10px;
+	border-radius: 4px;
+}
 
 .comment_btn:not(:disabled) {
   padding: 6px 12px;

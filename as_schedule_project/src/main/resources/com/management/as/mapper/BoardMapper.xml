@@ -14,12 +14,21 @@
 		select * from( 
 			select @rownum:=@rownum+1 as rownum, b.*
 			from (select @rownum:=0) as rownumTable, board b
+			where 1=1
+			<if test="boardType != null and boardType != ''">
+			  <if test="boardType == 'C'.toString()">
+			    and type = 'C'
+			  </if>
+			  <if test="boardType == 'E'.toString()">
+			    and type = 'E'
+			  </if>
+			</if>
 	        <choose>
 	            <when test="type=='T'.toString()">
-					where title like concat('%',#{keyword},'%')
+					and title like concat('%',#{keyword},'%')
 				</when>
 				<when test="type=='C'.toString()">
-					where content like concat('%',#{keyword},'%')
+					and content like concat('%',#{keyword},'%')
 				</when>
 	        </choose>
 			order by bno desc ) as rownumBoardList
@@ -30,12 +39,21 @@
   	
   	<select id="getTotalCount" resultType="int">
   		select count(*) from board
+	        where 1=1
+			<if test="boardType != null and boardType != ''">
+			  <if test="boardType == 'C'.toString()">
+			    and type = 'C'
+			  </if>
+			  <if test="boardType == 'E'.toString()">
+			    and type = 'E'
+			  </if>
+			</if>
 	        <choose>
 	            <when test="type=='T'.toString()">
-					where title like concat('%',#{keyword},'%')
+					and title like concat('%',#{keyword},'%')
 				</when>
 				<when test="type=='C'.toString()">
-					where content like concat('%',#{keyword},'%')
+					and content like concat('%',#{keyword},'%')
 				</when>
 	        </choose>
   	</select>

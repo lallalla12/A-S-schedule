@@ -41,7 +41,6 @@ public class BoardController {
 	@GetMapping("/get")
 	public void get(@RequestParam("bno") int bno, Model model) {
 		model.addAttribute("board", service.get(bno));
-		
 	}
 	
 	// 수정 버튼을 클릭하면 수정 할 수 있는 화면으로 이동
