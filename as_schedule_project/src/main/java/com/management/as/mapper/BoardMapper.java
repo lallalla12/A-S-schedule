@@ -2,6 +2,8 @@ package com.management.as.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.management.as.domain.BoardVO;
 import com.management.as.domain.Criterai;
 public interface BoardMapper {

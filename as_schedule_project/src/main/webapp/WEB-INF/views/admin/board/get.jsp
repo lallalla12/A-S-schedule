@@ -1,167 +1,150 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>공지사항</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+<style>
+	@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css");
+		body {
+	      background-color: #0d0d0d;
+	      color: white;
+	      padding: 2rem;
+	      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	    }
+	    
+	    h3 {
+	      text-align: center;
+	      margin-bottom: 2rem;
+	      color: #ffffff;
+	    }
+	    
+    	.board-wrapper {
+	      background-color: #fff;
+	      border-radius: 12px;
+	      padding: 30px 60px;
+	      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+	      color: #000;
+	      box-sizing: border-box;
+	      
+	      max-width : 1000px;
+      	  margin : 0 auto;
+    	}
+
+    	textarea {
+		  width: 100%;
+		  height: 350px;
+		  padding:12px 20px;
+		  font-size: 15px;
+		  border: 2px solid #39664d;
+		  border-radius: 5px;
+		  resize: none;
+		  box-sizing: border-box;
+		  color: #333;
+		  outline: none;
+    	}
+    	
+    	table {
+	    width: 100%;
+	    border-collapse: collapse;
+	    margin-bottom: 20px;
+	  }
+	
+	  table td {
+	    padding: 20px 15px;
+	    border-bottom: 1px solid #ddd;
+	    vertical-align: top;
+	  }
+	
+	  table tr:last-child td {
+	    border-bottom: none;
+	  }
+	
+	  table td:first-child {
+	    width: 120px;
+	    font-weight: bold;
+	    background-color: #f7f7f7;
+	    color: #555;
+	  }
+      .btn-write {
+	      margin : 10px;
+	      float : right;
+	      background-color: #29c76f;
+	      border: none;
+	      color: white;
+	      border-radius: 20px;
+	      font-weight: 500;
+	      width : 100px;
+	      height : 30px;
+	    }
+	    
+	    /* css 추가 */
+	  .label-cell {
+		  text-align: center;
+		  font-weight: bold;
+		  background-color: #f7f7f7;
+		  color: #555;
+		  width: 120px;
+	  }
+	  .data-cell {
+		padding-left : 30px;
+	  }
+	  
+	  .btn-group {
+	  	float:right;
+	  	margin-bottom: 30px;
+	  }
+	  
+	  .no-bg td:first-child {
+	  	background-color: transparent !important;
+	  }
+</style>
+<script>
+	function confirmDelete() {
+	  return confirm("정말 삭제하시겠습니까?");
+	}
+</script>
 </head>
 <body>
-	<h3>상세 내용 보기</h3>
-	<table border="1">
-		<tr>
-			<td>제목</td>
-			<td>${board.title}</td>
-		</tr>
-		<tr>
-			<td>내용</td>
-			<td>${board.content}</td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<a href="/admin/board/modify?bno=${board.bno}">[수정]</a>
-				<a href="/admin/board/remove?bno=${board.bno}">[삭제]</a>
-			</td>
-		</tr>
-	</table>
-
-	<div>
-		<input type="text" id="bno" name="bno" value="${board.bno}">
-		<input type="text" id="replyer" name="replyer" value="홍길동">
+	<div class="container mt-5">
+		<h3>상세내용</h3>
+		<div class="board-wrapper">
+		<table>
+			<tr>
+		      <td class="label-cell">공개 범위</td>
+		      <td style="font-weight:bold;" class="data-cell">
+		        <c:choose>
+		          <c:when test="${board.type eq 'A'}">전체공개</c:when>
+		          <c:when test="${board.type eq 'E'}">직원공개</c:when>
+		          <c:when test="${board.type eq 'C'}">고객공개</c:when>
+		        </c:choose>
+		      </td>
+		    </tr>
+			<tr>
+				<td class="label-cell">제목</td>
+				<td class="data-cell">${board.title}</td>
+			</tr>
+			<tr>
+				<td class="label-cell">작성자</td>
+				<td class="data-cell">관리자</td>
+			</tr>
+			<tr>
+				<td class="label-cell">내용</td>
+				<td class="data-cell" style="white-space: pre-wrap; padding-bottom:300px">${board.content}</td>
+			</tr>
+			<tr class="no-bg">
+				<td colspan="2">
+					<button class="btn-write" type="button" style="background-color:#da6264;" onclick="return confirmDelete();">삭제</button>
+					<button class="btn-write" type="button" onclick="/admin/board/modify?bno=${board.bno}">수정</button>
+					<button class="btn-write" type="button" style="background-color:#353535;" onclick="location.href='/admin/board/list';">목록</button>
+				</td>
+			</tr>
+		</table>
+		</div>
 	</div>
-	<div><textarea id="reply" name="reply" cols="80" rows="10"></textarea></div>
-	
-	<div class="uploadResult">
-		<ul>
-			
-		</ul>
-	</div>
-	
-	
-	
-	
-	<input type="button" id="RegisterBtn" value="댓글작성">
-	<div>
-		<ul id="replyView">
-			
-		</ul>
-	</div>
-	
-	
-	
-	<script src="/resources/js/reply.js"></script>
-	<script>
-		$(document).ready(function(){
-			
-			// 댓글 관련
-			let bno = 0;
-			let reply = "";
-			let replyer = "";
-			
-			showList();
-			
-			function showList(){
-				
-				list({bno : $("#bno").val()},function(data){
-					
-					console.log(data)
-					let str=""
-					
-					for(let i = 0; i < data.length; i++){
-						str += "<li class='left clearfix' data-rno='" + data[i].rno + "'>";
-						str += "	<div><div class='header'><strong class='primary-font'>["
-							+ data[i].rno + "] " + data[i].replyer + "</strong>";
-						str += "	</div><textarea readonly>" + data[i].reply + "</textarea>"
-						str += "<button class='ModBtn' data-rno='" + data[i].rno + "'>수정</button>"
-						str += "<button class='RemoveBtn' data-rno='" + data[i].rno + "'>삭제</button>"
-						str += "</div></li>";
-						
-					}
-					
-					$("#replyView").html(str)
-				})	
-			}
-			
-			
-			
-
-			// 댓글 작성 버튼을 선택한 후 클릭 이벤트 연결
-			$("#RegisterBtn").on("click",function(){
-				let replyvo = {
-						
-					reply : $("#reply").val(),		// reply 값 가져오기
-				
-					replyer : $("#replyer").val(),	// replyer 값 가져오기
-				
-					bno : $("#bno").val()			// bno 값 가져오기
-				}	
-				
-				console.log(replyvo);
-				add(replyvo, function(){
-					showList();
-				});
-				
-			})
-		
-		// 댓글 수정버튼을 선택한 후 클릭이벤트 연결
-		$("#replyView").on("click",".ModBtn", function(){
-			
-			let $btn = $(this);
-			let $textarea = $btn.siblings("textarea");	// 댓글 내용 (textarea 선택)
-			let rno = $(this).data("rno");				// 댓글 번호
-			
-			if($btn.text() == "수정"){
-				
-				// 수정 버튼을 누르면 readonly 를 지워서 편집 가능하게 해라
-				$textarea.removeAttr("readonly").focus();
-				$btn.text("저장")		// 수정 -> 저장
-				
-			}// 저장 버튼을 누르면 update 작업 실시
-			else if($btn.text() == "저장"){	
-				// 댓글 내용
-				let updateReply = $textarea.val();
-				// 댓글 번호
-				update({rno:rno, reply:updateReply},	// 댓글 수정한 후
-				function(){								// 후속 처리
-					
-					$btn.text("수정")		// 저장 -> 수정
-					$textarea.attr("readonly",true)		// readonly 를 활성화
-					
-					showList();
-				})
-			}
-			
-			
-			
-			
-			
-			//console.log($(this).data("rno"))
-			
-		})
-	
-						// 댓글 삭제 버튼을 선택한 후 클릭 이벤트 연결
-		$('#replyView').on("click",".RemoveBtn", function(){
-				
-			// 댓글 번호
-			let $btn = $(this);
-			// 댓글 번호
-			let rno = $(this).data("rno");
-			
-			console.log(rno)
-					
-					
-			remove(rno, function(data){		// 후속처리
-				showList();
-						
-			})
-		})
-		
-		
-})
-	
-		
-
-	</script>
 </body>
 </html>

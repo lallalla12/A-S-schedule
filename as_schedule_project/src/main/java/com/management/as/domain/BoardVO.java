@@ -1,7 +1,6 @@
 package com.management.as.domain;
 
 import java.util.Date;
-import java.util.List;
 
 import lombok.Data;
 
@@ -15,6 +14,5 @@ public class BoardVO {
 	private Date regdate;
 	private Date updatedate;
 	private int rownum;
-	
-	
+	private String type;
 }

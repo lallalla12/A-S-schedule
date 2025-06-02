@@ -16,8 +16,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.management.as.domain.Criterai;
 import com.management.as.domain.CustomerVO;
+import com.management.as.domain.PageDTO;
 import com.management.as.domain.ProductVO;
+import com.management.as.service.BoardService;
 import com.management.as.service.CustomerService;
 import com.management.as.domain.UserVO;
 
@@ -28,6 +31,8 @@ public class CustomerController {
 	
 	@Autowired
 	private CustomerService service;
+	@Autowired
+	private BoardService boardService;
 	
 	@GetMapping("/index")
 	public String index(RedirectAttributes redirectAttributes, HttpSession session) {
@@ -147,5 +152,14 @@ public class CustomerController {
 	    session.invalidate();
 	    redirectAttributes.addFlashAttribute("message", "로그아웃 되었습니다.");
 	    return "redirect:/";
+	}
+	
+	// 공지사항
+	@GetMapping("/board/list")
+	public void list(Criterai cri, Model model) {
+		log.info("게시판 리스트 목록 보기 화면으로 이동(고객)");
+		//model.addAttribute("list", boardService.getListWithPaging("C", cri));
+		//int total = boardService.getTotalCount("C", cri);
+		//model.addAttribute("pageMaker", new PageDTO(cri, total));
 	}
 }
