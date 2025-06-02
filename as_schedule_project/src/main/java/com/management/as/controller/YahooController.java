@@ -20,7 +20,7 @@ import lombok.extern.log4j.Log4j;
 @Controller
 @Log4j
 @RequestMapping("/admin/service/*")
-public class Yahoo {
+public class YahooController {
 
     @Autowired
     private YahooService yahooService;
