@@ -17,10 +17,10 @@
 			where 1=1
 			<if test="boardType != null and boardType != ''">
 			  <if test="boardType == 'C'.toString()">
-			    and type = 'C'
+			    and type in ('C', 'A') 
 			  </if>
 			  <if test="boardType == 'E'.toString()">
-			    and type = 'E'
+			    and type in ('E', 'A') 
 			  </if>
 			</if>
 	        <choose>
