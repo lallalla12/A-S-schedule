@@ -78,6 +78,7 @@
     <if test="type != null and keyword != null and type == 'issue'">
         AND c.issue LIKE CONCAT('%', #{keyword}, '%')
     </if>
+
     <if test="status_keyword != null and status_keyword != ''">
         AND c.prostatus = #{status_keyword}
     </if>
@@ -98,6 +99,7 @@
 	    <if test="type != null and keyword != null and type == 'issue'">
 	        AND c.issue LIKE CONCAT('%', #{keyword}, '%')
 	    </if>
+
 	    <if test="status_keyword != null and status_keyword != ''">
 	        AND c.prostatus = #{status_keyword}
 	    </if>
@@ -218,6 +220,9 @@
                 <if test="type != null and keyword != null and type == 'issue'">
                     AND c.issue LIKE CONCAT('%', #{keyword}, '%')
                 </if>
+                <if test="type != null and keyword != null and type == 'username'">
+        			AND u.username LIKE CONCAT('%', #{keyword}, '%')
+    			</if>
                 <if test="status_keyword != null and status_keyword != ''">
                     AND c.prostatus = #{status_keyword}
                 </if>
@@ -239,6 +244,9 @@
             <if test="type != null and keyword != null and type == 'issue'">
                 AND c.issue LIKE CONCAT('%', #{keyword}, '%')
             </if>
+            <if test="type != null and keyword != null and type == 'username'">
+        		AND u.username LIKE CONCAT('%', #{keyword}, '%')
+    		</if>
             <if test="status_keyword != null and status_keyword != ''">
                 AND c.prostatus = #{status_keyword}
             </if>
@@ -274,16 +282,7 @@
         FROM product
     </select>
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 
 </mapper>

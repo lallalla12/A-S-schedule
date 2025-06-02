@@ -45,7 +45,7 @@ h3 {
 .btn-write {
   margin: 10px;
   float: right;
-  background-color: #29c76f;
+  background-color: #39664d;
   border: none;
   color: white;
   border-radius: 20px;
@@ -186,6 +186,7 @@ tbody tr:hover {
               <c:if test="${list.prostatus eq 'W'}"><span style="font-weight:bold;">대기</span></c:if>
               <c:if test="${list.prostatus eq 'P'}"><span style="font-weight:bold; color:#da6264;">진행</span></c:if>
               <c:if test="${list.prostatus eq 'F'}"><span style="font-weight:bold; color:#330066;">완료</span></c:if>
+			  
             </td>
           </tr>
         </c:forEach>

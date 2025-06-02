@@ -30,7 +30,7 @@ public interface CustomerMapper {
 	public void initRowNum();
 	
     // 게시글 목록 조회
-    List<CustomerVO> alllist(
+    public List<CustomerVO> alllist(
         @Param("type") String type,
         @Param("keyword") String keyword,
         @Param("status_keyword") String status_keyword,
@@ -38,7 +38,7 @@ public interface CustomerMapper {
         @Param("pageSize") int pageSize);
 
     // 전체 게시글 수 조회
-    int alltotalCount(
+    public int alltotalCount(
         @Param("type") String type,
         @Param("keyword") String keyword,
         @Param("status_keyword") String status_keyword);
