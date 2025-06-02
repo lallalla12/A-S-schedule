@@ -50,6 +50,8 @@
       color: white;
       border-radius: 20px;
       font-weight: 500;
+      width : 100px;
+      height : 36px;
     }
 
     table {
@@ -83,8 +85,6 @@
       font-weight: bold;
       color: #333;
     }
-    
-    
     
     /* css 추가 */
     #input_keyword {
@@ -148,6 +148,11 @@
 		padding: 6px 10px;
 		border-radius: 4px;
 	}
+	.clearfix::after {
+	  content: "";
+	  display: table;
+	  clear: both;
+	}
 	</style>
 <meta charset="UTF-8">
 <title>공지사항</title>
@@ -198,6 +203,9 @@
           	</c:if>
         </tbody>
       </table>
+      <div class="clearfix">
+      	<button class="btn btn-write" onclick="location.href='/customer/index'">홈</button>
+      </div>
       <div style="text-align:center; margin-top: 20px;">
 			<ul class="pull-right">
 				<c:if test="${pageMaker.prev}">

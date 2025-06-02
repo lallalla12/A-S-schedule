@@ -50,6 +50,8 @@
       color: white;
       border-radius: 20px;
       font-weight: 500;
+      width : 100px;
+      height : 36px;
     }
 
     table {
@@ -204,6 +206,7 @@
         </tbody>
       </table>
       <div class="clearfix">
+      	<button class="btn btn-write" onclick="location.href='/admin/index'">홈</button>
       	<button class="btn btn-write" onclick="location.href='/admin/board/write'">글쓰기</button>
       </div>
       <div style="text-align:center; margin-top: 20px;">
