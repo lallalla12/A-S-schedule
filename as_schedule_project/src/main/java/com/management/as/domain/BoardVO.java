@@ -16,6 +16,5 @@ public class BoardVO {
 	private Date updatedate;
 	private int rownum;
 	
-	private List<BoardAttachVO> attachList;
 	
 }

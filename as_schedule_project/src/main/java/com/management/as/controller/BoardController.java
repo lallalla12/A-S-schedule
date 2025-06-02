@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import com.management.as.domain.BoardAttachVO;
 import com.management.as.domain.BoardVO;
 import com.management.as.domain.Criterai;
 import com.management.as.domain.PageDTO;
@@ -26,17 +25,11 @@ import lombok.extern.log4j.Log4j;
 
 @Controller
 @Log4j
-@RequestMapping("/admin/*")
+@RequestMapping("/admin/board/*")
 @AllArgsConstructor		// lombok 의 언어테이션 = 생성자를 자동으로 만들어줌
 public class BoardController {
 	
 	private BoardService service;
-	
-	@GetMapping("/index")
-	public String index() {
-		log.info("------------------------/customer/index로 이동-------------------------");
-		return "/admin/index";
-	}
 
 	// 게시판 리스트 목록 보기 화면으로 이동	
 	
@@ -80,7 +73,7 @@ public class BoardController {
 		//rttr.addFlashAttribute("bno", board.getBno());	// bno 를 숨겨서 보내게 되어 오류가 나옴
 		rttr.addAttribute("bno", board.getBno());
 		
-		return "redirect:/admin/get";
+		return "redirect:/admin/board/get";
 	}
 	
 	// 삭제 버튼을 클릭
@@ -90,7 +83,7 @@ public class BoardController {
 		service.remove(bno);	// delete
 		
 		// 삭제를 하고 나면 list.jsp 로 이동해라
-		return "redirect:/admin/list";
+		return "redirect:/admin/board/list";
 		
 	}
 	
@@ -108,11 +101,8 @@ public class BoardController {
 		String writer = (String)session.getAttribute("writer");
 		board.setWriter(writer);
 		
-		if(board.getAttachList() != null ) {	// 글쓰기에서 첨부파일이 있으면,
 			
-			board.getAttachList().forEach(attach -> log.info(attach));
-			
-		}
+		
 		
 		
 		log.info("board : " + board);
@@ -120,27 +110,8 @@ public class BoardController {
 		service.register(board);	// insert
 		
 		// 글쓰기 완료 후 리스트로 이동
-		return "redirect:/admin/list";
+		return "redirect:/admin/board/list";
 	}
 	
-	@GetMapping(value="/getAttachList" , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	@ResponseBody
-	public ResponseEntity<List<BoardAttachVO>> getAttachList(int bno){
-		
-		log.info("getAttachList " + bno);
-		
-									// select
-		return new ResponseEntity<>(service.getAttachlist(bno), HttpStatus.OK);
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 }
