@@ -27,5 +27,5 @@ public interface CustomerService {
 	public int idCheck(String id);
 	
 	// enddate 업데이트
-	public void updateEndDate(int cnum, LocalDate endDate);
+	public void updateEndDate(int cnum, LocalDate endDate, String cmt);
 }

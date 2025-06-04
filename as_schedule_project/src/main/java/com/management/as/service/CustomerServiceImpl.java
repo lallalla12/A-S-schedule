@@ -64,7 +64,7 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override // enddate 업데이트
-	public void updateEndDate(int cnum, LocalDate endDate) {
-		mapper.updateEndDate(cnum, endDate);
+	public void updateEndDate(int cnum, LocalDate endDate, String cmt) {
+		mapper.updateEndDate(cnum, endDate, cmt);
 	}
 }

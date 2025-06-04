@@ -11,16 +11,17 @@ public class ScheduleVO {
 	private String username;
 	private String address;
 	private String detail;
+	private String prostatus;
 	
 	private Date visitdate;
 	private String visittime;
 	
 	public String getVisitDateTime() {
-		// 1. ³¯Â¥ Æ÷¸Ë: yyyy-MM-dd
+		// 1. ï¿½ï¿½Â¥ ï¿½ï¿½ï¿½ï¿½: yyyy-MM-dd
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		String datePart = dateFormat.format(visitdate); // ¿¹: "2025-06-12"
+		String datePart = dateFormat.format(visitdate); // ï¿½ï¿½: "2025-06-12"
 
-		// 2. °áÇÕ
-		return datePart + "T" + visittime + ":00"; // ¿¹: "2025-06-12T13:00:00"
+		// 2. ï¿½ï¿½ï¿½ï¿½
+		return datePart + "T" + visittime + ":00"; // ï¿½ï¿½: "2025-06-12T13:00:00"
 	}
 }
