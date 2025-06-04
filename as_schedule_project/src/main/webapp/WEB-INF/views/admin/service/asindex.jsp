@@ -265,7 +265,7 @@ tbody tr:hover {
             <td>${list.proname}</td>
             <td>${list.issue}</td>
             <td>${list.username}</td>
-            <td><fmt:formatDate value="${list.visitdate}" pattern="yyyy-MM-dd" /></td>
+            <td><fmt:formatDate value="${list.visitdate}" pattern="yyyy-MM-dd" />&nbsp;&nbsp;${list.visittime }</td>
             <td>
               <c:if test="${list.prostatus eq 'W'}"><span style="font-weight:bold;">대기</span></c:if>
               <c:if test="${list.prostatus eq 'P'}"><span style="font-weight:bold; color:#da6264;">진행</span></c:if>

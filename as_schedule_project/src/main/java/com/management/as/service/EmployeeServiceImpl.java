@@ -91,8 +91,8 @@ public class EmployeeServiceImpl implements EmployeeService{
 	@Transactional
 	@Override
 	public void assignEngineer(int receiptNo, String engineerNo) {
-	    mapper.assignEngineer(receiptNo, engineerNo , "P");
-	    
+	    mapper.assignEngineer(receiptNo, engineerNo);
+	    mapper.updateProStatus(receiptNo, "P");
 	}
 
 }

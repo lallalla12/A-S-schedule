@@ -98,7 +98,14 @@
     <!-- 기사 배정 처리 -->
     <update id="assignEngineer">
         UPDATE customer
-        SET eno = #{engineerNo} , prostatus = #{status}
+        SET eno = #{engineerNo}
+        WHERE cnum = #{receiptNo}
+    </update>
+
+    <!-- 처리 상태 변경 -->
+    <update id="updateProStatus">
+        UPDATE customer
+        SET prostatus = #{status}
         WHERE cnum = #{receiptNo}
     </update>
 
