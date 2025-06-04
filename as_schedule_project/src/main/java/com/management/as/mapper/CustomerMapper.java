@@ -31,7 +31,7 @@ public interface CustomerMapper {
 	public void initRowNum();
 	
 	//enddate 업데이트
-	void updateEndDate(@Param("username") String username, @Param("endDate") LocalDate endDate);
+	void updateEndDate(@Param("cnum") int cnum, @Param("endDate") LocalDate endDate);
 	
     // 寃뚯떆湲� 紐⑸줉 議고쉶
     public List<CustomerVO> alllist(

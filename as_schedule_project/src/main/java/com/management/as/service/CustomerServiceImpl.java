@@ -64,8 +64,8 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override //enddate 업데이트
-	public void updateEndDate(String username, LocalDate endDate) {
+	public void updateEndDate(int cnum, LocalDate endDate) {
 		// TODO Auto-generated method stub
-		mapper.updateEndDate(username, endDate);
+		mapper.updateEndDate(cnum, endDate);
 	}
 }
