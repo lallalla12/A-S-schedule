@@ -1,5 +1,6 @@
 package com.management.as.mapper;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -29,7 +30,10 @@ public interface CustomerMapper {
 
 	public void initRowNum();
 	
-    // 게시글 목록 조회
+	//enddate 업데이트
+	void updateEndDate(@Param("cnum") int cnum, @Param("endDate") LocalDate endDate);
+	
+    // 寃뚯떆湲� 紐⑸줉 議고쉶
     public List<CustomerVO> alllist(
         @Param("type") String type,
         @Param("keyword") String keyword,
@@ -37,7 +41,7 @@ public interface CustomerMapper {
         @Param("offset") int offset,
         @Param("pageSize") int pageSize);
 
-    // 전체 게시글 수 조회
+    // �쟾泥� 寃뚯떆湲� �닔 議고쉶
     public int alltotalCount(
         @Param("type") String type,
         @Param("keyword") String keyword,

@@ -282,7 +282,11 @@
         FROM product
     </select>
 	
-
-	
+	<!-- enddate -->
+	<update id="updateEndDate">
+	  UPDATE customer
+    SET visitend = #{endDate}, prostatus = 'F'
+    WHERE cnum = #{cnum}
+	</update>
 
 </mapper>
