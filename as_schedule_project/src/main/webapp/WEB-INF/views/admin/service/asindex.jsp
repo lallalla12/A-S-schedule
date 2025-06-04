@@ -269,7 +269,11 @@ tbody tr:hover {
               <c:if test="${list.prostatus eq 'P'}"><span style="font-weight:bold; color:#da6264;">진행</span></c:if>
               <c:if test="${list.prostatus eq 'F'}"><span style="font-weight:bold; color:#330066;">완료</span></c:if>
             </td>
-            <td><button class="assignBtn" data-receipt="${list.rownum}">기사 배정</button></td>
+            <td>
+            	<c:if test="${list.prostatus eq 'W' }">
+            	<button class="assignBtn" data-receipt="${list.rownum}">배정</button>
+            	</c:if>
+            </td>
           </tr>
         </c:forEach>
       </tbody>
@@ -294,7 +298,7 @@ tbody tr:hover {
 
     <!-- 기사 배정 팝업 -->
     <div id="popup" style="display:none; position:fixed; top:20%; left:50%; transform:translateX(-50%);
-         background:#fff; border:1px solid #ccc; padding:20px; z-index:1000; width:400px;">
+         background:#fff; border:1px solid #ccc; padding:20px; z-index:1000; width:550px;">
       <h4>기사님 선택</h4>
       <form id="engineerForm">
         <div id="engineerList">
@@ -336,25 +340,25 @@ $(document).on('click', '.assignBtn', function () {
     dataType: 'json',
     cache: false,
     success: function (data) {
-      const list = data.employeeList || data;
       const $tbody = $('#engineerTableBody');
       $tbody.empty();
 
-      if (list.length === 0) {
+      if (data.length === 0) {
         $tbody.append('<tr><td colspan="6" style="text-align:center; color:black;">검색결과가 없습니다.</td></tr>');
       } else {
-        $.each(list, function (i, emp) {
-          const hireDateFormatted = emp.hiredate ? new Date(emp.hiredate).toISOString().substring(0, 10) : '';
-          const row = `
-            <tr>
-              <td><input type="radio" name="selectedEngineer" value="${emp.eno}"></td>
-              <td>${emp.eno}</td>
-              <td>${emp.ename}</td>
-              <td>${emp.position}</td>
-              <td>${emp.ephone}</td>
-              <td>${hireDateFormatted}</td>
-            </tr>`;
+        $.each(data, function (i, emp) {
+          const hireDateFormatted = new Date(emp.hiredate).toISOString().substring(0, 10);
+          var row = 
+        	  '<tr>' +
+        	  '<td><input type="radio" name="selectedEngineer" value="' + emp.eno + '"></td>' +
+        	  '<td>' + emp.eno + '</td>' +
+        	  '<td>' + emp.ename + '</td>' +
+        	  '<td>' + emp.position + '</td>' +
+        	  '<td>' + emp.ephone + '</td>' +
+        	  '<td>' + hireDateFormatted + '</td>' +
+        	  '</tr>';
           $tbody.append(row);
+          
         });
       }
     },
