@@ -30,10 +30,10 @@ public interface CustomerMapper {
 
 	public void initRowNum();
 	
-	//enddate 업데이트
+	// enddate 업데이트
 	void updateEndDate(@Param("cnum") int cnum, @Param("endDate") LocalDate endDate, @Param("cmt") String cmt);
 	
-    // 寃뚯떆湲� 紐⑸줉 議고쉶
+    // 게시물 목록 조회
     public List<CustomerVO> alllist(
         @Param("type") String type,
         @Param("keyword") String keyword,
@@ -41,9 +41,9 @@ public interface CustomerMapper {
         @Param("offset") int offset,
         @Param("pageSize") int pageSize);
 
-    // �쟾泥� 寃뚯떆湲� �닔 議고쉶
+    // 전체 게시물 수 조회
     public int alltotalCount(
         @Param("type") String type,
         @Param("keyword") String keyword,
         @Param("status_keyword") String status_keyword);
-} 
+}
