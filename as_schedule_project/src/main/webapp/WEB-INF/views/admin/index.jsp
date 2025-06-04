@@ -119,7 +119,7 @@
     }
   </style>
 <meta charset="UTF-8">
-<title>사용자 페이지</title>
+<title>관리자 페이지</title>
 <c:if test="${not empty message}">
     <script>
         alert("${message}");
