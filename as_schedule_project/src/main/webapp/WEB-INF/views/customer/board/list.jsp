@@ -38,7 +38,7 @@
       margin : 0 auto;
     }
     
-    .pagenum{
+    .pagenum {
     	margin : 10px;
     }
 
@@ -88,7 +88,7 @@
     
     /* css 추가 */
     #input_keyword {
-		width:55%;
+		width:73%;
 	    padding:12px 20px;
 	    margin: 8px 0px 2px 0px;
 	    box-sizing: border-box;
@@ -117,6 +117,7 @@
 	    transition: background-color 0.3s;
 	    margin-top:5px;
 	}
+	
 	#search_form select,
 	#search_form input[type="text"],
 	#search_form input[type="submit"] {
@@ -125,14 +126,6 @@
 	  font-size: 14px;
 	  box-sizing: border-box;  /* 패딩, 보더가 높이에 포함되도록 */
 	}
-	
-	/* #numPaging  a {
-		text-decoration : none;
-		background-color: #39664d;
-		margin : 10px;
-		color: white;
-		padding : 6px 10px;
-	} */
 	
 	/* 현재 페이지 스타일 */
 	#numPaging.active-page a {
@@ -203,9 +196,6 @@
           	</c:if>
         </tbody>
       </table>
-      <div class="clearfix">
-      	<button class="btn btn-write" onclick="location.href='/customer/index'">홈</button>
-      </div>
       <div style="text-align:center; margin-top: 20px;">
 			<ul class="pull-right">
 				<c:if test="${pageMaker.prev}">
@@ -235,6 +225,9 @@
 				</c:if>
 			</ul>
 		</div>
+		<div class="clearfix">
+      		<button class="btn-write" onclick="location.href='/customer/index'">홈</button>
+      	</div>
 	</div>
 </div>
 </body>

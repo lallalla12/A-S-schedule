@@ -76,7 +76,7 @@ public class EmployeeController {
 		
 		if (emp != null) {
             session.setAttribute("loginEmp", emp);
-            return "redirect:schedule"; 
+            return "redirect:/employee/index"; 
         } else {
             redirectAttributes.addFlashAttribute("error", "아이디 또는 비밀번호가 올바르지 않습니다.");
             return "redirect:/login"; 
