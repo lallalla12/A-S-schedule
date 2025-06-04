@@ -46,4 +46,4 @@ public interface CustomerMapper {
         @Param("type") String type,
         @Param("keyword") String keyword,
         @Param("status_keyword") String status_keyword);
-}
+} 

@@ -16,3 +16,5 @@ public class BoardVO {
 	private int rownum;
 	private String type;
 }
+
+

@@ -94,4 +94,17 @@
   		insert into board(bno, title, content, writer, type)
   		values(#{bno}, #{title}, #{content}, #{writer}, #{type})
   	</insert>
+  	
+  	<update id="updateEngineerAssignment">
+	    UPDATE service_board
+	    SET engineer_no = #{eno}, prostatus = 'P'
+	    WHERE receipt_no = #{receiptNo}
+	</update>
+  	
+  	<select id="getEngineerList" resultType="com.management.as.domain.EmployeeVO">
+	    SELECT *
+	    FROM employee
+	    WHERE role = 'ename'  <!-- 'engineer'는 실제 직무 코드나 명칭에 맞게 수정 -->
+	</select>
+  	
   </mapper>

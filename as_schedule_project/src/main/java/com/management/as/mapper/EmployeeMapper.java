@@ -21,5 +21,9 @@ public interface EmployeeMapper {
 	public List<EmployeeVO> getPagedListWithSearch(@Param("keyword") String keyword, @Param("type") String type, @Param("offset") int offset, @Param("size") int size);
 
 	public EmployeeVO findById(String id);
+	
+	public List<EmployeeVO> getEngineerList();
 
+	
+	 
 }
