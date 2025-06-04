@@ -21,4 +21,9 @@ public interface EmployeeService {
 
 	EmployeeVO login(String id, String password);
 	
+	public List<EmployeeVO> getEngineerList();
+	
+	
+	 
+	
 }
