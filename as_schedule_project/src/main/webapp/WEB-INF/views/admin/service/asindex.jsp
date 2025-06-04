@@ -218,76 +218,89 @@ tbody tr:hover {
 	
 		<!-- 팝업 -->
 		<div id="popup" style="display:none; position:fixed; top:20%; left:50%; transform:translateX(-50%);
-     		background:#fff; border:1px solid #ccc; padding:20px; z-index:1000;">
-		  <h3>기사님 선택</h3>
-		  <select id="engineerList">
-		    <option>불러오는 중...</option>
-		  </select>
-		  <br><br>
-		  <button id="assignConfirmBtn">배정</button>
-		  <button id="closePopup">닫기</button>
+		     background:#fff; border:1px solid #ccc; padding:20px; z-index:1000; width:400px;">
+		  <h4>기사님 선택</h4>
+		  <form id="engineerForm">
+		    <div id="engineerList">
+		      <!-- JS로 기사 리스트 렌더링 -->
+		    </div>
+		    <br>
+		    <button type="button" id="assignConfirmBtn" class="btn btn-success btn-sm">배정</button>
+		    <button type="button" id="closePopup" class="btn btn-secondary btn-sm">닫기</button>
+		  </form>
 		</div>
 	
   </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-$(function() {
-	  // 버튼을 클래스 기준으로 바인딩 (동적으로 생성된 요소 포함)
-	  $(document).on('click', '.assignBtn', function() {
-	    const receiptNo = $(this).data('receipt'); // 접수번호 추출 (필요 시 서버에 전달 가능)
-
-	    // 팝업 열기
+	$(function () {
+	  // 기사 배정 버튼 클릭 시
+	  $(document).on('click', '.assignBtn', function () {
+	    const receiptNo = $(this).data('receipt');
+	    $('#popup').data('receipt', receiptNo); // 접수번호 저장
 	    $('#popup').show();
 
-	    // 기사 리스트 AJAX로 불러오기
+	    // AJAX로 기사 목록 요청
 	    $.ajax({
 	      url: '/getEngineers',
 	      method: 'GET',
 	      dataType: 'json',
-	      success: function(data) {
-	        $('#engineerList').empty();
-	        $.each(data, function(i, engineer) {
-	          $('#engineerList').append(
-	            $('<option>', {
-	              value: engineer.eno,
-	              text: engineer.ename + ' (' + engineer.ephone + ')'
-	            })
-	          );
-	        });
+	      success: function (data) {
+	        const $list = $('#engineerList');
+	        $list.empty();
 
-	        // 선택된 접수번호를 숨겨서 저장 (필요하면)
-	        $('#popup').data('receipt', receiptNo);
+	        // 라디오 버튼으로 목록 출력
+	        $.each(data, function (i, engineer) {
+	          const item = `
+	            <div class="form-check">
+	              <input class="form-check-input" type="radio" name="selectedEngineer" id="eng${i}" value="${engineer.eno}">
+	              <label class="form-check-label" for="eng${i}">
+	                ${engineer.ename} (${engineer.ephone})
+	              </label>
+	            </div>`;
+	          $list.append(item);
+	        });
 	      },
-	      error: function() {
-	        alert('기사 리스트를 불러오지 못했습니다.');
+	      error: function () {
+	        alert('기사 목록을 불러오는 데 실패했습니다.');
 	      }
 	    });
 	  });
 
 	  // 팝업 닫기
-	  $('#closePopup').on('click', function() {
+	  $('#closePopup').on('click', function () {
 	    $('#popup').hide();
 	  });
 
-	  // 기사 배정 확인
-	  $('#assignConfirmBtn').on('click', function() {
-	    const selectedId = $('#engineerList').val();
-	    const receiptNo = $('#popup').data('receipt'); // 팝업에 저장된 접수번호
+	  // 기사 배정 확정 버튼
+	  $('#assignConfirmBtn').on('click', function () {
+	    const selectedEngineer = $('input[name="selectedEngineer"]:checked').val();
+	    const receiptNo = $('#popup').data('receipt');
 
-	    alert('기사 ID: ' + selectedId + '\n접수번호: ' + receiptNo);
+	    if (!selectedEngineer) {
+	      alert('기사님을 선택해주세요.');
+	      return;
+	    }
 
-	    // 👉 실제 기사 배정 처리 AJAX 요청 추가 가능
-	    /*
-	    $.post('/assignEngineer', {
-	      eno: selectedId,
-	      receiptNo: receiptNo
-	    }, function(response) {
-	      alert('배정 완료!');
-	      $('#popup').hide();
+	    // 실제 배정 처리 요청
+	    $.ajax({
+	      url: '/assignEngineer',
+	      method: 'POST',
+	      contentType: 'application/json',
+	      data: JSON.stringify({
+	        eno: selectedEngineer,
+	        receiptNo: receiptNo
+	      }),
+	      success: function (res) {
+	        alert('기사 배정이 완료되었습니다.');
+	        $('#popup').hide();
+	        location.reload(); // 또는 배정 상태만 갱신
+	      },
+	      error: function () {
+	        alert('배정 처리 중 오류가 발생했습니다.');
+	      }
 	    });
-	    */
-	    $('#popup').hide();
 	  });
 	});
 </script>

@@ -94,4 +94,12 @@
   		insert into board(bno, title, content, writer, type)
   		values(#{bno}, #{title}, #{content}, #{writer}, #{type})
   	</insert>
+  	
+  	<update id="updateEngineerAssignment">
+	    UPDATE service_board
+	    SET engineer_no = #{eno}, prostatus = 'P'
+	    WHERE receipt_no = #{receiptNo}
+	</update>
+  	
+  	
   </mapper>

@@ -6,7 +6,7 @@
 <mapper namespace="com.management.as.mapper.EmployeeMapper">
 	<select id="getSchedule"
 		resultType="com.management.as.domain.ScheduleVO">
-		select username, address, u.detail, visitdate, visittime
+		select c.cnum, username, address, u.detail, visitdate, visittime
 		from user u join
 		customer c on u.uid=c.uid
 	</select>
@@ -79,13 +79,11 @@
 	</select>
 
 
-	  <select id="getEngineerList" resultType="com.management.as.domain.EmployeeVO">
-	    SELECT eno, ename, ephone, hiredate, position
+	<select id="getEngineerList" resultType="com.management.as.domain.EmployeeVO">
+	    SELECT *
 	    FROM employee
-	    WHERE position = '기사' <!-- 또는 조건에 따라 role/position을 필터 -->
-	  </select>
-
-
+	    WHERE role = 'ename'  <!-- 'engineer'는 실제 직무 코드나 명칭에 맞게 수정 -->
+	</select>
 
 
 

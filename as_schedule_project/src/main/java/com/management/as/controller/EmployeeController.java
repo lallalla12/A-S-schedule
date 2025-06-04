@@ -1,6 +1,8 @@
 package com.management.as.controller;
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.management.as.domain.Criterai;
@@ -81,5 +84,10 @@ public class EmployeeController {
 		return "/employee/board/view";
 	}
 	
-
+	@GetMapping("/getEngineers")
+	@ResponseBody
+	public List<EmployeeVO> getEngineers() {
+		
+	    return service.getEngineerList();
+	}
 }

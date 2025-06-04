@@ -62,4 +62,8 @@ public class BoardServiceImpl implements BoardService {	// 구현 하는 클래�
 		mapper.insertSelectKey(board);
 	}
 
+	@Override
+	public void assignEngineer(String eno, String receiptNo) {
+	    mapper.updateEngineerAssignment(eno, receiptNo);
+	}
 }

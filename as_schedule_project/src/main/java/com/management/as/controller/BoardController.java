@@ -1,14 +1,19 @@
 package com.management.as.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.management.as.domain.BoardVO;
 import com.management.as.domain.Criterai;
@@ -93,5 +98,15 @@ public class BoardController {
 		return "redirect:/admin/board/list";
 	}
 	
+	@PostMapping("/assignEngineer")
+	@ResponseBody
+	public ResponseEntity<String> assignEngineer(@RequestBody Map<String, String> data) {
+	    String eno = data.get("eno");
+	    String receiptNo = data.get("receiptNo");
 
+	    log.info("기사 배정 요청: eno=" + eno + ", receiptNo=" + receiptNo);
+
+	    service.assignEngineer(eno, receiptNo); // service 호출
+	    return ResponseEntity.ok("success");
+	}
 }
