@@ -37,5 +37,5 @@ public interface BoardMapper {
 	
 	void updateEngineerAssignment(@Param("eno") String eno, @Param("receiptNo") String receiptNo);
 }
-
+ 
 

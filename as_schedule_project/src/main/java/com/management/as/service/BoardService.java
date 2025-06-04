@@ -31,5 +31,5 @@ public interface BoardService {		// 설계 클래쓰 -> BoardServiceImpl 구현
 	
 	// 기사님들 목록 불러오기
 	public void assignEngineer(String eno, String receiptNo);
-	
+	 
 }
