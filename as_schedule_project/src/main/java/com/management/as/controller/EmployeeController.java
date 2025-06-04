@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -72,20 +73,25 @@ public class EmployeeController {
 
 	@PostMapping("/login")
 	public String login(@RequestParam String id,
-					    @RequestParam String password,
-					    HttpSession session,
-					    RedirectAttributes redirectAttributes) {
-		
-		EmployeeVO emp = service.login(id,password);
-		
-		if (emp != null) {
-            session.setAttribute("loginEmp", emp);
-            session.setAttribute("user_id", emp.getEno());
-            return "redirect:/employee/index"; 
-        } else {
-            redirectAttributes.addFlashAttribute("error", "아이디 또는 비밀번호가 올바르지 않습니다.");
-            return "redirect:/login"; 
-        }
+	                    @RequestParam String password,
+	                    HttpSession session,
+	                    RedirectAttributes redirectAttributes) {
+	    
+	    EmployeeVO emp = service.findById(id); // 비밀번호 비교를 위해 전체가 아닌 findById만
+
+	    if (emp != null) {
+	        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+	        
+	        // 입력한 비밀번호와 암호화된 비밀번호 비교
+	        if (encoder.matches(password, emp.getPassword())) {
+	            session.setAttribute("loginEmp", emp);
+	            session.setAttribute("user_id", emp.getEno());
+	            return "redirect:/employee/index"; 
+	        }
+	    }
+
+	    redirectAttributes.addFlashAttribute("error", "아이디 또는 비밀번호가 올바르지 않습니다.");
+	    return "redirect:/login"; 
 	}
 	
 	// 공지사항

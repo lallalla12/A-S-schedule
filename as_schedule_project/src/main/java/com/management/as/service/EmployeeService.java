@@ -24,4 +24,6 @@ public interface EmployeeService {
 	public List<EmployeeVO> getEngineerList();
 
 	public int idCheck(String id);
+
+	public EmployeeVO findById(String id);
 }
