@@ -10,8 +10,7 @@
 	rel="stylesheet" />
 <style type="text/css">
 @import
-	url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css")
-	;
+	url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css");
 
 .pull-right ul, li {
 	display: inline-block;
@@ -143,185 +142,231 @@ tbody tr:hover {
 	display: table;
 	clear: both;
 }
+
+
+#popup {
+  display: none;
+  position: fixed;
+  top: 50%;                /* 화면 세로 중앙 */
+  left: 50%;               /* 화면 가로 중앙 */
+  transform: translate(-50%, -50%);
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  padding: 20px 30px;
+  z-index: 1000;
+  width: 400px;
+  max-height: 70vh;
+  overflow-y: auto;        /* 내용 많으면 스크롤 */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#popup h4 {
+  margin-bottom: 15px;
+  color: #39664d;
+  font-weight: 700;
+  text-align: center;
+}
+
+#engineerList {
+  max-height: 300px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+  padding-left: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #f9f9f9;
+}
+
+#engineerList .form-check {
+  padding: 8px 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+#engineerList .form-check:last-child {
+  border-bottom: none;
+}
+
+#engineerList label {
+  cursor: pointer;
+  user-select: none;
+}
+
+#assignConfirmBtn, #closePopup {
+  width: 48%;
+  margin: 0 1%;
+  font-weight: 600;
+}
+
+#assignConfirmBtn {
+  background-color: #39664d;
+  border: none;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+#assignConfirmBtn:hover {
+  background-color: #2f5240;
+}
+
+#closePopup {
+  background-color: #ccc;
+  border: none;
+  color: #333;
+  transition: background-color 0.3s ease;
+}
+
+#closePopup:hover {
+  background-color: #bbb;
+}
+
 </style>
 <meta charset="UTF-8">
 <title>AS 현황</title>
 </head>
 <body>
-	<div class="container mt-5">
-		<h3>AS 현황</h3>
-		<div class="board-wrapper">
-			<form action="/admin/service/asindex" method="get">
-				<div class="pagenum">
-					<input type="hidden" name="pageNum" value="${currentPage}">
-					<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
+<div class="container mt-5">
+  <h3>AS 현황</h3>
+  <div class="board-wrapper">
+    <!-- 검색 폼 -->
+    <form action="/admin/service/asindex" method="get">
+      <div class="pagenum">
+        <input type="hidden" name="pageNum" value="${currentPage}">
+        <input type="hidden" name="amount" value="${pageMaker.cri.amount}">
+        <select name="type" id="select_type">
+          <option value="proname" <c:if test="${type == 'proname'}">selected</c:if>>제품명</option>
+          <option value="issue" <c:if test="${type == 'issue'}">selected</c:if>>고장증상</option>
+          <option value="username" <c:if test="${type == 'username'}">selected</c:if>>고객명</option>
+        </select>
+        <input type="text" name="keyword" id="input_keyword" value="${keyword}">
+        <input type="submit" id="search_btn" value="검색">
+      </div>
+    </form>
 
-					<select name="type" id="select_type">
-						<option value="proname"
-							<c:if test="${type == 'proname'}">selected</c:if>>제품명</option>
-						<option value="issue"
-							<c:if test="${type == 'issue'}">selected</c:if>>고장증상</option>
-						<option value="username"
-							<c:if test="${type == 'username'}">selected</c:if>>고객명</option>
-					</select> <input type="text" name="keyword" id="input_keyword"
-						value="${keyword}"> <input type="submit" id="search_btn"
-						value="검색">
-				</div>
-			</form>
+    <!-- AS 현황 테이블 -->
+    <table>
+      <thead>
+        <tr>
+          <th>접수번호</th>
+          <th>제품명</th>
+          <th>고장증상</th>
+          <th>고객명</th>
+          <th>방문예정일</th>
+          <th>처리상태</th>
+          <th>기사배정</th>
+        </tr>
+      </thead>
+      <tbody>
+        <c:forEach items="${clist}" var="list">
+          <tr>
+            <td>${list.rownum}</td>
+            <td>${list.proname}</td>
+            <td>${list.issue}</td>
+            <td>${list.username}</td>
+            <td><fmt:formatDate value="${list.visitdate}" pattern="yyyy-MM-dd" /></td>
+            <td>
+              <c:if test="${list.prostatus eq 'W'}"><span style="font-weight:bold;">대기</span></c:if>
+              <c:if test="${list.prostatus eq 'P'}"><span style="font-weight:bold; color:#da6264;">진행</span></c:if>
+              <c:if test="${list.prostatus eq 'F'}"><span style="font-weight:bold; color:#330066;">완료</span></c:if>
+            </td>
+            <td><button class="assignBtn" data-receipt="${list.rownum}">기사 배정</button></td>
+          </tr>
+        </c:forEach>
+      </tbody>
+    </table>
 
-			<table>
-				<thead>
-					<tr>
-						<th>접수번호</th>
-						<th>제품명</th>
-						<th>고장증상</th>
-						<th>고객명</th>
-						<th>방문예정일</th>
-						<th>처리상태</th>
-						<th>기사배정</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach items="${clist}" var="list">
-						<tr>
-							<td>${list.rownum}</td>
-							<td>${list.proname}</td>
-							<td>${list.issue}</td>
-							<td>${list.username}</td>
-							<td><fmt:formatDate value="${list.visitdate}"
-									pattern="yyyy-MM-dd" /></td>
-							<td><c:if test="${list.prostatus eq 'W'}">
-									<span style="font-weight: bold;">대기</span>
-								</c:if> <c:if test="${list.prostatus eq 'P'}">
-									<span style="font-weight: bold; color: #da6264;">진행</span>
-								</c:if> <c:if test="${list.prostatus eq 'F'}">
-									<span style="font-weight: bold; color: #330066;">완료</span>
-								</c:if></td>
-							<td><button class="assignBtn" data-receipt="${list.rownum}">기사
-									배정</button></td>
-						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
+    <!-- 페이지네이션 -->
+    <div style="text-align:center; margin-top: 5px;">
+      <ul class="pull-right">
+        <c:if test="${pageMaker.prev}">
+          <li><a href="/admin/service/asindex?pageNum=${pageMaker.startPage - 1}&type=${type}&keyword=${keyword}">Previous</a></li>
+        </c:if>
+        <c:forEach var="num" begin="1" end="${totalPages}">
+          <li class="numPaging <c:if test='${num == currentPage}'>active-page</c:if>">
+            <a href="/admin/service/asindex?pageNum=${num}&type=${type}&keyword=${keyword}">${num}</a>
+          </li>
+        </c:forEach>
+        <c:if test="${pageMaker.next}">
+          <li><a href="/admin/service/asindex?pageNum=${pageMaker.endPage + 1}&type=${type}&keyword=${keyword}">Next</a></li>
+        </c:if>
+      </ul>
+    </div>
 
-			<div style="text-align: right;">
-				<button class="btn-write"
-					onclick="location.href='<c:url value='/admin/index' />'">홈</button>
-			</div>
+    <!-- 기사 배정 팝업 -->
+    <div id="popup" style="display:none; position:fixed; top:20%; left:50%; transform:translateX(-50%);
+         background:#fff; border:1px solid #ccc; padding:20px; z-index:1000; width:400px;">
+      <h4>기사님 선택</h4>
+      <form id="engineerForm">
+        <div id="engineerList">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>선택</th>
+                <th>직원번호</th>
+                <th>이름</th>
+                <th>부서</th>
+                <th>연락처</th>
+                <th>고용일</th>
+              </tr>
+            </thead>
+            <tbody id="engineerTableBody">
+              <!-- JS로 동적으로 채움 -->
+            </tbody>
+          </table>
+        </div>
+        <br>
+        <button type="button" id="assignConfirmBtn" class="btn btn-success btn-sm">배정</button>
+        <button type="button" id="closePopup" class="btn btn-secondary btn-sm">닫기</button>
+      </form>
+    </div>
 
-			<div style="text-align: center; margin-top: 5px;">
-				<ul class="pull-right">
-					<c:if test="${pageMaker.prev}">
-						<li><a
-							href="/admin/service/asindex?pageNum=${pageMaker.startPage - 1}&type=${type}&keyword=${keyword}">Previous</a>
-						</li>
-					</c:if>
+  </div>
+</div>
 
-					<c:forEach var="num" begin="1" end="${totalPages}">
-						<li
-							class="numPaging <c:if test='${num == currentPage}'>active-page</c:if>">
-							<a
-							href="/admin/service/asindex?pageNum=${num}&type=${type}&keyword=${keyword}">${num}</a>
-						</li>
-					</c:forEach>
+<!-- JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).on('click', '.assignBtn', function () {
+  const receiptNo = $(this).data('receipt');
+  $('#popup').data('receipt', receiptNo).show();
 
-					<c:if test="${pageMaker.next}">
-						<li><a
-							href="/admin/service/asindex?pageNum=${pageMaker.endPage + 1}&type=${type}&keyword=${keyword}">Next</a>
-						</li>
-					</c:if>
-				</ul>
-			</div>
+  $.ajax({
+    url: '/admin/employee/list/json',
+    method: 'GET',
+    dataType: 'json',
+    cache: false,
+    success: function (data) {
+      const list = data.employeeList || data;
+      const $tbody = $('#engineerTableBody');
+      $tbody.empty();
 
-			<!-- 팝업 -->
-			<div id="popup"
-				style="display: none; position: fixed; top: 20%; left: 50%; transform: translateX(-50%); background: #fff; border: 1px solid #ccc; padding: 20px; z-index: 1000; width: 400px;">
-				<h4>기사님 선택</h4>
-				<form id="engineerForm">
-					<div id="engineerList">
-						<!-- JS로 기사 리스트 렌더링 -->
-					</div>
-					<br>
-					<button type="button" id="assignConfirmBtn"
-						class="btn btn-success btn-sm">배정</button>
-					<button type="button" id="closePopup"
-						class="btn btn-secondary btn-sm">닫기</button>
-				</form>
-			</div>
+      if (list.length === 0) {
+        $tbody.append('<tr><td colspan="6" style="text-align:center; color:black;">검색결과가 없습니다.</td></tr>');
+      } else {
+        $.each(list, function (i, emp) {
+          const hireDateFormatted = emp.hiredate ? new Date(emp.hiredate).toISOString().substring(0, 10) : '';
+          const row = `
+            <tr>
+              <td><input type="radio" name="selectedEngineer" value="${emp.eno}"></td>
+              <td>${emp.eno}</td>
+              <td>${emp.ename}</td>
+              <td>${emp.position}</td>
+              <td>${emp.ephone}</td>
+              <td>${hireDateFormatted}</td>
+            </tr>`;
+          $tbody.append(row);
+        });
+      }
+    },
+    error: function () {
+      alert('기사 목록을 불러오는 데 실패했습니다.');
+    }
+  });
+});
 
-		</div>
-	</div>
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script>
-	$(function () {
-	  // 기사 배정 버튼 클릭 시
-	  $(document).on('click', '.assignBtn', function () {
-	    const receiptNo = $(this).data('receipt');
-	    $('#popup').data('receipt', receiptNo); // 접수번호 저장
-	    $('#popup').show();
-
-	    // AJAX로 기사 목록 요청
-	    $.ajax({
-	      url: '/getEngineers',
-	      method: 'GET',
-	      dataType: 'json',
-	      success: function (data) {
-	        const $list = $('#engineerList');
-	        $list.empty();
-
-	        // 라디오 버튼으로 목록 출력
-	        $.each(data, function (i, engineer) {
-	          const item = `
-	            <div class="form-check">
-	              <input class="form-check-input" type="radio" name="selectedEngineer" id="eng${i}" value="${engineer.eno}">
-	              <label class="form-check-label" for="eng${i}">
-	                ${engineer.ename} (${engineer.ephone})
-	              </label>
-	            </div>`;
-	          $list.append(item);
-	        });
-	      },
-	      error: function () {
-	        alert('기사 목록을 불러오는 데 실패했습니다.');
-	      }
-	    });
-	  });
-
-	  // 팝업 닫기
-	  $('#closePopup').on('click', function () {
-	    $('#popup').hide();
-	  });
-
-	  // 기사 배정 확정 버튼
-	  $('#assignConfirmBtn').on('click', function () {
-	    const selectedEngineer = $('input[name="selectedEngineer"]:checked').val();
-	    const receiptNo = $('#popup').data('receipt');
-
-	    if (!selectedEngineer) {
-	      alert('기사님을 선택해주세요.');
-	      return;
-	    }
-
-	    // 실제 배정 처리 요청
-	    $.ajax({
-	      url: '/assignEngineer',
-	      method: 'POST',
-	      contentType: 'application/json',
-	      data: JSON.stringify({
-	        eno: selectedEngineer,
-	        receiptNo: receiptNo
-	      }),
-	      success: function (res) {
-	        alert('기사 배정이 완료되었습니다.');
-	        $('#popup').hide();
-	        location.reload(); // 또는 배정 상태만 갱신
-	      },
-	      error: function () {
-	        alert('배정 처리 중 오류가 발생했습니다.');
-	      }
-	    });
-	  }); 
-	});
+$('#closePopup').on('click', function () {
+  $('#popup').hide();
+});
 </script>
 
 </body>

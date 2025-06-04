@@ -20,8 +20,6 @@ public class EmployeeServiceImpl implements EmployeeService{
 	@Setter(onMethod_ = @Autowired)
 	private EmployeeMapper mapper;
 	
-	@Autowired
-    private EmployeeMapper employeeMapper;
 	
 	@Override
 	public List<ScheduleVO> getSchedule(String eno) {
@@ -74,7 +72,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 	}
 	
 	public List<EmployeeVO> getEngineerList() {
-        return employeeMapper.getEngineerList();
+        return mapper.getEngineerList();
 	}
 
 	@Override

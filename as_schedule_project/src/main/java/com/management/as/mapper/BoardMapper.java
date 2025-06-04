@@ -34,8 +34,6 @@ public interface BoardMapper {
 
 	public void insertSelectKey(BoardVO board);
 	
-	
-	void updateEngineerAssignment(@Param("eno") String eno, @Param("receiptNo") String receiptNo);
 }
  
 
