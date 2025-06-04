@@ -22,9 +22,9 @@ public class EmployeeServiceImpl implements EmployeeService{
 	
 	
 	@Override
-	public List<ScheduleVO> getSchedule() {
+	public List<ScheduleVO> getSchedule(String eno) {
 		// TODO Auto-generated method stub
-		return mapper.getSchedule();
+		return mapper.getSchedule(eno);
 	}
 	
 	// 목록 조회

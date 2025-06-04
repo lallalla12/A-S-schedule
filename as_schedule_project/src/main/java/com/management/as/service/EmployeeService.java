@@ -7,7 +7,7 @@ import com.management.as.domain.EmployeeVO;
 
 public interface EmployeeService {
 	
-	public List<ScheduleVO> getSchedule();
+	public List<ScheduleVO> getSchedule(String eno);
 	
 	public List<EmployeeVO> getAll();
 	
