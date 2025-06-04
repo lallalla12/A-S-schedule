@@ -78,5 +78,8 @@
 	select * from employee where eno = #{eno}
 	</select>
 
- 
+ 	<select id="idCheck" resultType="int">
+		SELECT COUNT(*) FROM employee
+		WHERE eno = #{id}
+	</select>
 </mapper>

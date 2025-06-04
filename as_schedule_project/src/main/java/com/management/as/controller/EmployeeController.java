@@ -43,12 +43,29 @@ public class EmployeeController {
 	}
 	
 	@GetMapping("/index")
-	public String index(){
+	public String index(HttpSession session, RedirectAttributes redirectAttributes){
 		log.info("------------------------/employee/index로 이동-------------------------");
-		return"/employee/index";
+		EmployeeVO emp = (EmployeeVO) session.getAttribute("loginEmp");
+		if (emp == null) {
+			redirectAttributes.addFlashAttribute("error", "로그인 정보가 없습니다.");
+            return "redirect:/login"; 
+        }
+		String user_id = emp.getEno();
+		if (user_id == null) {
+			redirectAttributes.addFlashAttribute("message", "로그인이 필요합니다.");
+			return "redirect:/login"; 
+		}
+		
+		int count = service.idCheck(user_id);
+		if(count > 0 ) {
+			return "/employee/index";
+		} else {
+			redirectAttributes.addFlashAttribute("message", "아이디 또는 비밀번호가 올바르지 않습니다.");
+			session.invalidate();
+			return "redirect:/login";
+		}
 	}
-	
-	
+
 	@PostMapping("/login")
 	public String login(@RequestParam String id,
 					    @RequestParam String password,

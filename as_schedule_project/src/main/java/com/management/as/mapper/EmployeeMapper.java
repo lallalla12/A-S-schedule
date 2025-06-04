@@ -24,6 +24,6 @@ public interface EmployeeMapper {
 	
 	public List<EmployeeVO> getEngineerList();
 
-	
+	public int idCheck(@Param("id") String id);
 	 
 }

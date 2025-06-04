@@ -73,11 +73,13 @@ public class EmployeeServiceImpl implements EmployeeService{
         return null;
 	}
 	
-	 
-	
-	
 	public List<EmployeeVO> getEngineerList() {
         return employeeMapper.getEngineerList();
+	}
+
+	@Override
+	public int idCheck(String id) {
+		return mapper.idCheck(id);
 	}
 
 }
