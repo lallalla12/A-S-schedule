@@ -73,7 +73,7 @@ public class AdminController {
 	}
 	
 
-	@GetMapping(value = "/employee/list/json")
+	@GetMapping("/employee/list/json")
 	@ResponseBody
 	public List<EmployeeVO> getEmployeeListJson() {
 	    return service.getEngineerList();  // 직원 전체 리스트를 가져오는 서비스 메서드 필요

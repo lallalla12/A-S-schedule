@@ -102,12 +102,7 @@ public class EmployeeController {
 		return "/employee/board/view";
 	}
 	
-	@GetMapping("/getEngineers")
-	@ResponseBody
-	public List<EmployeeVO> getEngineers() {
-		
-	    return service.getEngineerList();
-	}
+
 	
 	 
 }

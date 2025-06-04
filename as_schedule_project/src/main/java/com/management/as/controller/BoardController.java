@@ -84,14 +84,4 @@ public class BoardController {
 		return "redirect:/admin/board/list";
 	}
 	
-	// 엔지니어 배정 요청
-	@PostMapping("/assignEngineer")
-	@ResponseBody
-	public ResponseEntity<String> assignEngineer(@RequestBody Map<String, String> data) {
-	    String eno = data.get("eno");
-	    String receiptNo = data.get("receiptNo");
-	    log.info("엔지니어 배정 요청: eno=" + eno + ", receiptNo=" + receiptNo);
-	    service.assignEngineer(eno, receiptNo); // service 호출
-	    return ResponseEntity.ok("success");
-	}
 }
