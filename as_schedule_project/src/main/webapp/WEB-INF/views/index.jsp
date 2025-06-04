@@ -119,7 +119,12 @@
     <a class="navbar-brand" href="/">🅰 404</a>
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav ms-auto me-3">
-        <button class="btn btn-buy">Login</button>
+      	<c:if test="${empty sessionScope.user_id}">
+        <button class="btn btn-buy" onclick="location.href='/login';">Login</button>
+      	</c:if>
+      	<c:if test="${not empty sessionScope.user_id}">
+        <button class="btn btn-buy" onclick="location.href='/customer/logout';">Logout</button>
+      	</c:if>
       </ul>
     </div>
   </nav>
