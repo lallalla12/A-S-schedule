@@ -33,77 +33,75 @@ import com.management.as.domain.UserVO;
 @RequestMapping("/customer")
 public class CustomerController {
 	private static final Logger log = LoggerFactory.getLogger(HomeController.class);
-	
+
 	@Autowired
 	private CustomerService service;
 	@Autowired
 	private BoardService boardService;
-	
+
 	@GetMapping("/index")
 	public String index(RedirectAttributes redirectAttributes, HttpSession session) {
-		log.info("------------------------/customer/index濡� �씠�룞-------------------------");
-		// �궗�슜�옄 �젙蹂� 議고쉶
-		String user_id = (String) session.getAttribute("user_id"); 
-		if (user_id ==null) { 
-			redirectAttributes.addFlashAttribute("message", "濡쒓렇�씤�씠 �븘�슂�빀�땲�떎.");
-			return "redirect:/login"; 
+		log.info("------------------------/customer/index로 이동-------------------------");
+		// 사용자 정보 확인
+		String user_id = (String) session.getAttribute("user_id");
+		if (user_id == null) {
+			redirectAttributes.addFlashAttribute("message", "로그인이 필요합니다.");
+			return "redirect:/login";
 		}
-		
+
 		int count = service.idCheck(user_id);
-		if(count > 0 ) {
+		if (count > 0) {
 			return "/customer/index";
 		} else {
-			redirectAttributes.addFlashAttribute("message", "怨좉컼�젙蹂닿� �뾾�뒿�땲�떎.");
+			redirectAttributes.addFlashAttribute("message", "고객정보가 없습니다.");
 			session.invalidate();
 			return "redirect:/login";
 		}
 	}
-	
+
 	@GetMapping("/join")
 	public String join() {
 		return "/customer/join";
 	}
-	
+
 	@PostMapping("/login")
-	public String login(@RequestParam String id, @RequestParam String password, RedirectAttributes redirectAttributes, HttpSession session) {
-		UserVO user = service.findByUserId(id); // �궗�슜�옄 �젙蹂� 議고쉶
-	    
-	    if (user != null && user.getPassword().equals(password)) {
-	        session.setAttribute("user_id", user.getUser_id());
-	        session.setAttribute("uid", user.getUid());
-	        redirectAttributes.addFlashAttribute("message", "濡쒓렇�씤�릺�뿀�뒿�땲�떎.");
-	        return "redirect:/customer/index";
-	    } else {
-	        redirectAttributes.addFlashAttribute("message", "�븘�씠�뵒 諛� 鍮꾨�踰덊샇媛� �씪移섑븯吏� �븡�뒿�땲�떎.");
-	        return "redirect:/login";
-	    }
+	public String login(@RequestParam String id, @RequestParam String password, RedirectAttributes redirectAttributes,
+			HttpSession session) {
+		UserVO user = service.findByUserId(id); // 사용자 정보 확인
+
+		if (user != null && user.getPassword().equals(password)) {
+			session.setAttribute("user_id", user.getUser_id());
+			session.setAttribute("uid", user.getUid());
+			redirectAttributes.addFlashAttribute("message", "로그인되었습니다.");
+			return "redirect:/customer/index";
+		} else {
+			redirectAttributes.addFlashAttribute("message", "아이디 또는 비밀번호가 일치하지 않습니다.");
+			return "redirect:/login";
+		}
 	}
-	
-	
+
 	@PostMapping("/join")
 	public String join(UserVO vo, HttpSession session, RedirectAttributes redirectAttributes) {
 		service.join(vo);
-	    
-		redirectAttributes.addFlashAttribute("message", "�쉶�썝媛��엯�씠 �셿猷뚮릺�뿀�뒿�땲�떎.");
-		
+		redirectAttributes.addFlashAttribute("message", "회원가입이 완료되었습니다.");
 		return "redirect:/login";
 	}
-	
-	@GetMapping(value="/idCheck")
+
+	@GetMapping(value = "/idCheck")
 	@ResponseBody
 	public int idCheck(@RequestParam("user_id") String id) {
 		return service.idCheck(id);
 	}
-	
+
 	@GetMapping("/register")
 	public String register(Model model, HttpSession session, RedirectAttributes redirectAttributes) {
 		List<ProductVO> productList = service.productList();
-		
-		// �궗�슜�옄 �젙蹂� 議고쉶
+
+		// 사용자 정보 확인
 		String user_id = (String) session.getAttribute("user_id");
-		if (user_id ==null) { 
-			redirectAttributes.addFlashAttribute("message", "濡쒓렇�씤�씠 �븘�슂�빀�땲�떎.");
-			return "redirect:/login"; 
+		if (user_id == null) {
+			redirectAttributes.addFlashAttribute("message", "로그인이 필요합니다.");
+			return "redirect:/login";
 		}
 		UserVO userInfo = service.findByUserId(user_id);
 		String phone_formated = userInfo.getPhone().replaceFirst("(\\d{3})(\\d{4})(\\d{4})", "$1-$2-$3");
@@ -112,65 +110,68 @@ public class CustomerController {
 		model.addAttribute("phone_formated", phone_formated);
 		return "/customer/register";
 	}
-	
+
 	@PostMapping("/register")
 	public String register(CustomerVO vo, RedirectAttributes redirectAttributes) {
 		service.register(vo);
-		redirectAttributes.addFlashAttribute("message", "�젒�닔媛� �셿猷뚮릺�뿀�뒿�땲�떎.");
+		redirectAttributes.addFlashAttribute("message", "접수가 완료되었습니다.");
 		return "redirect:/customer/index";
 	}
-	
+
 	@GetMapping("/mypage")
-	public String list(@RequestParam(required = false) String type, @RequestParam(defaultValue = "1") int page, @RequestParam(required = false) String keyword, @RequestParam(required = false) String status_keyword, 
+	public String list(@RequestParam(required = false) String type,
+			@RequestParam(defaultValue = "1") int page,
+			@RequestParam(required = false) String keyword,
+			@RequestParam(required = false) String status_keyword,
 			HttpSession session, Model model, RedirectAttributes redirectAttributes) {
-		// �궗�슜�옄 �젙蹂� 議고쉶
-		String user_id = (String) session.getAttribute("user_id"); 
-		if (user_id ==null) { 
-			redirectAttributes.addFlashAttribute("message", "濡쒓렇�씤�씠 �븘�슂�빀�땲�떎.");
-			return "redirect:/login"; 
+
+		// 사용자 정보 확인
+		String user_id = (String) session.getAttribute("user_id");
+		if (user_id == null) {
+			redirectAttributes.addFlashAttribute("message", "로그인이 필요합니다.");
+			return "redirect:/login";
 		}
-		// �럹�씠吏� �떆�옉
-		int pageSize = 10;  // �븳 �럹�씠吏��뿉 10媛쒖뵫 蹂댁뿬二쇨린
+
+		// 페이지 시작
+		int pageSize = 10;
 		int totalCount = service.totalCount(user_id, type, keyword, status_keyword);
-		// �쟾泥� �럹�씠吏� �닔 怨꾩궛
-	    int totalPages = (int) Math.ceil((double) totalCount / pageSize);
-	    // 議고쉶 �떆�옉 �쐞移�(offset) 怨꾩궛
-	    int offset = (page - 1) * pageSize;
-			    
+		int totalPages = (int) Math.ceil((double) totalCount / pageSize);
+		int offset = (page - 1) * pageSize;
+
 		List<CustomerVO> list = service.list(user_id, type, keyword, status_keyword, offset, pageSize);
 		model.addAttribute("clist", list);
 		model.addAttribute("type", type);
-	    model.addAttribute("keyword", keyword);
-	    model.addAttribute("currentPage", page);
-	    model.addAttribute("totalPages", totalPages);
-	    model.addAttribute("status_keyword", status_keyword);
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", totalPages);
+		model.addAttribute("status_keyword", status_keyword);
 		return "/customer/list";
 	}
-	
+
 	@GetMapping("/comment/add")
 	public String popup(@RequestParam("cnum") int cnum, Model model) {
 		model.addAttribute("cnum", cnum);
 		return "/customer/comment/add";
 	}
-	
+
 	@PostMapping("/comment/add")
 	public String update(CustomerVO vo, RedirectAttributes redirectAttributes) {
 		service.update(vo);
-		redirectAttributes.addFlashAttribute("message", "�썑湲곌� �벑濡앸릺�뿀�뒿�땲�떎.");
+		redirectAttributes.addFlashAttribute("message", "후기가 등록되었습니다.");
 		return "redirect:/customer/mypage";
 	}
-	
+
 	@GetMapping("/logout")
 	public String logout(HttpSession session, RedirectAttributes redirectAttributes) {
-	    session.invalidate();
-	    redirectAttributes.addFlashAttribute("message", "濡쒓렇�븘�썐 �릺�뿀�뒿�땲�떎.");
-	    return "redirect:/";
+		session.invalidate();
+		redirectAttributes.addFlashAttribute("message", "로그아웃되었습니다.");
+		return "redirect:/";
 	}
-	
-	// 怨듭��궗�빆
+
+	// 공지사항
 	@GetMapping("/board/list")
 	public String list(Criterai cri, Model model) {
-		log.info("寃뚯떆�뙋 由ъ뒪�듃 紐⑸줉 蹂닿린 �솕硫댁쑝濡� �씠�룞(怨좉컼)");
+		log.info("게시판 리스트 목록 출력 화면으로 이동(고객)");
 		cri.setBoardType("C");
 		log.info("Criterai: {}", cri);
 		model.addAttribute("list", boardService.getListWithPaging(cri));
@@ -179,25 +180,25 @@ public class CustomerController {
 		model.addAttribute("keyword", cri.getKeyword());
 		return "/customer/board/list";
 	}
-	
-	// 紐⑸줉 由ъ뒪�듃�뿉�꽌 �젣紐⑹쓣 �겢由��븯�뿬 �긽�꽭�궡�슜 �솕硫댁쑝濡� �씠�룞
+
+	// 목록 리스트에서 제목을 클릭하여 상세내용 화면으로 이동
 	@GetMapping("/board/get")
 	public String get(@RequestParam("bno") int bno, Model model) {
 		model.addAttribute("board", boardService.get(bno));
 		return "/customer/board/view";
 	}
-	
+
 	@PostMapping("/updateEndDate")
 	public ResponseEntity<?> updateEndDate(@RequestBody Map<String, String> payload) {
-	    int cnum = Integer.parseInt(payload.get("cnum"));
-	    String endDateStr = payload.get("endDate");
+		int cnum = Integer.parseInt(payload.get("cnum"));
+		String endDateStr = payload.get("endDate");
 
-	    try {
-	        LocalDate endDate = LocalDate.parse(endDateStr);
-	        service.updateEndDate(cnum, endDate); // DB 처리
-	        return ResponseEntity.ok().build();
-	    } catch (Exception e) {
-	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("오류 발생");
-	    }
+		try {
+			LocalDate endDate = LocalDate.parse(endDateStr);
+			service.updateEndDate(cnum, endDate); // DB 처리
+			return ResponseEntity.ok().build();
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("오류 발생");
+		}
 	}
 }

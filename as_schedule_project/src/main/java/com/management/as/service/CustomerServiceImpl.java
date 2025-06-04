@@ -63,9 +63,8 @@ public class CustomerServiceImpl implements CustomerService {
 		return mapper.idCheck(id);
 	}
 
-	@Override //enddate ¾÷µ¥ÀÌÆ®
+	@Override // enddate ì—…ë°ì´íŠ¸
 	public void updateEndDate(int cnum, LocalDate endDate) {
-		// TODO Auto-generated method stub
 		mapper.updateEndDate(cnum, endDate);
 	}
 }
