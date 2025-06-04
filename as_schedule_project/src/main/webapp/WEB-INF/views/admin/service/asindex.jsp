@@ -142,6 +142,84 @@ tbody tr:hover {
 	display: table;
 	clear: both;
 }
+
+
+#popup {
+  display: none;
+  position: fixed;
+  top: 50%;                /* 화면 세로 중앙 */
+  left: 50%;               /* 화면 가로 중앙 */
+  transform: translate(-50%, -50%);
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  padding: 20px 30px;
+  z-index: 1000;
+  width: 400px;
+  max-height: 70vh;
+  overflow-y: auto;        /* 내용 많으면 스크롤 */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#popup h4 {
+  margin-bottom: 15px;
+  color: #39664d;
+  font-weight: 700;
+  text-align: center;
+}
+
+#engineerList {
+  max-height: 300px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+  padding-left: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #f9f9f9;
+}
+
+#engineerList .form-check {
+  padding: 8px 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+#engineerList .form-check:last-child {
+  border-bottom: none;
+}
+
+#engineerList label {
+  cursor: pointer;
+  user-select: none;
+}
+
+#assignConfirmBtn, #closePopup {
+  width: 48%;
+  margin: 0 1%;
+  font-weight: 600;
+}
+
+#assignConfirmBtn {
+  background-color: #39664d;
+  border: none;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+#assignConfirmBtn:hover {
+  background-color: #2f5240;
+}
+
+#closePopup {
+  background-color: #ccc;
+  border: none;
+  color: #333;
+  transition: background-color 0.3s ease;
+}
+
+#closePopup:hover {
+  background-color: #bbb;
+}
+
 </style>
 <meta charset="UTF-8">
 <title>AS 현황</title>
