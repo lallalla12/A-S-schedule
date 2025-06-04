@@ -154,10 +154,6 @@ a {
 	background: none !important;
 }
 
-.fc-daygrid-event-dot {
-	border-color: #5fd1b9;
-}
-
 #calendar {
 	padding: 15px;
 }
@@ -268,12 +264,14 @@ textarea, input[type="date"] {
 
 					<!-- 지도 -->
 					<div id="map" style="width: 600px; height: 350px;"></div>
-
+						
+					<hr>	
+					
 					<div class='mt-3'>
 						<input type="date" id="endDate"> <br>
 						<div class='mt-1'
 							style="display: flex; align-items: flex-end; gap: 5px;">
-							<textarea id="cmt" rows="2" cols="30" placeholder="특이사항"></textarea>
+							<textarea id="cmt" rows="5" cols="65" placeholder="특이사항"></textarea>
 							<button class='btn btn-secondary' onclick='submitEndDate()'>방문종료</button>
 						</div>
 					</div>
