@@ -23,6 +23,7 @@ body {
 	padding: 0px;
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
 /* 네비게이션바 */
 .navbar {
 	background-color: #0d0d0d;
@@ -107,6 +108,7 @@ tbody tr:hover {
 	font-weight: 500;
 	width: 100px;
 	height: 30px;
+	margin-left:10px;
 }
 
 .pagination-wrapper {
@@ -130,6 +132,7 @@ tbody tr:hover {
 	border-radius: 5px;
 	text-decoration: none;
 }
+
 
 form.search-form {
 	margin-bottom: 1rem;
@@ -250,8 +253,7 @@ form.search-form input[type="submit"]:hover {
 			<!-- 페이징 + 등록버튼 -->
 			<div class="pagination-wrapper">
 				<div>
-					<c:if test="${totalPage != null && totalPage > 1}">
-
+					<c:if test="${not empty employeeList && totalPage > 1}">
 						<nav>
 							<ul>
 								<c:if test="${hasPrev}">
@@ -265,22 +267,21 @@ form.search-form input[type="submit"]:hover {
 										class="${i == currentPage ? 'active' : ''}"> ${i} </a></li>
 								</c:forEach>
 
-
 								<c:if test="${hasNext}">
 									<li><a
 										href="?page=${endPage + 1}&type=${param.type}&keyword=${param.keyword}">다음</a></li>
 								</c:if>
-
-					
-
 							</ul>
 						</nav>
 					</c:if>
 				</div>
 			</div>
+
 			<div style="text-align: right;">
 				<button class="btn-write"
 					onclick="location.href='<c:url value='/admin/employee/register' />'">등록</button>
+				<button class="btn-write" 
+					onclick="location.href='<c:url value='/admin/index' />'">홈</button>
 			</div>
 
 		</div>
