@@ -323,7 +323,9 @@ tbody tr:hover {
         <button type="button" id="closePopup" class="btn btn-secondary btn-sm">닫기</button>
       </form>
     </div>
-
+    <div style="text-align: right;">
+	<button class="btn-write" 
+					onclick="location.href='<c:url value='/admin/index' />'">홈</button>
   </div>
 </div>
 
