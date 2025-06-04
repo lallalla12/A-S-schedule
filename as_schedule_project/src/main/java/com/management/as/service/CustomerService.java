@@ -26,6 +26,6 @@ public interface CustomerService {
 
 	public int idCheck(String id);
 	
-	//enddate ¾÷µ¥ÀÌÆ®
+	// enddate ì—…ë°ì´íŠ¸
 	public void updateEndDate(int cnum, LocalDate endDate);
 }
