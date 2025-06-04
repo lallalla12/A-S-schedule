@@ -29,4 +29,7 @@ public interface BoardService {		// 설계 클래쓰 -> BoardServiceImpl 구현
 	// 게시판 글쓰기 버튼 클릭
 	public void register(BoardVO board);
 	
+	// 기사님들 목록 불러오기
+	public void assignEngineer(String eno, String receiptNo);
+	 
 }

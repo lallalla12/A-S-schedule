@@ -1,19 +1,24 @@
 package com.management.as.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.management.as.domain.BoardVO;
 import com.management.as.domain.Criterai;
 import com.management.as.domain.PageDTO;
-import com.management.as.service.BoardService;	// 다른 패키지에 있으므로 import 시켜준다.
+import com.management.as.service.BoardService;	// �떎瑜� �뙣�궎吏��뿉 �엳�쑝誘�濡� import �떆耳쒖��떎.
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -21,29 +26,29 @@ import lombok.extern.log4j.Log4j;
 @Controller
 @Log4j
 @RequestMapping("/admin/board/*")
-@AllArgsConstructor		// lombok 의 언어테이션 = 생성자를 자동으로 만들어줌
+@AllArgsConstructor		// lombok �쓽 �뼵�뼱�뀒�씠�뀡 = �깮�꽦�옄瑜� �옄�룞�쑝濡� 留뚮뱾�뼱以�
 public class BoardController {
 	
 	private BoardService service;
 
-	// 게시판 리스트 목록 보기 화면으로 이동	
+	// 寃뚯떆�뙋 由ъ뒪�듃 紐⑸줉 蹂닿린 �솕硫댁쑝濡� �씠�룞	
 	
 	@GetMapping("/list")
 	public void list(Criterai cri, Model model) {
-		log.info("게시판 리스트 목록 보기 화면으로 이동");
+		log.info("寃뚯떆�뙋 由ъ뒪�듃 紐⑸줉 蹂닿린 �솕硫댁쑝濡� �씠�룞");
 		model.addAttribute("list", service.getListWithPaging(cri));
 		int total = service.getTotalCount(cri);
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
 	}
 	
-	// 목록 리스트에서 제목을 클릭하여 상세내용 화면으로 이동
+	// 紐⑸줉 由ъ뒪�듃�뿉�꽌 �젣紐⑹쓣 �겢由��븯�뿬 �긽�꽭�궡�슜 �솕硫댁쑝濡� �씠�룞
 	
 	@GetMapping("/get")
 	public void get(@RequestParam("bno") int bno, Model model) {
 		model.addAttribute("board", service.get(bno));
 	}
 	
-	// 수정 버튼을 클릭하면 수정 할 수 있는 화면으로 이동
+	// �닔�젙 踰꾪듉�쓣 �겢由��븯硫� �닔�젙 �븷 �닔 �엳�뒗 �솕硫댁쑝濡� �씠�룞
 	
 	@GetMapping("/modify")
 	public void modify(@RequestParam("bno") int bno, Model model) {
@@ -52,33 +57,33 @@ public class BoardController {
 		
 	}
 	
-	// 게시판 번호, 수정된 제목, 수정된 내용으로 update 하기 위한 controller
+	// 寃뚯떆�뙋 踰덊샇, �닔�젙�맂 �젣紐�, �닔�젙�맂 �궡�슜�쑝濡� update �븯湲� �쐞�븳 controller
 	@PostMapping("/modify")
 	public String modifypost(BoardVO board, RedirectAttributes rttr) {
 		
 		service.modify(board);	// update
 		
-		// 상세페이지로 화면 이동
-		//return "/board/get";	다이렉트로 가면 DB 를 거치지 않아서 정보가 나오지 않음
-		//rttr.addFlashAttribute("bno", board.getBno());	// bno 를 숨겨서 보내게 되어 오류가 나옴
+		// �긽�꽭�럹�씠吏�濡� �솕硫� �씠�룞
+		//return "/board/get";	�떎�씠�젆�듃濡� 媛�硫� DB 瑜� 嫄곗튂吏� �븡�븘�꽌 �젙蹂닿� �굹�삤吏� �븡�쓬
+		//rttr.addFlashAttribute("bno", board.getBno());	// bno 瑜� �닲寃⑥꽌 蹂대궡寃� �릺�뼱 �삤瑜섍� �굹�샂
 		rttr.addAttribute("bno", board.getBno());
 		
 		return "redirect:/admin/board/get";
 	}
 	
-	// 삭제 버튼을 클릭
+	// �궘�젣 踰꾪듉�쓣 �겢由�
 	@GetMapping("remove")
 	public String remove(@RequestParam("bno") int bno) {
 		service.remove(bno);	// delete
-		// 삭제를 하고 나면 list.jsp 로 이동해라
+		// �궘�젣瑜� �븯怨� �굹硫� list.jsp 濡� �씠�룞�빐�씪
 		return "redirect:/admin/board/list";
 		
 	}
 	
-	// 글쓰기 화면으로 이동
+	// 湲��벐湲� �솕硫댁쑝濡� �씠�룞
 	@GetMapping("write")
 	public void write(HttpSession session) {
-		session.setAttribute("writer", "관리자");
+		session.setAttribute("writer", "愿�由ъ옄");
 	}		
 	
 	@PostMapping("write")
@@ -89,9 +94,22 @@ public class BoardController {
 		
 		service.register(board);	// insert
 		
-		// 글쓰기 완료 후 리스트로 이동
+		// 湲��벐湲� �셿猷� �썑 由ъ뒪�듃濡� �씠�룞
 		return "redirect:/admin/board/list";
 	}
 	
+	@PostMapping("/assignEngineer")
+	@ResponseBody
+	public ResponseEntity<String> assignEngineer(@RequestBody Map<String, String> data) {
+	    String eno = data.get("eno");
+	    String receiptNo = data.get("receiptNo");
 
+	    log.info("湲곗궗 諛곗젙 �슂泥�: eno=" + eno + ", receiptNo=" + receiptNo);
+
+	    service.assignEngineer(eno, receiptNo); // service �샇異�
+	    return ResponseEntity.ok("success");
+	}
+	
+	
+	
 }

@@ -172,6 +172,7 @@ tbody tr:hover {
           <th>고객명</th>
           <th>방문예정일</th>
           <th>처리상태</th>
+          <th>기사배정</th>
         </tr>
       </thead>
       <tbody>
@@ -186,8 +187,8 @@ tbody tr:hover {
               <c:if test="${list.prostatus eq 'W'}"><span style="font-weight:bold;">대기</span></c:if>
               <c:if test="${list.prostatus eq 'P'}"><span style="font-weight:bold; color:#da6264;">진행</span></c:if>
               <c:if test="${list.prostatus eq 'F'}"><span style="font-weight:bold; color:#330066;">완료</span></c:if>
-			  
             </td>
+            <td><button class="assignBtn" data-receipt="${list.rownum}">기사 배정</button></td>
           </tr>
         </c:forEach>
       </tbody>
@@ -214,7 +215,98 @@ tbody tr:hover {
 	    </c:if>
 	  </ul>
 	</div>
+	
+		<!-- 팝업 -->
+		<div id="popup" style="display:none; position:fixed; top:20%; left:50%; transform:translateX(-50%);
+		     background:#fff; border:1px solid #ccc; padding:20px; z-index:1000; width:400px;">
+		  <h4>기사님 선택</h4>
+		  <form id="engineerForm">
+		    <div id="engineerList">
+		      <!-- JS로 기사 리스트 렌더링 -->
+		    </div>
+		    <br>
+		    <button type="button" id="assignConfirmBtn" class="btn btn-success btn-sm">배정</button>
+		    <button type="button" id="closePopup" class="btn btn-secondary btn-sm">닫기</button>
+		  </form>
+		</div>
+	
   </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+	$(function () {
+	  // 기사 배정 버튼 클릭 시
+	  $(document).on('click', '.assignBtn', function () {
+	    const receiptNo = $(this).data('receipt');
+	    $('#popup').data('receipt', receiptNo); // 접수번호 저장
+	    $('#popup').show();
+
+	    // AJAX로 기사 목록 요청
+	    $.ajax({
+	      url: '/getEngineers',
+	      method: 'GET',
+	      dataType: 'json',
+	      success: function (data) {
+	        const $list = $('#engineerList');
+	        $list.empty();
+
+	        // 라디오 버튼으로 목록 출력
+	        $.each(data, function (i, engineer) {
+	          const item = `
+	            <div class="form-check">
+	              <input class="form-check-input" type="radio" name="selectedEngineer" id="eng${i}" value="${engineer.eno}">
+	              <label class="form-check-label" for="eng${i}">
+	                ${engineer.ename} (${engineer.ephone})
+	              </label>
+	            </div>`;
+	          $list.append(item);
+	        });
+	      },
+	      error: function () {
+	        alert('기사 목록을 불러오는 데 실패했습니다.');
+	      }
+	    });
+	  });
+
+	  // 팝업 닫기
+	  $('#closePopup').on('click', function () {
+	    $('#popup').hide();
+	  });
+
+	  // 기사 배정 확정 버튼
+	  $('#assignConfirmBtn').on('click', function () {
+	    const selectedEngineer = $('input[name="selectedEngineer"]:checked').val();
+	    const receiptNo = $('#popup').data('receipt');
+
+	    if (!selectedEngineer) {
+	      alert('기사님을 선택해주세요.');
+	      return;
+	    }
+
+	    // 실제 배정 처리 요청
+	    $.ajax({
+	      url: '/assignEngineer',
+	      method: 'POST',
+	      contentType: 'application/json',
+	      data: JSON.stringify({
+	        eno: selectedEngineer,
+	        receiptNo: receiptNo
+	      }),
+	      success: function (res) {
+	        alert('기사 배정이 완료되었습니다.');
+	        $('#popup').hide();
+	        location.reload(); // 또는 배정 상태만 갱신
+	      },
+	      error: function () {
+	        alert('배정 처리 중 오류가 발생했습니다.');
+	      }
+	    });
+	  }); 
+	});
+</script>
+
+
+
+
 </body>
 </html>

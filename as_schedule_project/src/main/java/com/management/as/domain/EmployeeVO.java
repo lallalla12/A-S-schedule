@@ -16,4 +16,5 @@ public class EmployeeVO {
 	private Date hiredate;
 	private String position;
 	
+	
 }
