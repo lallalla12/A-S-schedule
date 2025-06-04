@@ -192,10 +192,11 @@ public class CustomerController {
 	public ResponseEntity<?> updateEndDate(@RequestBody Map<String, String> payload) {
 		int cnum = Integer.parseInt(payload.get("cnum"));
 		String endDateStr = payload.get("endDate");
+		String cmt = payload.get("cmt");
 
 		try {
 			LocalDate endDate = LocalDate.parse(endDateStr);
-			service.updateEndDate(cnum, endDate); // DB 처리
+			service.updateEndDate(cnum, endDate, cmt); // DB 처리
 			return ResponseEntity.ok().build();
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("오류 발생");

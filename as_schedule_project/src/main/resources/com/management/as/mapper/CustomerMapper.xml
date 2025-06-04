@@ -285,7 +285,7 @@
 	<!-- enddate -->
 	<update id="updateEndDate">
 	  UPDATE customer
-    SET visitend = #{endDate}, prostatus = 'F'
+    SET visitend = #{endDate}, emp_comment = #{cmt}, prostatus = 'F'
     WHERE cnum = #{cnum}
 	</update>
 

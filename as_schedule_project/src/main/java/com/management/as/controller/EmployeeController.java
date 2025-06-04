@@ -38,8 +38,12 @@ public class EmployeeController {
 	private BoardService boardService;
 
 	@GetMapping("/schedule")
-	public void schedule(Model model) {
-		model.addAttribute("schedule", service.getSchedule());
+	public void schedule(HttpSession session, Model model) {
+		EmployeeVO emp = (EmployeeVO) session.getAttribute("loginEmp");
+		
+		String eno = emp.getEno();
+		
+		model.addAttribute("schedule", service.getSchedule(eno));
 	}
 	
 	@GetMapping("/index")

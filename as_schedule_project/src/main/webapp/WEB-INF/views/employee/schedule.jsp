@@ -46,7 +46,8 @@ document.addEventListener('DOMContentLoaded', function() {
 				extendedProps: {
 					addr: '${sche.address}',
 					addrDetail: '${sche.detail}',
-					cnum: '${sche.cnum}'
+					cnum: '${sche.cnum}',
+					prostatus: '${sche.prostatus}'
 				}
 			}<c:if test="${!status.last}">,</c:if>
 		</c:forEach>
@@ -82,7 +83,17 @@ document.addEventListener('DOMContentLoaded', function() {
 			// Bootstrap 5 모달 띄우기
 			const modal = new bootstrap.Modal(modalElement);
 			modal.show();
+		},
+		
+		eventDidMount: function(info) {
+		    console.log("eventDidMount called", info.event.extendedProps.prostatus);
+
+		    if (info.event.extendedProps.prostatus === 'F') {
+		        // 이벤트 전체 박스 스타일 변경
+		        info.el.style.color = '#757575';  // 배경색
+		    }
 		}
+
 	});
 
 	calendar.render();
@@ -115,7 +126,7 @@ body {
 
 a {
 	text-decoration: none;
-	color: white;
+	color: black;
 }
 
 .fc-day-sun a {
@@ -132,42 +143,65 @@ a {
 }
 
 .fc-daygrid-event-dot {
-	border-color: #5fd1b9 !important;
+	border-color: #5fd1b9;
 }
 
 #calendar {
-	max-width: 1100px;
-	margin: 0 auto;
-	color: white;
 	padding: 15px;
 }
 
 .fc .fc-button {
-	background-color: #29c76f;
+	background-color: #39664d;
 	border: none
 }
 
 .fc .fc-button:hover {
-	background-color: #25b163;
+	background-color: #4f8b69;
 	border: none;
 }
 
-.fc .fc-button:active {
-	background-color: #1f9553;
+.btn-write {
+	margin: 10px;
+	float: right;
+	background-color: #39664d;
 	border: none;
+	color: white;
+	border-radius: 20px;
+	font-weight: 500;
+	width: 100px;
+	height: 36px;
 }
 
-.fc .fc-popover {
-	background: #252525;
+.clearfix::after {
+	content: "";
+	display: table;
+	clear: both;
 }
+
+.board-wrapper {
+      background-color: #fff;
+      border-radius: 12px;
+      padding: 1rem;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+      color: #000;
+      box-sizing: border-box;
+      
+      max-width : 1000px;
+      margin : 0 auto;
+    }
 </style>
 </head>
 <body>
-	<div>
-		<h3 style='color: white; text-align:center;'>일정</h3>
-		<div id='calendar'></div>
+	<div class="container mt-5">
+		<h3 style='color: white; text-align: center;'>일정</h3>
+		<div class='board-wrapper'>
+			<div id='calendar'></div>
+			<div class="clearfix">
+				<button class="btn-write" onclick="location.href='/employee/index'">홈</button>
+			</div>
+		</div>
 	</div>
-	
+
 	<!-- 이벤트 상세 모달 -->
 	<div class="modal fade" id="eventModal" tabindex="-1"
 		aria-labelledby="eventModalLabel" aria-hidden="true">
@@ -200,7 +234,8 @@ a {
 					<div id="map" style="width: 600px; height: 350px;"></div>
 
 					<div class='mt-2'>
-						<input type="date" id="endDate">
+						<input type="date" id="endDate"> <br>
+						<input type="text" id="cmt" placeholder='코멘트를 입력해주세요'>
 						<button class='btn btn-secondary' onclick='submitEndDate()'>종료</button>
 					</div>
 					<a href="#" id='nav' class='btn btn-success mt-2'>길찾기</a>
@@ -324,6 +359,7 @@ a {
 		function submitEndDate() {
 			const customer = document.getElementById("cnum").value;
 			const endDate = document.getElementById("endDate").value;
+			const cmt = document.getElementById("cmt").value;
 	
 		  if (!customer || !endDate) {
 		    alert("고객을 선택하고 날짜를 입력하세요.");
@@ -338,7 +374,8 @@ a {
 		    },
 		    body: JSON.stringify({
 		      cnum: customer,
-		      endDate: endDate
+		      endDate: endDate,
+		      cmt: cmt
 		    })
 		  })
 		  .then(response => {
