@@ -8,7 +8,7 @@ import com.management.as.domain.EmployeeVO;
 import com.management.as.domain.ScheduleVO;
 
 public interface EmployeeMapper {
-	public List<ScheduleVO> getSchedule();
+	public List<ScheduleVO> getSchedule(String eno);
 
 	public List<EmployeeVO> selectAll();
 
