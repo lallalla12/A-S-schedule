@@ -179,21 +179,26 @@ a {
 }
 
 .board-wrapper {
-      background-color: #fff;
-      border-radius: 12px;
-      padding: 1rem;
-      box-shadow: 0 0 20px rgba(0,0,0,0.3);
-      color: #000;
-      box-sizing: border-box;
-      
-      max-width : 1000px;
-      margin : 0 auto;
-    }
+	background-color: #fff;
+	border-radius: 12px;
+	padding: 1rem;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+	color: #000;
+	box-sizing: border-box;
+	max-width: 1000px;
+	margin: 0 auto;
+}
+
+h3 {
+	text-align: center;
+	margin-bottom: 2rem;
+	color: #ffffff;
+}
 </style>
 </head>
 <body>
 	<div class="container mt-5">
-		<h3 style='color: white; text-align: center;'>일정</h3>
+		<h3>일정</h3>
 		<div class='board-wrapper'>
 			<div id='calendar'></div>
 			<div class="clearfix">
@@ -234,8 +239,8 @@ a {
 					<div id="map" style="width: 600px; height: 350px;"></div>
 
 					<div class='mt-2'>
-						<input type="date" id="endDate"> <br>
-						<input type="text" id="cmt" placeholder='코멘트를 입력해주세요'>
+						<input type="date" id="endDate"> <br> <input
+							type="text" id="cmt" placeholder='코멘트를 입력해주세요'>
 						<button class='btn btn-secondary' onclick='submitEndDate()'>종료</button>
 					</div>
 					<a href="#" id='nav' class='btn btn-success mt-2'>길찾기</a>
