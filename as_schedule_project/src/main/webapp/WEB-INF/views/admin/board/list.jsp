@@ -108,6 +108,7 @@
 	    border-radius: 4px;
 	}
 	
+	
 	#search_btn {
 		width:10%;
 	    padding: 15px 20px;

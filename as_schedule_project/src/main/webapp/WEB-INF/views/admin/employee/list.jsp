@@ -132,6 +132,7 @@ tbody tr:hover {
 	text-decoration: none;
 }
 
+
 form.search-form {
 	margin-bottom: 1rem;
 	width: 100%;

@@ -31,6 +31,7 @@ h3 {
 	color: #ffffff;
 }
 
+
 .board-wrapper {
 	background-color: #fff;
 	border-radius: 12px;
