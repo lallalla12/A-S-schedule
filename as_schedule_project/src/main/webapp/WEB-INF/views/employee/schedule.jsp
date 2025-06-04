@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	const modalElement = document.getElementById('eventModal');
 	let selectedAddr = ''; // 전역 주소 변수
 
-	modalElement.addEventListener('shown.bs.modal', function () {
+	modalElement.addEventListener('shown.bs.modal', function () {		
 		map.relayout(); // 모달 열린 직후 지도 다시 그리기
 
 		// 지도 위치 및 목적지 마커 세팅
@@ -39,19 +39,27 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	// customer 데이터
 	const eventsData = [
-		<c:forEach items="${schedule}" var="sche" varStatus="status">
-			{
-				title: '${sche.username}',
-				start: '${sche.visitDateTime}',
-				extendedProps: {
-					addr: '${sche.address}',
-					addrDetail: '${sche.detail}',
-					cnum: '${sche.cnum}',
-					prostatus: '${sche.prostatus}'
-				}
-			}<c:if test="${!status.last}">,</c:if>
-		</c:forEach>
-	];
+      <c:forEach items="${schedule}" var="sche" varStatus="status">
+         {
+            title: '${sche.username}',
+            start: '${sche.visitDateTime}',
+            extendedProps: {
+               addr: '${sche.address}',
+               addrDetail: '${sche.detail}',
+               cnum: '${sche.cnum}',
+               prostatus: '${sche.prostatus}'
+            },
+            <c:choose>
+               <c:when test="${sche.prostatus eq 'F'}">
+                  backgroundColor: '#333333',  // 검정색
+               </c:when>
+               <c:otherwise>
+                  backgroundColor: '#28a745',  // 초록색 (진행 상태)
+               </c:otherwise>
+            </c:choose>
+         }<c:if test="${!status.last}">,</c:if>
+      </c:forEach>
+   ];
 
 	const calendar = new FullCalendar.Calendar(calendarEl, {
 		themeSystem: 'bootstrap5',
@@ -64,6 +72,11 @@ document.addEventListener('DOMContentLoaded', function() {
 		events: eventsData,
 
 		eventClick: function(info) {
+			// FullCalendar 팝오버 닫기
+		    document.querySelectorAll('.fc-popover').forEach(function(el) {
+		        el.style.display = 'none';
+		    })
+			
 			const start = info.event.start;
 			const timeStr = start.toLocaleTimeString('ko-KR', {
 				hour: '2-digit',
@@ -194,6 +207,22 @@ h3 {
 	margin-bottom: 2rem;
 	color: #ffffff;
 }
+
+textarea {
+	resize: none;
+}
+
+textarea, input[type="date"] {
+	border-radius: 4px;
+}
+
+.fc-popover {
+	transition: opacity 0.3s ease-out;
+}
+
+.fc-popover.fade-out {
+	opacity: 0;
+}
 </style>
 </head>
 <body>
@@ -227,9 +256,11 @@ h3 {
 						<p>
 							<strong>시간:</strong> <span id="time"></span>
 						</p>
-						<p>
-							<strong>주소:</strong> <span id="addr"></span>
-						</p>
+						<div>
+							<strong>주소:</strong> <span id="addr"></span> <a href="#" id='nav'
+								class='btn btn-success'>길찾기</a>
+						</div>
+
 						<p>
 							<strong>세부주소:</strong> <span id="addrDetail"></span>
 						</p>
@@ -239,11 +270,13 @@ h3 {
 					<div id="map" style="width: 600px; height: 350px;"></div>
 
 					<div class='mt-2'>
-						<input type="date" id="endDate"> <br> <input
-							type="text" id="cmt" placeholder='코멘트를 입력해주세요'>
-						<button class='btn btn-secondary' onclick='submitEndDate()'>종료</button>
+						<input type="date" id="endDate"> <br>
+						<div class='mt-1'
+							style="display: flex; align-items: flex-end; gap: 5px;">
+							<textarea id="cmt" rows="2" cols="30" placeholder="특이사항"></textarea>
+							<button class='btn btn-secondary' onclick='submitEndDate()'>방문종료</button>
+						</div>
 					</div>
-					<a href="#" id='nav' class='btn btn-success mt-2'>길찾기</a>
 				</div>
 			</div>
 		</div>
