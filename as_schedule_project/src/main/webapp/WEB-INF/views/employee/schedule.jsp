@@ -14,9 +14,16 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
 	rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+	const modalElement = document.getElementById('eventModal');
+
+	  modalElement.addEventListener('shown.bs.modal', function () {
+	    map.relayout(); // 모달 열린 직후 지도 다시 그리기
+	  });
+	
 	var calendarEl = document.getElementById('calendar');
 	//customer 데이터
 	var eventsData=[
@@ -26,7 +33,8 @@ document.addEventListener('DOMContentLoaded', function() {
 				start: '${sche.visitDateTime}',
 				extendedProps: {
 					addr: '${sche.address}',
-					addrDetail: '${sche.detail}'
+					addrDetail: '${sche.detail}',
+					cnum: '${sche.cnum}'
 				}
 			}<c:if test="${!status.last}">,</c:if>
 		</c:forEach>
@@ -54,6 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			document.getElementById("time").innerText = timeStr;
 			document.getElementById("addr").innerText = info.event.extendedProps.addr;
 			document.getElementById("addrDetail").innerText = info.event.extendedProps.addrDetail;
+			document.getElementById("cnum").value = info.event.extendedProps.cnum;
 			
 			// Bootstrap 5 모달 띄우기
 			  const modal = new bootstrap.Modal(document.getElementById('eventModal'));
@@ -75,7 +84,6 @@ document.addEventListener('DOMContentLoaded', function() {
 <style>
 body {
 	background-color: #0d0d0d;
-	color: white;
 }
 
 .fc {
@@ -121,6 +129,8 @@ a {
 #calendar {
 	max-width: 1100px;
 	margin: 0 auto;
+	color: white;
+	padding: 15px;
 }
 
 .fc .fc-button {
@@ -137,16 +147,20 @@ a {
 	background-color: #1f9553;
 	border: none;
 }
+
+.fc .fc-popover {
+	background: #252525;
+}
 </style>
 </head>
 <body>
-		<div id='calendar'></div>
+	<div id='calendar'></div>
 
 	<!-- 이벤트 상세 모달 -->
 	<div class="modal fade" id="eventModal" tabindex="-1"
 		aria-labelledby="eventModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
-			<div class="modal-content" style='color:black; width: 650px;'>
+			<div class="modal-content" style='width: 650px;'>
 				<div class="modal-header">
 					<h5 class="modal-title" id="eventModalLabel">상세내용</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -154,9 +168,10 @@ a {
 				</div>
 				<div class="modal-body">
 					<!-- 정보 -->
-					<div style='text-align:center;'>
+					<div style='text-align: center;'>
+						<input type=hidden id="cnum">
 						<p>
-						<strong>이름:</strong> <span id="cus"></span>
+							<strong>이름:</strong> <span id="cus"></span>
 						</p>
 						<p>
 							<strong>시간:</strong> <span id="time"></span>
@@ -168,10 +183,10 @@ a {
 							<strong>세부주소:</strong> <span id="addrDetail"></span>
 						</p>
 					</div>
-					
+
 					<!-- 지도 -->
 					<div id="map" style="width: 600px; height: 350px;"></div>
-					
+
 					<div class='mt-2'>
 						<input type="date" id="endDate">
 						<button class='btn btn-secondary' onclick='submitEndDate()'>종료</button>
@@ -295,7 +310,7 @@ a {
 	</script>
 	<script>
 		function submitEndDate() {
-			const customer = document.getElementById("cus").innerText;
+			const customer = document.getElementById("cnum").value;
 			const endDate = document.getElementById("endDate").value;
 	
 		  if (!customer || !endDate) {
@@ -310,7 +325,7 @@ a {
 		      'Content-Type': 'application/json'
 		    },
 		    body: JSON.stringify({
-		      username: customer,
+		      cnum: customer,
 		      endDate: endDate
 		    })
 		  })

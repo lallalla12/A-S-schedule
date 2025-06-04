@@ -189,12 +189,12 @@ public class CustomerController {
 	
 	@PostMapping("/updateEndDate")
 	public ResponseEntity<?> updateEndDate(@RequestBody Map<String, String> payload) {
-	    String username = payload.get("username");
+	    int cnum = Integer.parseInt(payload.get("cnum"));
 	    String endDateStr = payload.get("endDate");
 
 	    try {
 	        LocalDate endDate = LocalDate.parse(endDateStr);
-	        service.updateEndDate(username, endDate); // DB 처리
+	        service.updateEndDate(cnum, endDate); // DB 처리
 	        return ResponseEntity.ok().build();
 	    } catch (Exception e) {
 	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("오류 발생");
