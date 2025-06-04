@@ -285,8 +285,8 @@
 	<!-- enddate -->
 	<update id="updateEndDate">
 	  UPDATE customer
-    SET visitend = #{endDate}
-    WHERE uid = (SELECT uid FROM user WHERE username = #{username})
+    SET visitend = #{endDate}, prostatus = 'F'
+    WHERE cnum = #{cnum}
 	</update>
 
 </mapper>
