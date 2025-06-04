@@ -172,6 +172,7 @@ tbody tr:hover {
           <th>고객명</th>
           <th>방문예정일</th>
           <th>처리상태</th>
+          <th>기사배정</th>
         </tr>
       </thead>
       <tbody>
@@ -186,8 +187,8 @@ tbody tr:hover {
               <c:if test="${list.prostatus eq 'W'}"><span style="font-weight:bold;">대기</span></c:if>
               <c:if test="${list.prostatus eq 'P'}"><span style="font-weight:bold; color:#da6264;">진행</span></c:if>
               <c:if test="${list.prostatus eq 'F'}"><span style="font-weight:bold; color:#330066;">완료</span></c:if>
-			  
             </td>
+            <td><button class="assignBtn" data-receipt="${list.rownum}">기사 배정</button></td>
           </tr>
         </c:forEach>
       </tbody>
@@ -214,7 +215,84 @@ tbody tr:hover {
 	    </c:if>
 	  </ul>
 	</div>
+	
+		<!-- 팝업 -->
+		<div id="popup" style="display:none; position:fixed; top:20%; left:50%; transform:translateX(-50%);
+     		background:#fff; border:1px solid #ccc; padding:20px; z-index:1000;">
+		  <h3>기사님 선택</h3>
+		  <select id="engineerList">
+		    <option>불러오는 중...</option>
+		  </select>
+		  <br><br>
+		  <button id="assignConfirmBtn">배정</button>
+		  <button id="closePopup">닫기</button>
+		</div>
+	
   </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(function() {
+	  // 버튼을 클래스 기준으로 바인딩 (동적으로 생성된 요소 포함)
+	  $(document).on('click', '.assignBtn', function() {
+	    const receiptNo = $(this).data('receipt'); // 접수번호 추출 (필요 시 서버에 전달 가능)
+
+	    // 팝업 열기
+	    $('#popup').show();
+
+	    // 기사 리스트 AJAX로 불러오기
+	    $.ajax({
+	      url: '/getEngineers',
+	      method: 'GET',
+	      dataType: 'json',
+	      success: function(data) {
+	        $('#engineerList').empty();
+	        $.each(data, function(i, engineer) {
+	          $('#engineerList').append(
+	            $('<option>', {
+	              value: engineer.eno,
+	              text: engineer.ename + ' (' + engineer.ephone + ')'
+	            })
+	          );
+	        });
+
+	        // 선택된 접수번호를 숨겨서 저장 (필요하면)
+	        $('#popup').data('receipt', receiptNo);
+	      },
+	      error: function() {
+	        alert('기사 리스트를 불러오지 못했습니다.');
+	      }
+	    });
+	  });
+
+	  // 팝업 닫기
+	  $('#closePopup').on('click', function() {
+	    $('#popup').hide();
+	  });
+
+	  // 기사 배정 확인
+	  $('#assignConfirmBtn').on('click', function() {
+	    const selectedId = $('#engineerList').val();
+	    const receiptNo = $('#popup').data('receipt'); // 팝업에 저장된 접수번호
+
+	    alert('기사 ID: ' + selectedId + '\n접수번호: ' + receiptNo);
+
+	    // 👉 실제 기사 배정 처리 AJAX 요청 추가 가능
+	    /*
+	    $.post('/assignEngineer', {
+	      eno: selectedId,
+	      receiptNo: receiptNo
+	    }, function(response) {
+	      alert('배정 완료!');
+	      $('#popup').hide();
+	    });
+	    */
+	    $('#popup').hide();
+	  });
+	});
+</script>
+
+
+
 </body>
 </html>

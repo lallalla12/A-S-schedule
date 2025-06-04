@@ -79,4 +79,15 @@
 	</select>
 
 
+	  <select id="getEngineerList" resultType="com.management.as.domain.EmployeeVO">
+	    SELECT eno, ename, ephone, hiredate, position
+	    FROM employee
+	    WHERE position = '기사' <!-- 또는 조건에 따라 role/position을 필터 -->
+	  </select>
+
+
+
+
+
+
 </mapper>

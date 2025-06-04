@@ -20,6 +20,9 @@ public class EmployeeServiceImpl implements EmployeeService{
 	@Setter(onMethod_ = @Autowired)
 	private EmployeeMapper mapper;
 	
+	@Autowired
+    private EmployeeMapper employeeMapper;
+	
 	@Override
 	public List<ScheduleVO> getSchedule() {
 		// TODO Auto-generated method stub
@@ -68,6 +71,11 @@ public class EmployeeServiceImpl implements EmployeeService{
             return emp;
         }
         return null;
+	}
+	
+	
+	public List<EmployeeVO> getEngineerList() {
+        return employeeMapper.getEngineerList();
 	}
 
 }
