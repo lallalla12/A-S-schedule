@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.management.as.domain.EmployeeVO;
@@ -69,6 +70,13 @@ public class AdminController {
 	    model.addAttribute("type", type);
 
 	    return "admin/employee/list";
+	}
+	
+
+	@GetMapping(value = "/employee/list/json")
+	@ResponseBody
+	public List<EmployeeVO> getEmployeeListJson() {
+	    return service.getEngineerList();  // 직원 전체 리스트를 가져오는 서비스 메서드 필요
 	}
 
 

@@ -82,4 +82,15 @@
 		SELECT COUNT(*) FROM employee
 		WHERE eno = #{id}
 	</select>
+	
+	
+	<select id="getEngineerList" resultType="com.management.as.domain.EmployeeVO">
+	    SELECT 
+	    eno,
+		ename,
+		position,
+		ephone,
+		hiredate
+	    FROM employee
+	</select>
 </mapper>
