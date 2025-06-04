@@ -41,7 +41,7 @@ public class AdminController {
 		String user_id = (String) session.getAttribute("user_id"); 
 		if (!"admin".equals(user_id)) { 
 			redirectAttributes.addFlashAttribute("message", "권한이 없습니다.");
-			return "redirect:/login"; 
+			return "redirect:/login?gubun=admin"; 
 		}
 		return "/admin/index";
 	}

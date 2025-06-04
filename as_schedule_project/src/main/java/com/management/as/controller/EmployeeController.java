@@ -53,12 +53,12 @@ public class EmployeeController {
 		EmployeeVO emp = (EmployeeVO) session.getAttribute("loginEmp");
 		if (emp == null) {
 			redirectAttributes.addFlashAttribute("message", "권한이 없습니다.");
-            return "redirect:/login"; 
+            return "redirect:/login?gubun=employee"; 
         }
 		String user_id = emp.getEno();
 		if (user_id == null) {
 			redirectAttributes.addFlashAttribute("message", "권한이 없습니다.");
-			return "redirect:/login"; 
+			return "redirect:/login?gubun=employee"; 
 		}
 		
 		int count = service.idCheck(user_id);
@@ -67,7 +67,7 @@ public class EmployeeController {
 		} else {
 			redirectAttributes.addFlashAttribute("message", "아이디 또는 비밀번호가 올바르지 않습니다.");
 			session.invalidate();
-			return "redirect:/login";
+			return "redirect:/login?gubun=employee";
 		}
 	}
 
@@ -91,7 +91,7 @@ public class EmployeeController {
 	    }
 
 	    redirectAttributes.addFlashAttribute("error", "아이디 또는 비밀번호가 올바르지 않습니다.");
-	    return "redirect:/login"; 
+	    return "redirect:/login?gubun=employee"; 
 	}
 	
 	// 공지사항

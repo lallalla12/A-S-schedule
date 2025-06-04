@@ -47,7 +47,7 @@ public class CustomerController {
 		String user_id = (String) session.getAttribute("user_id");
 		if (user_id == null) {
 			redirectAttributes.addFlashAttribute("message", "로그인이 필요합니다.");
-			return "redirect:/login";
+			return "redirect:/login?gubun=customer";
 		}
 
 		int count = service.idCheck(user_id);
@@ -56,7 +56,7 @@ public class CustomerController {
 		} else {
 			redirectAttributes.addFlashAttribute("message", "고객정보가 없습니다.");
 			session.invalidate();
-			return "redirect:/login";
+			return "redirect:/login?gubun=customer";
 		}
 	}
 
@@ -78,7 +78,7 @@ public class CustomerController {
 			return "redirect:/customer/index";
 		} else {
 			redirectAttributes.addFlashAttribute("message", "아이디 또는 비밀번호가 일치하지 않습니다.");
-			return "redirect:/login";
+			return "redirect:/login?gubun=customer";
 		}
 	}
 
@@ -88,7 +88,7 @@ public class CustomerController {
 		vo.setPassword(encoder.encode(vo.getPassword()));
 		service.join(vo);
 		redirectAttributes.addFlashAttribute("message", "회원가입이 완료되었습니다.");
-		return "redirect:/login";
+		return "redirect:/login?gubun=customer";
 	}
 
 	@GetMapping(value = "/idCheck")
@@ -105,7 +105,7 @@ public class CustomerController {
 		String user_id = (String) session.getAttribute("user_id");
 		if (user_id == null) {
 			redirectAttributes.addFlashAttribute("message", "로그인이 필요합니다.");
-			return "redirect:/login";
+			return "redirect:/login?gubun=customer";
 		}
 		UserVO userInfo = service.findByUserId(user_id);
 		String phone_formated = userInfo.getPhone().replaceFirst("(\\d{3})(\\d{4})(\\d{4})", "$1-$2-$3");
@@ -133,7 +133,7 @@ public class CustomerController {
 		String user_id = (String) session.getAttribute("user_id");
 		if (user_id == null) {
 			redirectAttributes.addFlashAttribute("message", "로그인이 필요합니다.");
-			return "redirect:/login";
+			return "redirect:/login?gubun=customer";
 		}
 
 		// 페이지 시작

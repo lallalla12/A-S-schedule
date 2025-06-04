@@ -53,7 +53,7 @@ public class HomeController {
 		if(gubun.equals("adm")) {
 			if(!(id.equals("admin") && password.equals("admin1234"))) {
 				redirectAttributes.addFlashAttribute("message", "아이디 및 비밀번호가 일치하지 않습니다.");
-				return "redirect:/login";
+				return "redirect:/login?gubun=admin";
 			} else {
 				session.setAttribute("user_id", "admin");
 				return "redirect:/admin/index";

@@ -155,7 +155,7 @@
 		<div class="board-wrapper">
 			<div class="login-tabs">
 				<button class="tab-btn active" data-target="admin">관리자</button>
-				<button class="tab-btn" data-target="driver">기사</button>
+				<button class="tab-btn" data-target="employee">기사</button>
 				<button class="tab-btn" data-target="customer">고객</button>
 			</div>
 			
@@ -169,7 +169,7 @@
 				</form>
 			</div>
 			
-			<div class="tab-content" id="driver">
+			<div class="tab-content" id="employee">
 				<form name="emp_loginForm" action="/employee/login" method="post" onsubmit="return validateForm(this)">
 					<input type="hidden" name="gubun" value="emp" />
 			    	<!-- 기사 로그인 폼 -->
@@ -194,6 +194,32 @@
 	</div>
 </body>
 <script>
+window.addEventListener("DOMContentLoaded", () => {
+    const params = new URLSearchParams(window.location.search);
+    const role = params.get("gubun"); // admin, employee, customer 중 하나
+    const tabButtons = document.querySelectorAll(".tab-btn");
+
+    // 버튼 class 추가/제거
+    tabButtons.forEach(btn => {
+      btn.classList.remove("active");
+      if (btn.dataset.target === role) {
+        btn.classList.add("active");
+      }
+   });
+    
+    // content class 추가/제거
+    document.querySelectorAll(".tab-content").forEach(tab => {
+        tab.classList.remove("active");
+    });
+    
+    if (role === "admin") {
+        document.getElementById("admin").classList.add("active");
+    } else if (role === "employee") {
+        document.getElementById("employee").classList.add("active");
+    } else if (role === "customer") {
+        document.getElementById("customer").classList.add("active");
+    }
+});
 const tabs = document.querySelectorAll('.tab-btn');
 const contents = document.querySelectorAll('.tab-content');
 

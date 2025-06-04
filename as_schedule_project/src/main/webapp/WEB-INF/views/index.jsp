@@ -120,7 +120,7 @@
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav ms-auto me-3">
       	<c:if test="${empty sessionScope.user_id}">
-        <button class="btn btn-buy" onclick="location.href='/login';">Login</button>
+        <button class="btn btn-buy" onclick="location.href='/login?gubun=customer';">Login</button>
       	</c:if>
       	<c:if test="${not empty sessionScope.user_id}">
         <button class="btn btn-buy" onclick="location.href='/customer/logout';">Logout</button>
