@@ -1,15 +1,20 @@
 package com.management.as.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -94,4 +99,34 @@ public class AdminController {
 		service.insert(employee);
 		return "redirect:/admin/employee/list";
 	}
+	
+	@PostMapping("/service/assignEngineer/{receiptNo}/{selectedEngineer}")
+	@ResponseBody
+	//public ResponseEntity<?> assignEngineer(@RequestBody EmployeeVo employee) {
+	public ResponseEntity<?> assignEngineer(@PathVariable("receiptNo") int receiptNo,
+			@PathVariable("selectedEngineer") String selectedEngineer) {
+	    try {
+	    	System.out.println("하이 = " + receiptNo);
+	    	System.out.println("하이 = " + selectedEngineer);
+	    	
+	    	
+	    	//int receiptNo = (Integer) payload.get("receiptNo");
+	        //int engineerNo = (Integer) payload.get("engineerNo");
+	    	
+	    	
+	        service.assignEngineer(receiptNo, selectedEngineer);
+	    	
+	    	
+	    	
+	        //service.assignEngineer(Integer.parseInt(receiptNo), Integer.parseInt(selectedEngineer));  // 서비스 내에서 DB 업데이트 수행
+	        
+	        
+	        
+	        return ResponseEntity.ok().build();
+	    } catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error");
+	    }
+	}
+
 }
+

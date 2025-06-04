@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.management.as.domain.EmployeeVO;
 import com.management.as.domain.ScheduleVO;
@@ -84,6 +85,14 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public EmployeeVO findById(String id) {
 		// TODO Auto-generated method stub
 		return mapper.findById(id);
+	}
+	
+
+	@Transactional
+	@Override
+	public void assignEngineer(int receiptNo, String engineerNo) {
+	    mapper.assignEngineer(receiptNo, engineerNo , "P");
+	    
 	}
 
 }

@@ -94,4 +94,14 @@
 		hiredate
 	    FROM employee
 	</select>
+	
+    <!-- 기사 배정 처리 -->
+    <update id="assignEngineer">
+        UPDATE customer
+        SET eno = #{engineerNo} , prostatus = #{status}
+        WHERE cnum = #{receiptNo}
+    </update>
+
+
+	
 </mapper>

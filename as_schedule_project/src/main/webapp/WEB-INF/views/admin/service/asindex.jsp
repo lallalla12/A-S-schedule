@@ -39,6 +39,7 @@ h3 {
 	color: #000;
 	box-sizing: border-box;
 	max-width: 1000px;
+
 	margin: 0 auto;
 }
 
@@ -214,6 +215,7 @@ tbody tr:hover {
   border: none;
   color: #333;
   transition: background-color 0.3s ease;
+  float : right;
 }
 
 #closePopup:hover {
@@ -247,13 +249,13 @@ tbody tr:hover {
     <table>
       <thead>
         <tr>
-          <th>접수번호</th>
-          <th>제품명</th>
-          <th>고장증상</th>
-          <th>고객명</th>
-          <th>방문예정일</th>
-          <th>처리상태</th>
-          <th>기사배정</th>
+          <th width="10%">접수번호</th>
+          <th width="15%">제품명</th>
+          <th width="25%">고장증상</th>
+          <th width="10%">고객명</th>
+          <th width="20%">방문예정일</th>
+          <th width="10%">처리상태</th>
+          <th width="10%">기사배정</th>
         </tr>
       </thead>
       <tbody>
@@ -333,46 +335,77 @@ tbody tr:hover {
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 $(document).on('click', '.assignBtn', function () {
-  const receiptNo = $(this).data('receipt');
-  $('#popup').data('receipt', receiptNo).show();
+	  const receiptNo = $(this).data('receipt');
+	  $('#popup').data('receipt', receiptNo).show();
 
-  $.ajax({
-    url: '/admin/employee/list/json',
-    method: 'GET',
-    dataType: 'json',
-    cache: false,
-    success: function (data) {
-      const $tbody = $('#engineerTableBody');
-      $tbody.empty();
+	  $.ajax({
+	    url: '/admin/employee/list/json',
+	    method: 'GET',
+	    dataType: 'json',
+	    cache: false,
+	    success: function (data) {
+	      const $tbody = $('#engineerTableBody');
+	      $tbody.empty();
 
-      if (data.length === 0) {
-        $tbody.append('<tr><td colspan="6" style="text-align:center; color:black;">검색결과가 없습니다.</td></tr>');
-      } else {
-        $.each(data, function (i, emp) {
-          const hireDateFormatted = new Date(emp.hiredate).toISOString().substring(0, 10);
-          var row = 
-        	  '<tr>' +
-        	  '<td><input type="radio" name="selectedEngineer" value="' + emp.eno + '"></td>' +
-        	  '<td>' + emp.eno + '</td>' +
-        	  '<td>' + emp.ename + '</td>' +
-        	  '<td>' + emp.position + '</td>' +
-        	  '<td>' + emp.ephone + '</td>' +
-        	  '<td>' + hireDateFormatted + '</td>' +
-        	  '</tr>';
-          $tbody.append(row);
-          
-        });
-      }
-    },
-    error: function () {
-      alert('기사 목록을 불러오는 데 실패했습니다.');
-    }
-  });
-});
+	      if (data.length === 0) {
+	        $tbody.append('<tr><td colspan="6" style="text-align:center; color:black;">검색결과가 없습니다.</td></tr>');
+	      } else {
+	        $.each(data, function (i, emp) {
+	          const hireDateFormatted = new Date(emp.hiredate).toISOString().substring(0, 10);
+	          const row = '<tr>' +
+	            '<td><input type="radio" name="selectedEngineer" value="' + emp.eno + '"></td>' +
+	            '<td>' + emp.eno + '</td>' +
+	            '<td>' + emp.ename + '</td>' +
+	            '<td>' + emp.position + '</td>' +
+	            '<td>' + emp.ephone + '</td>' +
+	            '<td>' + hireDateFormatted + '</td>' +
+	            '</tr>';
+	          $tbody.append(row);
+	        });
+	      }
+	    },
+	    error: function () {
+	      alert('기사 목록을 불러오는 데 실패했습니다.');
+	    }
+	  });
+	});
 
-$('#closePopup').on('click', function () {
-  $('#popup').hide();
-});
+	// ✅ 이벤트 핸들러는 바깥에 따로 등록!
+	$('#assignConfirmBtn').on('click', function () {
+	  const selectedEngineer = $('input[name="selectedEngineer"]:checked').val();
+	  const receiptNo = $('#popup').data('receipt');
+	
+	  console.log(receiptNo + "룰루" + selectedEngineer)
+	  
+	  if (!selectedEngineer) {
+	    alert('기사님을 선택해주세요.');
+	    return;
+	  }
+
+	  $.ajax({
+	    url: '/admin/service/assignEngineer/'+ receiptNo+"/"+selectedEngineer,
+	    method: 'POST',
+	    contentType: 'application/json',
+/* 	    data: JSON.stringify({
+	      receiptNo: receiptNo,
+	      engineerNo: selectedEngineer
+	    }), */
+	    //data:receiptNo
+	    success: function (response) {
+	      alert('기사님이 성공적으로 배정되었습니다.');
+	      $('#popup').hide();
+	      $('button.assignBtn[data-receipt="' + receiptNo + '"]').closest('tr').find('td:eq(5)').html('<span style="font-weight:bold; color:#da6264;">진행</span>');
+	      $('button.assignBtn[data-receipt="' + receiptNo + '"]').remove();
+	    },
+	    error: function () {
+	      alert('기사 배정 중 오류가 발생했습니다.');
+	    }
+	  });
+	});
+
+	$('#closePopup').on('click', function () {
+	  $('#popup').hide();
+	});
 </script>
 
 </body>

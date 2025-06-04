@@ -2,6 +2,8 @@ package com.management.as.service;
 
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.management.as.domain.ScheduleVO;
 import com.management.as.domain.EmployeeVO;
 
@@ -26,4 +28,8 @@ public interface EmployeeService {
 	public int idCheck(String id);
 
 	public EmployeeVO findById(String id);
+	
+	void assignEngineer(int receiptNo, String engineerNo); 
+
+	
 }
