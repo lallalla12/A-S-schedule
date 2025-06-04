@@ -25,3 +25,5 @@ public interface CustomerService {
 
 	public int idCheck(String id);
 }
+
+

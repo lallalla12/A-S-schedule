@@ -109,4 +109,6 @@ public class BoardController {
 	    service.assignEngineer(eno, receiptNo); // service 호출
 	    return ResponseEntity.ok("success");
 	}
+	
+	
 }
