@@ -77,18 +77,19 @@ document.addEventListener('DOMContentLoaded', function() {
 		        el.style.display = 'none';
 		    })
 			
-			const start = info.event.start;
-			const timeStr = start.toLocaleTimeString('ko-KR', {
+			const startDate = info.event.start;
+			const timeStr = startDate.toLocaleTimeString('ko-KR', {
 				hour: '2-digit',
 				minute: '2-digit',
 				hour12: false
 			});
-
+			
 			document.getElementById("cus").innerText = info.event.title;
 			document.getElementById("time").innerText = timeStr;
 			document.getElementById("addr").innerText = info.event.extendedProps.addr;
 			document.getElementById("addrDetail").innerText = info.event.extendedProps.addrDetail;
 			document.getElementById("cnum").value = info.event.extendedProps.cnum;
+			document.getElementById("startDate").value = startDate;
 
 			// 선택된 주소를 저장 (모달 열린 후 setBounds에서 사용)
 			selectedAddr = info.event.extendedProps.addr;
@@ -99,8 +100,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		},
 		
 		eventDidMount: function(info) {
-		    console.log("eventDidMount called", info.event.extendedProps.prostatus);
-
 		    if (info.event.extendedProps.prostatus === 'F') {
 		        // 이벤트 전체 박스 스타일 변경
 		        info.el.style.color = '#757575';  // 배경색
@@ -250,6 +249,7 @@ textarea, input[type="date"] {
 					<!-- 정보 -->
 					<div style='text-align: center;'>
 						<input type=hidden id="cnum">
+						<input type=hidden id="startDate">
 						<p>
 							<strong>이름:</strong> <span id="cus"></span>
 						</p>
@@ -269,7 +269,7 @@ textarea, input[type="date"] {
 					<!-- 지도 -->
 					<div id="map" style="width: 600px; height: 350px;"></div>
 
-					<div class='mt-2'>
+					<div class='mt-3'>
 						<input type="date" id="endDate"> <br>
 						<div class='mt-1'
 							style="display: flex; align-items: flex-end; gap: 5px;">
@@ -398,11 +398,22 @@ textarea, input[type="date"] {
 			const customer = document.getElementById("cnum").value;
 			const endDate = document.getElementById("endDate").value;
 			const cmt = document.getElementById("cmt").value;
+			const startDate = document.getElementById("startDate").value;
 	
 		  if (!customer || !endDate) {
 		    alert("고객을 선택하고 날짜를 입력하세요.");
 		    return;
 		  }
+		  
+			// 날짜 비교: endDate는 yyyy-mm-dd 형식
+			const visitFinDate = new Date(endDate);
+			const visitDate = new Date(startDate);
+			visitDate.setHours(0, 0, 0, 0);
+
+			if (visitFinDate < visitDate) {
+				alert("종료일은 방문일 이후의 날짜여야 합니다.");
+				return;
+			}
 	
 		  // AJAX 요청
 		  fetch('/customer/updateEndDate', {
@@ -419,12 +430,12 @@ textarea, input[type="date"] {
 		  .then(response => {
 		    if (response.ok) {
 		      alert("종료일이 저장되었습니다.");
+		      location.reload();
 		    } else {
 		      alert("저장 실패");
 		    }
 		  });
 		}
-
 	</script>
 </body>
 </html>
