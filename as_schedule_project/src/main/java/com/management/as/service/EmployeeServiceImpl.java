@@ -80,4 +80,10 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return mapper.idCheck(id);
 	}
 
+	@Override
+	public EmployeeVO findById(String id) {
+		// TODO Auto-generated method stub
+		return mapper.findById(id);
+	}
+
 }

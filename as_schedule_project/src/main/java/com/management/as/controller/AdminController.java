@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -88,6 +89,8 @@ public class AdminController {
 
 	@PostMapping("/employee/register")
 	public String save(@ModelAttribute EmployeeVO employee) {
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		employee.setPassword(encoder.encode(employee.getPassword()));
 		service.insert(employee);
 		return "redirect:/admin/employee/list";
 	}
