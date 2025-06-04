@@ -39,7 +39,7 @@
     }
     
     .pagenum{
-    	margin : 10px;
+    	margin : 5px;
     }
 
     .btn-write{
@@ -53,6 +53,7 @@
       width : 100px;
       height : 36px;
     }
+    
 
     table {
       width: 100%;
@@ -90,7 +91,7 @@
     
     /* css 추가 */
     #input_keyword {
-		width:55%;
+		width:73%;
 	    padding:12px 20px;
 	    margin: 8px 0px 2px 0px;
 	    box-sizing: border-box;
@@ -155,6 +156,15 @@
 	  display: table;
 	  clear: both;
 	}
+	
+	.btn-write:hover {
+  background-color: #39664d; /* 기존 색 그대로 유지 */
+  color: white;              /* 글자색도 유지 */
+  box-shadow: none;
+  filter: none;
+  text-decoration: none;
+}
+	
 	</style>
 <meta charset="UTF-8">
 <title>공지사항</title>
@@ -205,10 +215,6 @@
           	</c:if>
         </tbody>
       </table>
-      <div class="clearfix">
-      	<button class="btn btn-write" onclick="location.href='/admin/index'">홈</button>
-      	<button class="btn btn-write" onclick="location.href='/admin/board/write'">글쓰기</button>
-      </div>
       <div style="text-align:center; margin-top: 20px;">
 			<ul class="pull-right">
 				<c:if test="${pageMaker.prev}">
@@ -238,6 +244,10 @@
 				</c:if>
 			</ul>
 		</div>
+		<div class="clearfix">
+      	<button class="btn btn-write" onclick="location.href='/admin/index'">홈</button>
+      	<button class="btn btn-write" onclick="location.href='/admin/board/write'">글쓰기</button>
+      </div>
 	</div>
 </div>
 </body>

@@ -107,6 +107,7 @@ tbody tr:hover {
 	font-weight: 500;
 	width: 100px;
 	height: 30px;
+	margin-left:10px;
 }
 
 .pagination-wrapper {
@@ -277,6 +278,8 @@ form.search-form input[type="submit"]:hover {
 			<div style="text-align: right;">
 				<button class="btn-write"
 					onclick="location.href='<c:url value='/admin/employee/register' />'">등록</button>
+				<button class="btn-write" 
+					onclick="location.href='<c:url value='/admin/index' />'">홈</button>
 			</div>
 
 		</div>

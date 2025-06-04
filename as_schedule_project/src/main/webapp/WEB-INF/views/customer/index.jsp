@@ -130,7 +130,7 @@
 
   <!-- Navbar -->
   <nav class="navbar">
-    <a class="navbar-brand" href="ai.html">🅰 404</a>
+    <a class="navbar-brand" href="/">🅰 404</a>
     <div class="nav-buttons">
       <button class="btn-buy" onclick="location.href='/customer/logout';">Logout</button>
     </div>
