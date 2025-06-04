@@ -47,12 +47,12 @@ public class EmployeeController {
 		log.info("------------------------/employee/index로 이동-------------------------");
 		EmployeeVO emp = (EmployeeVO) session.getAttribute("loginEmp");
 		if (emp == null) {
-			redirectAttributes.addFlashAttribute("error", "로그인 정보가 없습니다.");
+			redirectAttributes.addFlashAttribute("message", "권한이 없습니다.");
             return "redirect:/login"; 
         }
 		String user_id = emp.getEno();
 		if (user_id == null) {
-			redirectAttributes.addFlashAttribute("message", "로그인이 필요합니다.");
+			redirectAttributes.addFlashAttribute("message", "권한이 없습니다.");
 			return "redirect:/login"; 
 		}
 		
@@ -76,6 +76,7 @@ public class EmployeeController {
 		
 		if (emp != null) {
             session.setAttribute("loginEmp", emp);
+            session.setAttribute("user_id", emp.getEno());
             return "redirect:/employee/index"; 
         } else {
             redirectAttributes.addFlashAttribute("error", "아이디 또는 비밀번호가 올바르지 않습니다.");
