@@ -250,8 +250,7 @@ form.search-form input[type="submit"]:hover {
 			<!-- 페이징 + 등록버튼 -->
 			<div class="pagination-wrapper">
 				<div>
-					<c:if test="${totalPage != null && totalPage > 1}">
-
+					<c:if test="${not empty employeeList && totalPage > 1}">
 						<nav>
 							<ul>
 								<c:if test="${hasPrev}">
@@ -265,19 +264,16 @@ form.search-form input[type="submit"]:hover {
 										class="${i == currentPage ? 'active' : ''}"> ${i} </a></li>
 								</c:forEach>
 
-
 								<c:if test="${hasNext}">
 									<li><a
 										href="?page=${endPage + 1}&type=${param.type}&keyword=${param.keyword}">다음</a></li>
 								</c:if>
-
-					
-
 							</ul>
 						</nav>
 					</c:if>
 				</div>
 			</div>
+
 			<div style="text-align: right;">
 				<button class="btn-write"
 					onclick="location.href='<c:url value='/admin/employee/register' />'">등록</button>
