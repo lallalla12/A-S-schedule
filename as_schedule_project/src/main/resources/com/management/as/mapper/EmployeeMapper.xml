@@ -24,7 +24,7 @@
 		values(#{eno}, #{password}, #{ename}, #{ephone},
 		#{hiredate},
 		#{position})
-	</insert>
+	</insert> 
 
 	<select id="selectByKeyword" parameterType="map"
 		resultType="com.management.as.domain.EmployeeVO">

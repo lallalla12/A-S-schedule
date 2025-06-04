@@ -45,7 +45,7 @@ public class EmployeeController {
 		String eno = emp.getEno();
 		
 		model.addAttribute("schedule", service.getSchedule(eno));
-	}
+	} 
 	
 	@GetMapping("/index")
 	public String index(HttpSession session, RedirectAttributes redirectAttributes){

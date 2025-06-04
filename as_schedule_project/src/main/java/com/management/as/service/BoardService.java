@@ -30,4 +30,4 @@ public interface BoardService {		// 설계 클래쓰 -> BoardServiceImpl 구현
 	public void register(BoardVO board);
 
 	 
-}
+} 

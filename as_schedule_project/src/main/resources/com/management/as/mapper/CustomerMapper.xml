@@ -21,7 +21,7 @@
 		#{phone},
 		#{address},
 		#{detail}
-	) 
+	)  
 	</insert>
 	
 	<select id="findByUserId" resultType="com.management.as.domain.UserVO" parameterType="String">

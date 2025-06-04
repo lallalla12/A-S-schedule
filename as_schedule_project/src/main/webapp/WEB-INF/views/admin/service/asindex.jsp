@@ -401,12 +401,12 @@ $(document).on('click', '.assignBtn', function () {
 	      alert('기사 배정 중 오류가 발생했습니다.');
 	    }
 	  });
-	});
+	}); 
 
 	$('#closePopup').on('click', function () {
 	  $('#popup').hide();
 	});
 </script>
-
+ 
 </body>
 </html>

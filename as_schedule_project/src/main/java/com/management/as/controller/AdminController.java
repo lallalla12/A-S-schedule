@@ -45,7 +45,7 @@ public class AdminController {
 		}
 		return "/admin/index";
 	}
-	
+	 
 	@GetMapping("/employee/list")
 	public String list(
 	        @RequestParam(value = "keyword", required = false) String keyword,

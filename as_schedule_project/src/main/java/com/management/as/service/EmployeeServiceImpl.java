@@ -40,7 +40,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public void insert(EmployeeVO employee) {
 		mapper.insert(employee);
 		
-	}
+	} 
 	
 	@Override
 	public List<EmployeeVO> getAllWithSearch(String keyword, String type) {
