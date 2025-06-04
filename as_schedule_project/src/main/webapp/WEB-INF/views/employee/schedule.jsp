@@ -19,17 +19,29 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
 	const modalElement = document.getElementById('eventModal');
+	let selectedAddr = ''; // 전역 주소 변수
 
-	  modalElement.addEventListener('shown.bs.modal', function () {
-	    map.relayout(); // 모달 열린 직후 지도 다시 그리기
-	  });
-	
-	var calendarEl = document.getElementById('calendar');
-	//customer 데이터
-	var eventsData=[
+	modalElement.addEventListener('shown.bs.modal', function () {
+		map.relayout(); // 모달 열린 직후 지도 다시 그리기
+
+		// 지도 위치 및 목적지 마커 세팅
+		if (selectedAddr) {
+			setBounds(selectedAddr, function([x, y]) {
+				const link = document.getElementById("nav");
+				if (link) {
+					link.href = 'https://map.kakao.com/link/to/' + selectedAddr + ',' + y + ',' + x;
+				}
+			});
+		}
+	});
+
+	const calendarEl = document.getElementById('calendar');
+
+	// customer 데이터
+	const eventsData = [
 		<c:forEach items="${schedule}" var="sche" varStatus="status">
 			{
-				title: '${sche.username }',
+				title: '${sche.username}',
 				start: '${sche.visitDateTime}',
 				extendedProps: {
 					addr: '${sche.address}',
@@ -40,22 +52,22 @@ document.addEventListener('DOMContentLoaded', function() {
 		</c:forEach>
 	];
 
-	var calendar = new FullCalendar.Calendar(calendarEl, {
+	const calendar = new FullCalendar.Calendar(calendarEl, {
 		themeSystem: 'bootstrap5',
-        locale: 'ko',
+		locale: 'ko',
 		nowIndicator: true,
-		editable : true,
-		selectable : true,
-		businessHours : true,
-		dayMaxEvents : true, // allow "more" link when too many events
-		events : eventsData,
+		editable: true,
+		selectable: true,
+		businessHours: true,
+		dayMaxEvents: true,
+		events: eventsData,
 
-		eventClick : function(info) {
+		eventClick: function(info) {
 			const start = info.event.start;
 			const timeStr = start.toLocaleTimeString('ko-KR', {
-				hour : '2-digit',
-				minute : '2-digit',
-				hour12 : false
+				hour: '2-digit',
+				minute: '2-digit',
+				hour12: false
 			});
 
 			document.getElementById("cus").innerText = info.event.title;
@@ -63,27 +75,24 @@ document.addEventListener('DOMContentLoaded', function() {
 			document.getElementById("addr").innerText = info.event.extendedProps.addr;
 			document.getElementById("addrDetail").innerText = info.event.extendedProps.addrDetail;
 			document.getElementById("cnum").value = info.event.extendedProps.cnum;
-			
+
+			// 선택된 주소를 저장 (모달 열린 후 setBounds에서 사용)
+			selectedAddr = info.event.extendedProps.addr;
+
 			// Bootstrap 5 모달 띄우기
-			  const modal = new bootstrap.Modal(document.getElementById('eventModal'));
-			  modal.show();
-			
-			const link = document.getElementById("nav");
-		    if (link) {
-		    	//지도에 표시
-				setBounds(info.event.extendedProps.addr, function([x, y]) {
-					link.href = 'https://map.kakao.com/link/to/'+info.event.extendedProps.addr+','+y+','+x;
-				});
-		    }
+			const modal = new bootstrap.Modal(modalElement);
+			modal.show();
 		}
 	});
 
 	calendar.render();
 });
 </script>
+
 <style>
 body {
 	background-color: #0d0d0d;
+	padding: 2rem;
 }
 
 .fc {
@@ -154,8 +163,11 @@ a {
 </style>
 </head>
 <body>
-	<div id='calendar'></div>
-
+	<div>
+		<h3 style='color: white; text-align:center;'>일정</h3>
+		<div id='calendar'></div>
+	</div>
+	
 	<!-- 이벤트 상세 모달 -->
 	<div class="modal fade" id="eventModal" tabindex="-1"
 		aria-labelledby="eventModalLabel" aria-hidden="true">
