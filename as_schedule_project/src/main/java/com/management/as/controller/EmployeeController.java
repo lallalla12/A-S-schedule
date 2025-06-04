@@ -38,12 +38,8 @@ public class EmployeeController {
 	private BoardService boardService;
 
 	@GetMapping("/schedule")
-	public void schedule(HttpSession session, Model model) {
-		EmployeeVO emp = (EmployeeVO) session.getAttribute("loginEmp");
-		
-		String eno = emp.getEno();
-		
-		model.addAttribute("schedule", service.getSchedule(eno));
+	public void schedule(Model model) {
+		model.addAttribute("schedule", service.getSchedule());
 	}
 	
 	@GetMapping("/index")
@@ -106,12 +102,7 @@ public class EmployeeController {
 		return "/employee/board/view";
 	}
 	
-	@GetMapping("/getEngineers")
-	@ResponseBody
-	public List<EmployeeVO> getEngineers() {
-		
-	    return service.getEngineerList();
-	}
+
 	
 	 
 }
