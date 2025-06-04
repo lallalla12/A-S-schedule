@@ -324,8 +324,5 @@ tbody tr:hover {
 	});
 </script>
 
-
-
-
 </body>
 </html>

@@ -23,6 +23,7 @@ body {
 	padding: 0px;
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
 /* 네비게이션바 */
 .navbar {
 	background-color: #0d0d0d;

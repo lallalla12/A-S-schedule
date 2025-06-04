@@ -131,6 +131,7 @@
       <button class="btn-buy" onclick="location.href='/customer/logout';">Logout</button>
     </div>
   </nav>
+  
 
   <!-- Hero Text -->
   <div class="container">
