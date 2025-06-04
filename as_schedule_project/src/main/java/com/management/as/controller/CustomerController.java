@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -68,8 +69,9 @@ public class CustomerController {
 	public String login(@RequestParam String id, @RequestParam String password, RedirectAttributes redirectAttributes,
 			HttpSession session) {
 		UserVO user = service.findByUserId(id); // 사용자 정보 확인
-
-		if (user != null && user.getPassword().equals(password)) {
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		
+		if (user != null && encoder.matches(password, user.getPassword())) {
 			session.setAttribute("user_id", user.getUser_id());
 			session.setAttribute("uid", user.getUid());
 			redirectAttributes.addFlashAttribute("message", "로그인되었습니다.");
@@ -82,6 +84,8 @@ public class CustomerController {
 
 	@PostMapping("/join")
 	public String join(UserVO vo, HttpSession session, RedirectAttributes redirectAttributes) {
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		vo.setPassword(encoder.encode(vo.getPassword()));
 		service.join(vo);
 		redirectAttributes.addFlashAttribute("message", "회원가입이 완료되었습니다.");
 		return "redirect:/login";
