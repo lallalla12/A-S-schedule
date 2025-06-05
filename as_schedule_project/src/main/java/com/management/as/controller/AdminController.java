@@ -118,7 +118,7 @@ public class AdminController {
 	    	} else {
 	    		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 	    				.contentType(new MediaType("text", "plain", StandardCharsets.UTF_8))
-	    				.body("이미 배정된 시간입니다. 다시 선택해주세요.");
+	    				.body("이 기사님은 스케줄이 겹칩니다.");
 	    	}
 	        //service.assignEngineer(Integer.parseInt(receiptNo), Integer.parseInt(selectedEngineer));  // 서비스 내에서 DB 업데이트 수행
 	        

@@ -313,7 +313,7 @@ tbody tr:hover {
     <div style="text-align:center; margin-top: 5px;">
       <ul class="pull-right">
         <c:if test="${pageMaker.prev}">
-          <li><a href="/admin/service/asindex?pageNum=${pageMaker.startPage - 1}&type=${type}&keyword=${keyword}">Previous</a></li>
+          <li><a href="/admin/service/asindex?pageNum=${currentPage - 1}&type=${type}&keyword=${keyword}">Previous</a></li>
         </c:if>
         <c:forEach var="num" begin="1" end="${totalPages}">
           <li class="numPaging <c:if test='${num == currentPage}'>active-page</c:if>">

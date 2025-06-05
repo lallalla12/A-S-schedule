@@ -170,8 +170,7 @@
 	    <!-- ✅ 전체 리스트 조회 (검색, 페이징 포함) -->
 <select id="alllist" resultType="com.management.as.domain.CustomerVO">
     SELECT
-        <!-- @rownum := @rownum + 1 AS rownum, -->	
-        @rownum := IFNULL(@rownum, 0) + 1 AS rownum,
+        @rownum := @rownum + 1 AS rownum,
         sub.cnum,
         sub.uid,
         sub.model,
@@ -237,7 +236,7 @@
             END
         LIMIT #{pageSize} OFFSET #{offset}
     ) AS sub,
-    (SELECT @rownum := 0) AS r
+    (SELECT @rownum := #{offset}) AS r
 </select>
 
     <!-- ✅ 전체 데이터 수 (페이징용 카운트) -->
