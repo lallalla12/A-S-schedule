@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
@@ -197,17 +196,33 @@ form.search-form input[type="submit"]:hover {
 						</tr>
 					</c:if>
 					<c:forEach var="emp" items="${employeeList}">
-						<tr>
+						<tr class="clickable-row" data-href="<c:url value='/admin/employee/detail?eno=${emp.eno}' />">
 							<td>${emp.eno}</td>
 							<td>${emp.ename}</td>
 							<td>${emp.position}</td>
 							<td>${emp.ephone}</td>
-							<td><fmt:formatDate value="${emp.hiredate}"
-									pattern="yyyy-MM-dd" /></td>
+							<td><fmt:formatDate value="${emp.hiredate}" pattern="yyyy-MM-dd" /></td>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
+			
+			<!-- 해당 <td>클릭시 이벤트 script -->
+			<script>
+			// domcontentload
+			document.addEventListener("DOMContentLoaded", function(){
+				// .clickable-row 클래스를 가진 모든 <tr> 요소를 찾아 rows에 저장
+				const rows = document.querySelectorAll(".clickable-row");
+				// rows 안에 있는 각 <tr> 요소에 대해 하나씩 반복
+				rows.forEach(row => {
+					// 각각의 <tr>에 클릭 이벤트 리스너를 추가
+					row.addEventListener("click", () =>{
+						// data-href 링크로 이동
+						window.location.href = row.dataset.href;
+					})
+				})
+			})
+			</script>
 
 			<!-- 페이징 + 등록버튼 -->
 			<div class="pagination-wrapper">

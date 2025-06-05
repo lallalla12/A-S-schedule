@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.management.as.domain.CustomerVO;
 import com.management.as.domain.EmployeeVO;
 import com.management.as.service.EmployeeService;
 
@@ -128,6 +129,24 @@ public class AdminController {
 	        		.body("기사 배정 중 오류가 발생했습니다.");
 	    }
 	}
+	
+	@GetMapping("/employee/detail")
+	public String getEmployeeDetail(@RequestParam("eno") String eno, Model model) {
+		
+		EmployeeVO emp = service.getEmployeeById(eno);
+		
+		
+		List<CustomerVO> receptionList = service.getCustomerByEmployeeId(eno);
+		
+		model.addAttribute("employee", emp);
+		model.addAttribute("customerList", receptionList);
+		
+		
+		return "admin/employee/detail";
+		
+	}
+	
+	
 
 }
 
