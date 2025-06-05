@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		        document.getElementById('rating').style.display = 'block';
 		        
 		     	// 별점 적용
-				//document.getElementById("comment").innerText = info.event.extendedProps.comment;
+				document.getElementById("comment").innerText = info.event.extendedProps.comment;
 			    const rating = info.event.extendedProps.star;
 			    const stars = document.querySelectorAll('#rating .star-img');
 
@@ -232,17 +232,17 @@ textarea, input[type="date"] {
 }
 
 .star-img {
-	width: 32px;
-	height: 32px;
+	width: 29px;
+	height: 29px;
 }
 
 #comment{
-	font-size: 14pt;
+	font-size: 13pt;
 	border: 1px solid #e4e4e4;
-	width: 510px;
 	height: 125px;
 	word-wrap: break-word;
 	padding: 5px;
+	border-radius: 4px;
 }
 </style>
 <link href="/resources/css/include/include.css" rel="stylesheet" />
@@ -295,18 +295,20 @@ textarea, input[type="date"] {
 					<hr>
 					<div class="mt-3">
 						<!-- 별점 -->
-						<div id="rating" style="display: none;">
-							<h5>후기</h5>
-							<img src="/resources/img/star_off.png" class="star-img" data-value="1" /> 
-							<img src="/resources/img/star_off.png" class="star-img" data-value="2" /> 
-							<img src="/resources/img/star_off.png" class="star-img" data-value="3" /> 
-							<img src="/resources/img/star_off.png" class="star-img" data-value="4" /> 
-							<img src="/resources/img/star_off.png" class="star-img" data-value="5" />
-							<div class='mt-1' id="comment">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
+						<div id="rating" style="display: none; padding:0px 10px;">
+							<p><strong>후기</strong></p>
+							<div>
+								<img src="/resources/img/star_off.png" class="star-img" data-value="1" /> 
+								<img src="/resources/img/star_off.png" class="star-img" data-value="2" /> 
+								<img src="/resources/img/star_off.png" class="star-img" data-value="3" /> 
+								<img src="/resources/img/star_off.png" class="star-img" data-value="4" /> 
+								<img src="/resources/img/star_off.png" class="star-img" data-value="5" />
+							</div>
+							<div class='mt-2' id="comment"></div>
 						</div>
 						
 						<!-- 방문종료일 -->
-						<div id='endDateSection'>
+						<div id='endDateSection' style="padding:0px 3px;">
 							<input type="date" id="endDate"> <br>
 							<div class='mt-1'
 								style="display: flex; align-items: flex-end; gap: 5px;">
@@ -466,12 +468,7 @@ textarea, input[type="date"] {
 		  .then(response => {
 		    if (response.ok) {
 		      alert("종료일이 저장되었습니다.");
-		      // 기존 영역 숨기기
-		      document.getElementById('endDateSection').style.display = 'none';
-
-		      // 별점 영역 보이기
-		      document.getElementById('rating').style.display = 'block';
-		      //location.reload();
+		      location.reload();
 		    } else {
 		      alert("저장 실패");
 		    }
