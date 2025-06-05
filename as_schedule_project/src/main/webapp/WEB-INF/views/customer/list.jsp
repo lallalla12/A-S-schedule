@@ -50,10 +50,19 @@
       width : 100px;
       height : 30px;
     }
+    a {
+    	text-decoration : none;
+    	color:black;
+    }
 </style>
 <link type="text/css" rel="stylesheet" href="/resources/css/customer.css" />
 <link href="/resources/css/include/include.css" rel="stylesheet"/>
 <script src="/resources/js/jquery-3.7.1.min.js"></script>
+<c:if test="${not empty message}">
+    <script>
+        alert("${message}");
+    </script>
+</c:if>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/include/nav.jsp" %>
@@ -90,8 +99,8 @@
 	        	<c:forEach items="${clist}" var="list">
 	        		<tr>
 		        		<td style="font-weight:bold;">${list.rownum }</td>
-		        		<td>${list.proname }</td>
-		        		<td>${list.issue }</td>
+		        		<td><a href="/customer/detail?cnum=${list.cnum}" >${list.proname }</a></td>
+		        		<td><a href="/customer/detail?cnum=${list.cnum}" >${list.issue }</a></td>
 		        		<td><fmt:formatDate pattern="yyyy-MM-dd" value="${list.visitdate}" /></td>
 		        		<td>
 		        			<c:if test="${empty list.visitend}" >

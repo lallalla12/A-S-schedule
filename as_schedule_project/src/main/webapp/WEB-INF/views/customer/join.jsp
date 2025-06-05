@@ -56,6 +56,65 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
+	let isIdAvailable = false;
+	
+	function validateForm(form) {
+		let userId = form.user_id;
+		let password = form.password;
+		let cname = form.username;
+	    let cphone = form.phone;
+	    let address = form.address;
+	    let unit = form.detail;
+	    
+	    let idRegx = /^(?=.*[a-zA-z]).{5,20}$/;
+		if(userId.value === "") {
+			document.getElementById("idCheck").innerHTML = "아이디를 입력해주세요.";
+			userId.focus();
+			return false;
+		}
+		if (!isIdAvailable) {
+		    document.getElementById("idCheck").innerHTML = "아이디 중복 확인을 해주세요.";
+		    userId.focus();
+		    return false;
+		}
+		if(!idRegx.test(userId.value)) {
+	        document.getElementById("idCheck").innerHTML = "아이디는 영문자 조합으로 5~20자리까지 입력해주세요.";
+	        userId.focus();
+	        return false;
+	    }
+		if (password.value.trim() === '') {
+	        alert("비밀번호를 입력해주세요.");
+	        password.focus();
+	        return false;
+	    }
+	    if (cname.value.trim() === '') {
+	        alert("성명을 입력해주세요.");
+	        cname.focus();
+	        return false;
+	    }
+	    let phoneRegx = /^0\d{8,10}$/;
+	    if (cphone.value.trim() === '') {
+	        alert("전화번호를 입력해주세요.");
+	        cphone.focus();
+	        return false;
+	    }
+	    if(!phoneRegx.test(cphone.value)) {
+	    	alert("정확한 전화번호를 입력해주세요.");
+	    	cphone.focus();
+	        return false;
+	    }
+	    if (address.value.trim() === '') {
+	        alert("주소를 입력해주세요.");
+	        address.focus();
+	        return false;
+	    }
+	    if (unit.value.trim() === '') {
+	        alert("상세주소를 입력해주세요.");
+	        unit.focus();
+	        return false;
+	    }
+	}
+	
 	$(document).ready(function() {
 		$("#userId").on("input", function() {
 		    isIdAvailable = false; // 아이디가 바뀌면 다시 중복 확인 필요
@@ -88,71 +147,6 @@
 		    });
 		})
 	})
-	
-	let isIdAvailable = false;
-	
-	function validateForm(form) {
-		let userId = form.user_Id;
-		let password = form.password;
-		let cname = form.username;
-	    let cphone = form.phone;
-	    let address = form.address;
-	    let unit = form.detail;
-	    
-	    let idRegx = /^(?=.*[a-zA-z]).{5,20}$/;
-		if(userId.value === "") {
-			document.getElementById("idCheck").innerHTML = "아이디를 입력해주세요.";
-			userId.focus();
-			return false;
-		}
-		if (!isIdAvailable) {
-		    document.getElementById("idCheck").innerHTML = "아이디 중복 확인을 해주세요.";
-		    userId.focus();
-		    return false;
-		}
-		if(!idRegx.test(userId.value)) {
-            document.getElementById("idCheck").innerHTML = "아이디는 영문자 조합으로 5~20자리까지 입력해주세요.";
-            userId.focus();
-            return false;
-        }
-		if (password.value.trim() === '') {
-	        alert("비밀번호를 입력해주세요.");
-	        password.focus();
-	        return false;
-	    }
-	    let nameRegx = /^[ᄀ-ᄒᆨ-ᇂㄱ-ㅣ가-힣ᅡ-ᅵa-zA-Z0-9 !@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]*$/gi;
-	    if (cname.value.trim() === '') {
-	        alert("성명을 입력해주세요.");
-	        cname.focus();
-	        return false;
-	    }
-	    if(!nameRegx.test(cname.value)) {
-	    	alert("한글만 입력해주세요.");
-	    	cname.focus();
-            return false;
-        }
-	    let phoneRegx = /^0\d{8,10}$/;
-	    if (cphone.value.trim() === '') {
-	        alert("전화번호를 입력해주세요.");
-	        cphone.focus();
-	        return false;
-	    }
-	    if(!phoneRegx.test(cphone.value)) {
-	    	alert("정확한 전화번호를 입력해주세요.");
-	    	cphone.focus();
-            return false;
-        }
-	    if (address.value.trim() === '') {
-	        alert("주소를 입력해주세요.");
-	        address.focus();
-	        return false;
-	    }
-	    if (unit.value.trim() === '') {
-	        alert("상세주소를 입력해주세요.");
-	        unit.focus();
-	        return false;
-	    }
-	}
 </script>
 </head>
 <body>

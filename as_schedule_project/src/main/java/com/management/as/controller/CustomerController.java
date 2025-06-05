@@ -151,6 +151,19 @@ public class CustomerController {
 		model.addAttribute("status_keyword", status_keyword);
 		return "/customer/list";
 	}
+	
+	@GetMapping("/detail")
+	public String detail(@RequestParam("cnum") int cnum, Model model) {
+		model.addAttribute("customer", service.get(cnum));
+		return "/customer/detail";
+	}
+	
+	@PostMapping("/detailUpdate")
+	public String detailUpdate(CustomerVO vo, RedirectAttributes redirectAttributes) {
+		service.detailUpdate(vo);
+		redirectAttributes.addFlashAttribute("message", "수정되었습니다.");
+		return "redirect:/customer/mypage";
+	}
 
 	@GetMapping("/comment/add")
 	public String popup(@RequestParam("cnum") int cnum, Model model) {

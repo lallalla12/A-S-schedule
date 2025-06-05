@@ -417,3 +417,8 @@ a.notcurrent:hover {
   gap: 12px;
   margin-top: 10px;
 }
+
+/* 상세보기 */
+.tr-gap {
+	border-bottom: 20px solid transparent; /* 보이지 않는 간격 */
+}
