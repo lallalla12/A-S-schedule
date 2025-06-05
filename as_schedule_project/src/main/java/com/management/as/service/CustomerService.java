@@ -28,4 +28,6 @@ public interface CustomerService {
 	
 	// enddate 업데이트
 	public void updateEndDate(int cnum, LocalDate endDate, String cmt);
+
+	public void detailUpdate(CustomerVO vo);
 }

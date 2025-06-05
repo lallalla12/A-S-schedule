@@ -121,6 +121,7 @@
 	    proname,
 	    visittime,
 	    comment
+	from customer
 	WHERE cnum = #{cnum}
 	</select>
 	
@@ -155,6 +156,13 @@
 		#{visittime}
 	)
 	</insert>
+	
+	<!-- AS 접수 수정 -->
+	<update id="detailUpdate">
+		UPDATE customer SET
+		visitdate = #{visitdate},  visittime = #{visittime}
+		WHERE cnum = #{cnum}
+	</update>
 	
 	<!-- 후기 등록 -->
 	<update id="update">
