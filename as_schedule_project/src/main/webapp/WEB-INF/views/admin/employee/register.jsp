@@ -97,23 +97,34 @@ input[type="submit"] {
     margin-top: 20px;
 
 }
+input[type="button"] {
+    background-color: #29c76f;
+    color: white;
+    border: none;
+    padding: 12px 36px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    margin: 20px 0px 0px 0px;
+}
 
-	input[type="submit"]:hover {
-	    background-color: #1ea55c;
-	}
+input[type="submit"]:hover {
+    background-color: #1ea55c;
+}
 
-    .btn-write{
-      margin : 10px;
-      background-color: #39664d!important;
-      border: none;
-      color: white;
-      border-radius: 20px;
-      font-weight: 500;
-    }
-    
-	#btn{
-	text-align:right;
-	}
+.btn-write{
+  margin : 10px;
+  background-color: #39664d!important;
+  border: none;
+  color: white;
+  border-radius: 20px;
+  font-weight: 500;
+}
+   
+#btn{
+text-align:right;
+}
 </style>
 </head>
 <body>
@@ -158,6 +169,7 @@ input[type="submit"] {
 		
 		<div id="btn">
         	<input type="submit"  class="btn-write" value="등록">
+        	<input type="button"  class="btn-write" onclick="location.href='/admin/index';" value="홈">
         </div>
     </form>
 </div>
