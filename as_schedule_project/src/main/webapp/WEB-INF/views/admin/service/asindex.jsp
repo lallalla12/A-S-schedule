@@ -273,12 +273,12 @@ tbody tr:hover {
     <table>
       <thead>
         <tr>
-       	  <th width="10%">번호</th>          
-          <th width="10%">제품명</th>
+       	  <th width="8%">번호</th>          
+          <th width="15%">제품명</th>
           <th width="25%">고장증상</th>
           <th width="10%">고객명</th>
           <th width="20%">방문예정일</th>
-          <th width="15%">처리상태</th>
+          <th width="12%">처리상태</th>
           <th width="10%">기사배정</th>
         </tr>
       </thead>
