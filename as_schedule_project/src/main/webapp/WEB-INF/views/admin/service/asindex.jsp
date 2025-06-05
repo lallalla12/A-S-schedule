@@ -47,7 +47,7 @@ h3 {
 	margin: 10px;
 }
 
-.btn-write {
+.btn-write  {
 	background-color: #39664d;
 	border: none;
 	color: white;
@@ -55,6 +55,28 @@ h3 {
 	font-weight: 500;
 	width: 100px;
 	height: 30px;
+	margin-left: 10px;
+}
+
+.assignBtn {
+	background-color: #39664d;
+	border: none;
+	color: white;
+	border-radius: 5px;
+	font-weight: 500;
+	width: 80px;
+	height: 40px;
+	margin-left: 10px;
+}
+
+#finishbtn {
+	background-color: #A9A9A9;
+	border: none;
+	color: white;
+	border-radius: 5px;
+	font-weight: 500;
+	width: 80px;
+	height: 40px;
 	margin-left: 10px;
 }
 
@@ -272,8 +294,14 @@ tbody tr:hover {
               <c:if test="${list.prostatus eq 'F'}"><span style="font-weight:bold; color:#330066;">완료</span></c:if>
             </td>
             <td>
-            	<c:if test="${list.prostatus eq 'W' }">
+            	<c:if test="${list.prostatus eq 'W'}">
             	<button class="assignBtn" data-receipt="${list.cnum}">배정</button>
+            	</c:if>
+            	<c:if test="${list.prostatus eq 'P'}">
+            	<button class="assignBtn" data-receipt="${list.cnum}">진행중</button>
+            	</c:if>
+            	<c:if test="${list.prostatus eq 'F'}">
+            	<button id="finishbtn" data-receipt="${list.cnum}">완료</button>
             	</c:if>
             </td>
           </tr>
@@ -334,6 +362,22 @@ tbody tr:hover {
 <!-- JS -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+
+// #engineerTableBody안의 tr요소에 대해 클릭이벤트
+$(document).on('click', '#engineerTableBody tr', function () {
+	  // tr내부에서 name이 selectedEngineer인 input type이 raido인 걸 찾고 $radio에 저장
+	  var $radio = $(this).find('input[name="selectedEngineer"]');
+	  // 만약 클릭한 행에 라디오 버튼이 있고 라디오가 체크되어있지 않다면
+	  if ($radio.length > 0 && !$radio.is(':checked')) {
+		  // 라디오를 체크로 바꾼다 (prop : checked 프로퍼티를 true로 설정)
+	    $radio.prop('checked', true).trigger('change');
+	  }
+	});
+
+
+
+
+
 $(document).on('click', '.assignBtn', function () {
 	  const receiptNo = $(this).data('receipt');
 	  $('#popup').data('receipt', receiptNo).show();
