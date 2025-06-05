@@ -249,7 +249,7 @@ tbody tr:hover {
     <table>
       <thead>
         <tr>
-          <th width="10%">접수번호</th>
+       	  <th width="10%">번호</th>          
           <th width="15%">제품명</th>
           <th width="25%">고장증상</th>
           <th width="10%">고객명</th>
@@ -261,7 +261,7 @@ tbody tr:hover {
       <tbody>
         <c:forEach items="${clist}" var="list">
           <tr>
-            <td>${list.rownum}</td>
+            <td>${list.rownum}</td>            
             <td>${list.proname}</td>
             <td>${list.issue}</td>
             <td>${list.username}</td>
@@ -273,7 +273,7 @@ tbody tr:hover {
             </td>
             <td>
             	<c:if test="${list.prostatus eq 'W' }">
-            	<button class="assignBtn" data-receipt="${list.rownum}">배정</button>
+            	<button class="assignBtn" data-receipt="${list.cnum}">배정</button>
             	</c:if>
             </td>
           </tr>
@@ -394,8 +394,10 @@ $(document).on('click', '.assignBtn', function () {
 	    success: function (response) {
 	      alert('기사님이 성공적으로 배정되었습니다.');
 	      $('#popup').hide();
-	      $('button.assignBtn[data-receipt="' + receiptNo + '"]').closest('tr').find('td:eq(5)').html('<span style="font-weight:bold; color:#da6264;">진행</span>');
-	      $('button.assignBtn[data-receipt="' + receiptNo + '"]').remove();
+	      location.reload();
+	      
+	      /* $('button.assignBtn[data-receipt="' + receiptNo + '"]').closest('tr').find('td:eq(5)').html('<span style="font-weight:bold; color:#da6264;">진행</span>');
+	      $('button.assignBtn[data-receipt="' + receiptNo + '"]').remove(); */
 	    },
 	    error: function () {
 	      alert('기사 배정 중 오류가 발생했습니다.');
