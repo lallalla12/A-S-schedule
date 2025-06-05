@@ -117,10 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
 body {
 	background-color: #0d0d0d;
 	padding: 2rem;
-}
-
-.fc {
-	font-family: 'Segoe UI', 'Apple SD Gothic Neo', sans-serif;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .fc-toolbar-title {
