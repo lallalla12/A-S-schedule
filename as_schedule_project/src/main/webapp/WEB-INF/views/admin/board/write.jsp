@@ -9,7 +9,6 @@
 <title>공지사항</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 <style>
-	@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css");
 		body {
 	      background-color: #0d0d0d;
 	      color: white;
@@ -90,6 +89,7 @@
 		    border-radius: 4px;
 		}
 	</style>
+	<link href="/resources/css/include/include.css" rel="stylesheet"/>
 	<script>
 	//제출 validation
 	function validateForm(form) {
@@ -109,7 +109,9 @@
 	</script>
 </head>
 <body>
+<%@ include file="/WEB-INF/views/include/nav.jsp" %>
 	<div class="container mt-5">
+	
     	<h3>📋 글쓰기</h3>
     	<div class="board-wrapper">
 			<form action="write" method="post" role="form" onsubmit="return validateForm(this);">

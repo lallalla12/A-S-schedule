@@ -52,9 +52,11 @@
     }
 </style>
 <link type="text/css" rel="stylesheet" href="/resources/css/customer.css" />
+<link href="/resources/css/include/include.css" rel="stylesheet"/>
 <script src="/resources/js/jquery-3.7.1.min.js"></script>
 </head>
 <body>
+<%@ include file="/WEB-INF/views/include/nav.jsp" %>
 	<div class="container mt-5">
 		<h3>AS 현황</h3>
 		<div class="board-wrapper">
