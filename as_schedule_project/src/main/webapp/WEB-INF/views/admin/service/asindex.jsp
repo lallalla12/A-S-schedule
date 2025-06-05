@@ -292,6 +292,7 @@ a {
   overflow: visible !important;
 }
 
+
 .fc .fc-button {
 	background-color: #39664d;
 	border: none
@@ -391,6 +392,8 @@ a {
     <div id="popup" style="display:none; position:fixed; top:20%; left:50%; transform:translateX(-50%);
          background:#fff; border:1px solid #ccc; padding:20px; z-index:1000; width:1200px;">
       <h4>기사님 선택</h4>
+      <div id="calendar"></div>
+      <br>
       <form id="engineerForm">
         <div id="engineerList">
           <table class="table table-hover">
@@ -409,8 +412,7 @@ a {
             </tbody>
           </table>
         </div>
-        
-        <div id="calendar"></div>
+
         <br>
         <button type="button" id="assignConfirmBtn" class="btn btn-success btn-sm">배정</button>
         <button type="button" id="closePopup" class="btn btn-secondary btn-sm">닫기</button>
@@ -442,6 +444,7 @@ $(document).on('click', '#engineerTableBody tr', function () {
 
 
 $(document).on('click', '.assignBtn', function () {
+
 	  const receiptNo = $(this).data('receipt');
 	  const visittime = $(this).data('time');
 	  const visitdate = $(this).data('date');
@@ -477,6 +480,10 @@ $(document).on('click', '.assignBtn', function () {
 	      alert('기사 목록을 불러오는 데 실패했습니다.');
 	    }
 	  });
+		
+	  
+	  
+		
 	  
 	  setTimeout(function () {
 		  const calendarEl = document.getElementById('calendar');
@@ -499,27 +506,11 @@ $(document).on('click', '.assignBtn', function () {
 		}, 100);
 	  
 	  
+
 	  
 });
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 
 	// ✅ 이벤트 핸들러는 바깥에 따로 등록!
 	$('#assignConfirmBtn').on('click', function () {
