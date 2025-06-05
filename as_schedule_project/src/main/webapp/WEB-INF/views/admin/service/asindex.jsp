@@ -293,15 +293,15 @@ tbody tr:hover {
               <c:if test="${list.prostatus eq 'P'}"><span style="font-weight:bold; color:#da6264;">진행</span></c:if>
               <c:if test="${list.prostatus eq 'F'}"><span style="font-weight:bold; color:#330066;">완료</span></c:if>
             </td>
-            <td>
+            <td>	
             	<c:if test="${list.prostatus eq 'W'}">
-            	<button class="assignBtn" data-receipt="${list.cnum}">배정</button>
+            	<button class="assignBtn" data-receipt="${list.cnum}" data-time="${list.visittime}" data-date="<fmt:formatDate value="${list.visitdate}" pattern="yyyy-MM-dd HH:mm:ss" />">배정</button>
             	</c:if>
             	<c:if test="${list.prostatus eq 'P'}">
-            	<button class="assignBtn" data-receipt="${list.cnum}">진행중</button>
+            	<button class="assignBtn" data-receipt="${list.cnum}" data-time="${list.visittime}" data-date="<fmt:formatDate value="${list.visitdate}" pattern="yyyy-MM-dd HH:mm:ss" />">진행중</button>
             	</c:if>
             	<c:if test="${list.prostatus eq 'F'}">
-            	<button id="finishbtn" data-receipt="${list.cnum}">완료</button>
+            	<button id="finishbtn"">완료</button>
             	</c:if>
             </td>
           </tr>
@@ -356,9 +356,9 @@ tbody tr:hover {
     <div style="text-align: right;">
 	<button class="btn-write" 
 					onclick="location.href='<c:url value='/admin/index' />'">홈</button>
-  </div>
+  	</div>
 </div>
-
+</div>
 <!-- JS -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -380,7 +380,9 @@ $(document).on('click', '#engineerTableBody tr', function () {
 
 $(document).on('click', '.assignBtn', function () {
 	  const receiptNo = $(this).data('receipt');
-	  $('#popup').data('receipt', receiptNo).show();
+	  const visittime = $(this).data('time');
+	  const visitdate = $(this).data('date');
+	  $('#popup').data('receipt', receiptNo).data('date', visitdate).data('time', visittime).show();
 
 	  $.ajax({
 	    url: '/admin/employee/list/json',
@@ -418,8 +420,10 @@ $(document).on('click', '.assignBtn', function () {
 	$('#assignConfirmBtn').on('click', function () {
 	  const selectedEngineer = $('input[name="selectedEngineer"]:checked').val();
 	  const receiptNo = $('#popup').data('receipt');
+	  const visitdate = $('#popup').data('date');
+	  const visittime = $('#popup').data('time');
 	
-	  console.log(receiptNo + "룰루" + selectedEngineer)
+	  console.log(visitdate + "룰루" + visittime);
 	  
 	  if (!selectedEngineer) {
 	    alert('기사님을 선택해주세요.');
@@ -427,7 +431,7 @@ $(document).on('click', '.assignBtn', function () {
 	  }
 
 	  $.ajax({
-	    url: '/admin/service/assignEngineer/'+ receiptNo+"/"+selectedEngineer,
+		url: '/admin/service/assignEngineer/'+ receiptNo+"/"+selectedEngineer + "/" + visitdate + "/" + visittime + "/",
 	    method: 'POST',
 	    contentType: 'application/json',
 /* 	    data: JSON.stringify({
@@ -443,8 +447,8 @@ $(document).on('click', '.assignBtn', function () {
 	      /* $('button.assignBtn[data-receipt="' + receiptNo + '"]').closest('tr').find('td:eq(5)').html('<span style="font-weight:bold; color:#da6264;">진행</span>');
 	      $('button.assignBtn[data-receipt="' + receiptNo + '"]').remove(); */
 	    },
-	    error: function () {
-	      alert('기사 배정 중 오류가 발생했습니다.');
+	    error: function(xhr) {
+	        alert(xhr.responseText);
 	    }
 	  });
 	}); 

@@ -27,6 +27,8 @@ public interface EmployeeMapper {
 	public int idCheck(@Param("id") String id);
 	
 	public void assignEngineer(@Param("receiptNo") int receiptNo, @Param("engineerNo") String engineerNo , @Param("status") String status);
+
+	public int assignCountCheck(@Param("selectedEngineer") String selectedEngineer, @Param("visitdate") String visitdate, @Param("visittime") String visittime);
 	
 //    void updateProStatus(@Param("receiptNo") int receiptNo, @Param("status") String status);
 	

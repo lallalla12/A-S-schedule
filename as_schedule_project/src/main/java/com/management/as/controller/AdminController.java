@@ -1,11 +1,13 @@
 package com.management.as.controller;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -100,31 +102,30 @@ public class AdminController {
 		return "redirect:/admin/employee/list";
 	}
 	
-	@PostMapping("/service/assignEngineer/{receiptNo}/{selectedEngineer}")
+	@PostMapping("/service/assignEngineer/{receiptNo}/{selectedEngineer}/{visitdate}/{visittime}")
 	@ResponseBody
 	//public ResponseEntity<?> assignEngineer(@RequestBody EmployeeVo employee) {
 	public ResponseEntity<?> assignEngineer(@PathVariable("receiptNo") int receiptNo,
-			@PathVariable("selectedEngineer") String selectedEngineer) {
+			@PathVariable("selectedEngineer") String selectedEngineer, @PathVariable("visitdate") String visitdate, @PathVariable("visittime") String visittime) {
 	    try {
-	    	System.out.println("하이 = " + receiptNo);
-	    	System.out.println("하이 = " + selectedEngineer);
-	    	
-	    	
 	    	//int receiptNo = (Integer) payload.get("receiptNo");
 	        //int engineerNo = (Integer) payload.get("engineerNo");
 	    	
-	    	
-	        service.assignEngineer(receiptNo, selectedEngineer);
-	    	
-	    	
-	    	
+	    	int count = service.assignCountCheck(selectedEngineer, visitdate, visittime);
+	    	if(count == 0) {
+	    		service.assignEngineer(receiptNo, selectedEngineer);
+	    		return ResponseEntity.ok().build();
+	    	} else {
+	    		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	    				.contentType(new MediaType("text", "plain", StandardCharsets.UTF_8))
+	    				.body("이미 배정된 시간입니다. 다시 선택해주세요.");
+	    	}
 	        //service.assignEngineer(Integer.parseInt(receiptNo), Integer.parseInt(selectedEngineer));  // 서비스 내에서 DB 업데이트 수행
 	        
-	        
-	        
-	        return ResponseEntity.ok().build();
 	    } catch (Exception e) {
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error");
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	        		.contentType(new MediaType("text", "plain", StandardCharsets.UTF_8))
+	        		.body("기사 배정 중 오류가 발생했습니다.");
 	    }
 	}
 

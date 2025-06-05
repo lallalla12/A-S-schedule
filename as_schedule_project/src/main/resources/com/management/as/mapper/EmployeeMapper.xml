@@ -109,6 +109,11 @@
         WHERE cnum = #{receiptNo}
     </update> -->
 
+	<!-- 기사 가능한 시간대 체크 -->
+	<select id="assignCountCheck" resultType="int">
+	SELECT COUNT(*) FROM customer
+	WHERE eno = #{selectedEngineer} AND visitdate = #{visitdate} AND visittime = #{visittime}
+	</select>
 
 	
 </mapper>
