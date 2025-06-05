@@ -15,8 +15,4 @@ public class EmployeeVO {
 	@DateTimeFormat(pattern = "yyyy-MM-dd") 
 	private Date hiredate;
 	private String position;
-	
-	
-	
-	
 } 

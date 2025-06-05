@@ -8,6 +8,8 @@ import lombok.Data;
 @Data
 public class ScheduleVO {
 	private int cnum;
+	private int star;
+	private String comment;
 	private String username;
 	private String address;
 	private String detail;
