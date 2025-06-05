@@ -5,10 +5,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+<script
+	src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.17/index.global.min.js'></script>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
 	rel="stylesheet" />
+	
 <style type="text/css">
 
 
@@ -243,6 +245,58 @@ tbody tr:hover {
 #closePopup:hover {
   background-color: #bbb;
 }
+	/*  캘린더 css */
+
+.fc-toolbar-title {
+	font-size: 1.5rem;
+	font-weight: bold;
+}
+
+.fc-button {
+	font-size: 0.9rem;
+}
+
+.fc-event {
+	font-size: 0.85rem;
+	padding: 2px 4px;
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+.fc-day-sun a {
+	color: #f86a61 !important;
+}
+
+/* 토요일 텍스트 파란색 */
+.fc-day-sat a {
+	color: #578df9 !important;
+}
+
+.fc .fc-non-business {
+	background: none !important;
+}
+
+#calendar-container {
+	width : 'auto';
+	height: 'auto';
+	overflow: hidden !important;
+	margin-top: 5px; 
+	padding: 15px;
+}
+
+.fc .fc-button {
+	background-color: #39664d;
+	border: none
+}
+
+.fc .fc-button:hover {
+	background-color: #4f8b69;
+	border: none;
+}
+
 
 </style>
 <link href="/resources/css/include/include.css" rel="stylesheet"/>
@@ -330,7 +384,7 @@ tbody tr:hover {
 
     <!-- 기사 배정 팝업 -->
     <div id="popup" style="display:none; position:fixed; top:20%; left:50%; transform:translateX(-50%);
-         background:#fff; border:1px solid #ccc; padding:20px; z-index:1000; width:550px;">
+         background:#fff; border:1px solid #ccc; padding:20px; z-index:1000; width:1200px;">
       <h4>기사님 선택</h4>
       <form id="engineerForm">
         <div id="engineerList">
@@ -350,6 +404,8 @@ tbody tr:hover {
             </tbody>
           </table>
         </div>
+        
+        <div id="calendar"></div>
         <br>
         <button type="button" id="assignConfirmBtn" class="btn btn-success btn-sm">배정</button>
         <button type="button" id="closePopup" class="btn btn-secondary btn-sm">닫기</button>
@@ -416,7 +472,49 @@ $(document).on('click', '.assignBtn', function () {
 	      alert('기사 목록을 불러오는 데 실패했습니다.');
 	    }
 	  });
-	});
+	  
+	  setTimeout(function () {
+		  const calendarEl = document.getElementById('calendar');
+
+		  // 이미 렌더된 캘린더가 있다면 초기화
+		  calendarEl.innerHTML = '';
+
+		  const calendar = new FullCalendar.Calendar(calendarEl, {
+		    themeSystem: 'bootstrap5',
+		    locale: 'ko',
+		    nowIndicator: true,
+		    editable: true,
+		    selectable: true,
+		    businessHours: true,
+		    dayMaxEvents: true,
+		    events: [] // 여기에 실제 데이터 필요
+		  });
+
+		  calendar.render();
+		}, 100);
+	  
+	  
+	  
+});
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	// ✅ 이벤트 핸들러는 바깥에 따로 등록!
 	$('#assignConfirmBtn').on('click', function () {
@@ -424,9 +522,7 @@ $(document).on('click', '.assignBtn', function () {
 	  const receiptNo = $('#popup').data('receipt');
 	  const visitdate = $('#popup').data('date');
 	  const visittime = $('#popup').data('time');
-	
-	  console.log(visitdate + "룰루" + visittime);
-	  
+
 	  if (!selectedEngineer) {
 	    alert('기사님을 선택해주세요.');
 	    return;
