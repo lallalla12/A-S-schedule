@@ -301,7 +301,7 @@ tbody tr:hover {
             	<button class="assignBtn" data-receipt="${list.cnum}" data-time="${list.visittime}" data-date="<fmt:formatDate value="${list.visitdate}" pattern="yyyy-MM-dd HH:mm:ss" />">진행중</button>
             	</c:if>
             	<c:if test="${list.prostatus eq 'F'}">
-            	<button id="finishbtn"">완료</button>
+            	<button id="finishbtn">완료</button>
             	</c:if>
             </td>
           </tr>

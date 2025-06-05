@@ -170,7 +170,8 @@
 	    <!-- ✅ 전체 리스트 조회 (검색, 페이징 포함) -->
 <select id="alllist" resultType="com.management.as.domain.CustomerVO">
     SELECT
-        @rownum := @rownum + 1 AS rownum,
+        <!-- @rownum := @rownum + 1 AS rownum, -->	
+        @rownum := IFNULL(@rownum, 0) + 1 AS rownum,
         sub.cnum,
         sub.uid,
         sub.model,
@@ -213,7 +214,8 @@
             u.detail AS user_detail
         FROM customer c
         JOIN user u ON c.uid = u.uid
-        WHERE 1 = 1
+        WHERE 1 = 1 
+        
             <if test="type != null and keyword != null and type == 'proname'">
                 AND c.proname LIKE CONCAT('%', #{keyword}, '%')
             </if>
