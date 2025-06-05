@@ -258,7 +258,7 @@ textarea, input[type="date"] {
 						</p>
 						<div>
 							<strong>주소:</strong> <span id="addr"></span> <a href="#" id='nav'
-								class='btn btn-success'>길찾기</a>
+								class='btn btn-success' style="margin-left:3px; padding:4px;font-size:13px;">길찾기</a>
 						</div>
 
 						<p>
