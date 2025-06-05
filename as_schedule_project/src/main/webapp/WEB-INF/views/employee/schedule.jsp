@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
 <title>AS 스케줄</title>
 <script
@@ -220,6 +221,7 @@ textarea, input[type="date"] {
 }
 </style>
 <link href="/resources/css/include/include.css" rel="stylesheet"/>
+
 </head>
 <body>
 <%@ include file="/WEB-INF/views/include/nav.jsp" %>
