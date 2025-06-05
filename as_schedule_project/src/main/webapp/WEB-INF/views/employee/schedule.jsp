@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>AS 스케줄</title>
 <script
 	src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.17/index.global.min.js'></script>
 <script
@@ -244,8 +244,8 @@ textarea, input[type="date"] {
 				<div class="modal-body">
 					<!-- 정보 -->
 					<div style='text-align: center;'>
-						<input type=hidden id="cnum">
-						<input type=hidden id="startDate">
+						<input type=hidden id="cnum"> <input type=hidden
+							id="startDate">
 						<p>
 							<strong>이름:</strong> <span id="cus"></span>
 						</p>
@@ -260,18 +260,18 @@ textarea, input[type="date"] {
 						<p>
 							<strong>세부주소:</strong> <span id="addrDetail"></span>
 						</p>
-					</div>
 
-					<!-- 지도 -->
-					<div id="map" style="width: 600px; height: 350px;"></div>
-						
-					<hr>	
-					
+
+						<!-- 지도 -->
+						<div id="map" style="height: 350px;"></div>
+					</div>
+					<hr>
+
 					<div class='mt-3'>
 						<input type="date" id="endDate"> <br>
 						<div class='mt-1'
 							style="display: flex; align-items: flex-end; gap: 5px;">
-							<textarea id="cmt" rows="5" cols="65" placeholder="특이사항"></textarea>
+							<textarea id="cmt" rows="5" cols="67" placeholder="특이사항"></textarea>
 							<button class='btn btn-secondary' onclick='submitEndDate()'>방문종료</button>
 						</div>
 					</div>
@@ -359,7 +359,6 @@ textarea, input[type="date"] {
 			    path: linePath, // 선을 구성하는 좌표배열 입니다
 			    strokeWeight: 5, // 선의 두께 입니다
 			    strokeColor: '#29c76f', // 선의 색깔입니다
-			    //strokeOpacity: 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
 			    strokeStyle: 'solid' // 선의 스타일입니다
 			});
 
