@@ -29,7 +29,8 @@ public interface EmployeeService {
 
 	public EmployeeVO findById(String id);
 	
-	public void assignEngineer(int receiptNo, String engineerNo); 
+	public void assignEngineer(int receiptNo, String engineerNo);
 
+	public int assignCountCheck(String selectedEngineer, String visitdate, String visittime); 
 	 
 }

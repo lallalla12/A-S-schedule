@@ -95,4 +95,9 @@ public class EmployeeServiceImpl implements EmployeeService{
 //	    mapper.updateProStatus(receiptNo, "P");
 	}
 
+	@Override
+	public int assignCountCheck(String selectedEngineer, String visitdate, String visittime) {
+		return mapper.assignCountCheck(selectedEngineer, visitdate, visittime);
+	}
+
 }
