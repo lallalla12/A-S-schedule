@@ -292,7 +292,6 @@ a {
   overflow: visible !important;
 }
 
-
 .fc .fc-button {
 	background-color: #39664d;
 	border: none
