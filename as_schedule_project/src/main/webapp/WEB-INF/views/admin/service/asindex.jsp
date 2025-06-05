@@ -287,6 +287,12 @@ a {
 	padding: 15px;
 }
 
+/* 필요 시 스크롤 비활성화 */
+.fc-scroller {
+  overflow: visible !important;
+}
+
+
 .fc .fc-button {
 	background-color: #39664d;
 	border: none

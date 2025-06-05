@@ -10,8 +10,6 @@
 <title>AS 스케줄</title>
 <script
 	src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.17/index.global.min.js'></script>
-<script
-	src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.17/index.global.min.js'></script>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
 	rel="stylesheet" />
@@ -48,7 +46,9 @@ document.addEventListener('DOMContentLoaded', function() {
                addr: '${sche.address}',
                addrDetail: '${sche.detail}',
                cnum: '${sche.cnum}',
-               prostatus: '${sche.prostatus}'
+               prostatus: '${sche.prostatus}',
+               star: '${sche.star}',
+               comment: '${sche.comment}'
             },
             <c:choose>
                <c:when test="${sche.prostatus eq 'F'}">
@@ -91,9 +91,30 @@ document.addEventListener('DOMContentLoaded', function() {
 			document.getElementById("addrDetail").innerText = info.event.extendedProps.addrDetail;
 			document.getElementById("cnum").value = info.event.extendedProps.cnum;
 			document.getElementById("startDate").value = startDate;
-
+			
 			// 선택된 주소를 저장 (모달 열린 후 setBounds에서 사용)
 			selectedAddr = info.event.extendedProps.addr;
+			
+			if (info.event.extendedProps.prostatus === 'F') {
+		        document.getElementById('endDateSection').style.display = 'none';
+		        document.getElementById('rating').style.display = 'block';
+		        
+		     	// 별점 적용
+				//document.getElementById("comment").innerText = info.event.extendedProps.comment;
+			    const rating = info.event.extendedProps.star;
+			    const stars = document.querySelectorAll('#rating .star-img');
+
+			    stars.forEach((img, index) => {
+			        if (index < rating) {
+			            img.src = '/resources/img/star_on.png';
+			        } else {
+			            img.src = '/resources/img/star_off.png';
+			        }
+			    });
+		    } else {
+		        document.getElementById('endDateSection').style.display = 'block';
+		        document.getElementById('rating').style.display = 'none';
+		    }
 
 			// Bootstrap 5 모달 띄우기
 			const modal = new bootstrap.Modal(modalElement);
@@ -158,7 +179,8 @@ a {
 
 .fc .fc-button {
 	background-color: #39664d;
-	border: none
+	border: none;
+	cursor: pointer;
 }
 
 .fc .fc-button:hover {
@@ -209,19 +231,24 @@ textarea, input[type="date"] {
 	border-radius: 4px;
 }
 
-.fc-popover {
-	transition: opacity 0.3s ease-out;
+.star-img {
+	width: 32px;
+	height: 32px;
 }
 
-.fc-popover.fade-out {
-	opacity: 0;
+#comment{
+	font-size: 14pt;
+	border: 1px solid #e4e4e4;
+	width: 510px;
+	height: 125px;
+	word-wrap: break-word;
+	padding: 5px;
 }
 </style>
-<link href="/resources/css/include/include.css" rel="stylesheet"/>
-
+<link href="/resources/css/include/include.css" rel="stylesheet" />
 </head>
 <body>
-<%@ include file="/WEB-INF/views/include/nav.jsp" %>
+	<%@ include file="/WEB-INF/views/include/nav.jsp"%>
 	<div class="container mt-5">
 		<h3>일정</h3>
 		<div class='board-wrapper'>
@@ -233,14 +260,12 @@ textarea, input[type="date"] {
 	</div>
 
 	<!-- 이벤트 상세 모달 -->
-	<div class="modal fade" id="eventModal" tabindex="-1"
-		aria-labelledby="eventModalLabel" aria-hidden="true">
+	<div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content" style='width: 650px;'>
 				<div class="modal-header">
 					<h5 class="modal-title" id="eventModalLabel">상세내용</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"
-						aria-label="닫기"></button>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="닫기"></button>
 				</div>
 				<div class="modal-body">
 					<!-- 정보 -->
@@ -255,7 +280,8 @@ textarea, input[type="date"] {
 						</p>
 						<div>
 							<strong>주소:</strong> <span id="addr"></span> <a href="#" id='nav'
-								class='btn btn-success' style="margin-left:3px; padding:4px;font-size:13px;">길찾기</a>
+								class='btn btn-success'
+								style="margin-left: 3px; padding: 4px; font-size: 13px;">길찾기</a>
 						</div>
 
 						<p>
@@ -267,20 +293,32 @@ textarea, input[type="date"] {
 						<div id="map" style="height: 350px;"></div>
 					</div>
 					<hr>
-
-					<div class='mt-3'>
-						<input type="date" id="endDate"> <br>
-						<div class='mt-1'
-							style="display: flex; align-items: flex-end; gap: 5px;">
-							<textarea id="cmt" rows="5" cols="67" placeholder="특이사항"></textarea>
-							<button class='btn btn-secondary' onclick='submitEndDate()'>방문종료</button>
+					<div class="mt-3">
+						<!-- 별점 -->
+						<div id="rating" style="display: none;">
+							<h5>후기</h5>
+							<img src="/resources/img/star_off.png" class="star-img" data-value="1" /> 
+							<img src="/resources/img/star_off.png" class="star-img" data-value="2" /> 
+							<img src="/resources/img/star_off.png" class="star-img" data-value="3" /> 
+							<img src="/resources/img/star_off.png" class="star-img" data-value="4" /> 
+							<img src="/resources/img/star_off.png" class="star-img" data-value="5" />
+							<div class='mt-1' id="comment">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
+						</div>
+						
+						<!-- 방문종료일 -->
+						<div id='endDateSection'>
+							<input type="date" id="endDate"> <br>
+							<div class='mt-1'
+								style="display: flex; align-items: flex-end; gap: 5px;">
+								<textarea id="empComment" rows="5" cols="67" placeholder="특이사항"></textarea>
+								<button class='btn btn-secondary' onclick='submitEndDate()'>방문종료</button>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c0188c27d8674de540884bb9ebc03fc1&libraries=services"></script>
 	<script>
@@ -395,7 +433,7 @@ textarea, input[type="date"] {
 		function submitEndDate() {
 			const customer = document.getElementById("cnum").value;
 			const endDate = document.getElementById("endDate").value;
-			const cmt = document.getElementById("cmt").value;
+			const cmt = document.getElementById("empComment").value;
 			const startDate = document.getElementById("startDate").value;
 	
 		  if (!customer || !endDate) {
@@ -428,7 +466,12 @@ textarea, input[type="date"] {
 		  .then(response => {
 		    if (response.ok) {
 		      alert("종료일이 저장되었습니다.");
-		      location.reload();
+		      // 기존 영역 숨기기
+		      document.getElementById('endDateSection').style.display = 'none';
+
+		      // 별점 영역 보이기
+		      document.getElementById('rating').style.display = 'block';
+		      //location.reload();
 		    } else {
 		      alert("저장 실패");
 		    }
