@@ -111,8 +111,5 @@ public class EmployeeController {
 		model.addAttribute("board", boardService.get(bno));
 		return "/employee/board/view";
 	}
-	
-
-	
-	 
+ 
 }
