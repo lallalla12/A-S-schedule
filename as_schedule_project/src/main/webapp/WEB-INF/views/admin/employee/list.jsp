@@ -169,7 +169,7 @@ form.search-form input[type="submit"]:hover {
 					<option value="ename" ${param.type == 'ename' ? 'selected' : ''}>이름</option>
 					<option value="eno" ${param.type == 'eno' ? 'selected' : ''}>직원번호</option>
 					<option value="position"
-						${param.type == 'position' ? 'selected' : ''}>부서</option>
+						${param.type == 'position' ? 'selected' : ''}>직급</option>
 				</select> <input type="text" name="keyword" placeholder="검색어 입력"
 					value="${param.keyword}" class="form-control me-2"
 					style="flex-grow: 1; min-width: 0;" /> <input type="submit"
@@ -183,7 +183,7 @@ form.search-form input[type="submit"]:hover {
 					<tr>
 						<th>직원번호</th>
 						<th>이름</th>
-						<th>부서</th>
+						<th>직급</th>
 						<th>연락처</th>
 						<th>고용일</th>
 					</tr>

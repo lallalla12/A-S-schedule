@@ -83,6 +83,17 @@
 <div class="container mt-5">
 <h2>기사접수 내역</h2>
     <div class="board-wrapper">
+    
+    <form action="searchCustomer" method="get" class="mb-3 d-flex justify-content-center align-items-center gap-2">
+    <select name="searchField" class="form-select" style="width: 150px;">
+        <option value="proname" <c:if test="${type == 'proname'}">selected</c:if>>제품명</option>
+          <option value="issue" <c:if test="${type == 'issue'}">selected</c:if>>고장증상</option>
+          <option value="username" <c:if test="${type == 'username'}">selected</c:if>>고객명</option>
+    </select>
+    <input type="text" name="keyword" class="form-control" placeholder="검색어를 입력하세요" style="width: 300px;" />
+    <button type="submit" class="btn btn-primary">검색</button>
+	</form>
+    
         
         <table>
             <thead>
