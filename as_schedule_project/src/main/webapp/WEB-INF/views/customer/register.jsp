@@ -10,7 +10,6 @@
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 <style>
-@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css");
 	body {
       background-color: #0d0d0d;
       color: white;
@@ -53,6 +52,7 @@
       height : 30px;
     }
 </style>
+<link href="/resources/css/include/include.css" rel="stylesheet"/>
 <link type="text/css" rel="stylesheet" href="/resources/css/customer.css" />
 <script src="/resources/js/jquery-3.7.1.min.js"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -122,6 +122,7 @@
 </script>
 </head>
 <body>
+<%@ include file="/WEB-INF/views/include/nav.jsp" %>
 	<div class="container mt-5">
 	<h3>AS 접수</h3>
 		<div class="board-wrapper">
