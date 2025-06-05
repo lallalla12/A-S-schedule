@@ -6,7 +6,7 @@
 <mapper namespace="com.management.as.mapper.EmployeeMapper">
 	<select id="getSchedule"
 		resultType="com.management.as.domain.ScheduleVO">
-		select c.cnum, username, address, u.detail, visitdate, visittime, prostatus, star, comment
+		select c.cnum, username, address, u.detail, visitdate, visittime, prostatus
 		from user u join
 		customer c on u.uid=c.uid
 		where c.eno=#{eno}
@@ -114,6 +114,49 @@
 	SELECT COUNT(*) FROM customer
 	WHERE eno = #{selectedEngineer} AND visitdate = #{visitdate} AND visittime = #{visittime}
 	</select>
+	
+	<select id="getEmployeeById" resultType="com.management.as.domain.EmployeeVO" parameterType="String">
+	select * from employee where eno = #{eno}
+	</select>
+	
+	<select id="selectCustomersByEmployeeId" parameterType="String" resultType="com.management.as.domain.CustomerVO">
+	SELECT
+		c.cnum,
+	    c.uid,
+	    c.model,
+	    c.issue,
+	    c.visitdate,
+	    c.visitend,
+	    c.prostatus,
+	    c.star,
+	    c.proname,
+	    c.visittime,
+	    c.comment,
+	    u.user_id,
+	    u.username,
+	    u.phone,
+	    u.detail AS user_detail
+	FROM customer c 
+	JOIN user u ON c.uid = u.uid
+	WHERE c.eno = #{eno}
+	</select>
+	
+	
+	<select id="searchCustomers" resultType="com.management.as.domain.CustomerVO">
+    SELECT * FROM customer
+    <where>
+        <if test="username != null and username != ''">
+            AND username LIKE CONCAT('%', #{username}, '%')
+        </if>
+        <if test="issue != null and issue != ''">
+            AND issue LIKE CONCAT('%', #{issue}, '%')
+        </if>
+        <if test="proname != null and proname != ''">
+            AND proname LIKE CONCAT('%', #{proname}, '%')
+        </if>
+    </where>
+</select>
+	
 
 	
 </mapper>

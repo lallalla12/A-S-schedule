@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.management.as.domain.CustomerVO;
 import com.management.as.domain.EmployeeVO;
 import com.management.as.domain.ScheduleVO;
 
@@ -29,6 +30,11 @@ public interface EmployeeMapper {
 	public void assignEngineer(@Param("receiptNo") int receiptNo, @Param("engineerNo") String engineerNo , @Param("status") String status);
 
 	public int assignCountCheck(@Param("selectedEngineer") String selectedEngineer, @Param("visitdate") String visitdate, @Param("visittime") String visittime);
+
+	public EmployeeVO getEmployeeById(String eno);
+
+	public List<CustomerVO> selectCustomersByEmployeeId(@Param("eno") String eno);
+
 	
 //    void updateProStatus(@Param("receiptNo") int receiptNo, @Param("status") String status);
 	

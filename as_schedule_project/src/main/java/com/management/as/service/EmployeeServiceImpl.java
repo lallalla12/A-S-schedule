@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.management.as.domain.CustomerVO;
 import com.management.as.domain.EmployeeVO;
 import com.management.as.domain.ScheduleVO;
 import com.management.as.mapper.EmployeeMapper;
@@ -98,6 +99,18 @@ public class EmployeeServiceImpl implements EmployeeService{
 	@Override
 	public int assignCountCheck(String selectedEngineer, String visitdate, String visittime) {
 		return mapper.assignCountCheck(selectedEngineer, visitdate, visittime);
+	}
+
+	@Override
+	public EmployeeVO getEmployeeById(String eno) {
+		// TODO Auto-generated method stub
+		return mapper.getEmployeeById(eno);
+	}
+
+	@Override
+	public List<CustomerVO> getCustomerByEmployeeId(String eno) {
+		// TODO Auto-generated method stub
+		return mapper.selectCustomersByEmployeeId(eno);
 	}
 
 }

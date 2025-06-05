@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.management.as.domain.ScheduleVO;
+import com.management.as.domain.CustomerVO;
 import com.management.as.domain.EmployeeVO;
 
 public interface EmployeeService {
@@ -31,6 +32,10 @@ public interface EmployeeService {
 	
 	public void assignEngineer(int receiptNo, String engineerNo);
 
-	public int assignCountCheck(String selectedEngineer, String visitdate, String visittime); 
+	public int assignCountCheck(String selectedEngineer, String visitdate, String visittime);
+
+	public EmployeeVO getEmployeeById(String eno);
+
+	public List<CustomerVO> getCustomerByEmployeeId(String eno); 
 	 
 }
