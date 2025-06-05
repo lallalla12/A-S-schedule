@@ -5,7 +5,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link href="/resources/css/include/include.css" rel="stylesheet"/>
 <style>
+
     * {
       margin: 0;
       padding: 0;
@@ -85,8 +88,9 @@
       height: auto;
       border-radius: 10px;
     }
+    
   </style>
-  <link href="/resources/css/include/include.css" rel="stylesheet"/>
+  
 
 <meta charset="UTF-8">
 <title>사용자 페이지</title>
