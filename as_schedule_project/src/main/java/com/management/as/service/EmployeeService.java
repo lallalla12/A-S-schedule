@@ -29,7 +29,7 @@ public interface EmployeeService {
 
 	public EmployeeVO findById(String id);
 	
-	void assignEngineer(int receiptNo, String engineerNo); 
+	public void assignEngineer(int receiptNo, String engineerNo); 
 
 	 
 }
