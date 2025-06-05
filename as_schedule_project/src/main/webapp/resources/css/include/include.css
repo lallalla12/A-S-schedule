@@ -1,0 +1,32 @@
+@charset "UTF-8";
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css");
+    /* 네비게이션바 */
+    .navbar {
+      background-color: #0d0d0d;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .navbar-brand {
+      font-size: 1.5rem;
+      text-decoration: none;
+      color: white;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 1rem;
+    }
+
+    /* 버튼 스타일 */
+    .btn-buy {
+      background-color: #29c76f;
+      border: none;
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      font-weight: 500;
+      color: white;
+      cursor: pointer;
+    }

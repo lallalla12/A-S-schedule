@@ -8,8 +8,8 @@
 <meta charset="UTF-8">
 <title>로그인</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="/resources/css/include/include.css" rel="stylesheet"/>
 <style>
-@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css");
 	body {
       background-color: #0d0d0d;
       color: white;
@@ -150,6 +150,11 @@
 
 </head>
 <body>
+
+
+<%@ include file="/WEB-INF/views/include/nav.jsp" %>
+
+
 	<div class="container mt-5">
 		<h3>로그인</h3>
 		<div class="board-wrapper">

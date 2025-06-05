@@ -5,8 +5,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="/resources/css/include/include.css" rel="stylesheet"/>
 <style>
-@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css");
+    
     * {
       margin: 0;
       padding: 0;
@@ -19,38 +20,10 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       text-align: center;
       overflow-x: hidden;
+      padding: 2rem;
     }
 
-    /* 네비게이션바 */
-    .navbar {
-      background-color: #0d0d0d;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
 
-    .navbar-brand {
-      font-size: 1.5rem;
-      text-decoration: none;
-      color: white;
-    }
-
-    .nav-buttons {
-      display: flex;
-      gap: 1rem;
-    }
-
-    /* 버튼 스타일 */
-    .btn-buy {
-      background-color: #29c76f;
-      border: none;
-      padding: 0.4rem 1rem;
-      border-radius: 20px;
-      font-weight: 500;
-      color: white;
-      cursor: pointer;
-    }
 
     /* 메인 타이틀 */
     .hero-title {
@@ -127,20 +100,8 @@
 </c:if>
 </head>
 <body>
-<!-- Navbar -->
-  <nav class="navbar">
-    <a class="navbar-brand" href="/">🅰 404</a>
-    <div class="nav-buttons">
-      <ul class="navbar-nav ms-auto me-3">
-      	<c:if test="${empty sessionScope.user_id}">
-        <button class="btn btn-buy" onclick="location.href='/login';">Login</button>
-      	</c:if>
-      	<c:if test="${not empty sessionScope.user_id}">
-        <button class="btn btn-buy" onclick="location.href='/customer/logout';">Logout</button>
-      	</c:if>
-      </ul>
-    </div>
-  </nav>
+
+<%@ include file="/WEB-INF/views/include/nav.jsp" %>
 
   <!-- Hero Text -->
   <div class="container">

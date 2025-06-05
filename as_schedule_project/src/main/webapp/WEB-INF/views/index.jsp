@@ -11,6 +11,7 @@
     </script>
 	</c:if>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="/resources/css/include/include.css" rel="stylesheet"/>
   <style>
     body {
       background-color: #0d0d0d;
@@ -18,24 +19,10 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       text-align: center;
       overflow-x: hidden;
+      padding: 2rem;
     }
 
-    .navbar {
-      background-color: #0d0d0d;
-      padding: 1rem 2rem;
-    }
 
-    .navbar-brand, .nav-link, .btn-buy {
-      color: white !important;
-    }
-
-    .btn-buy {
-      background-color: #29c76f;
-      border: none;
-      padding: 0.4rem 1rem;
-      border-radius: 20px;
-      font-weight: 500;
-    }
 
     .hero-title {
       font-size: 2rem;
@@ -114,20 +101,7 @@
 </head>
 <body>
 
-  <!-- navbar-->
-  <nav class="navbar navbar-expand-lg">
-    <a class="navbar-brand" href="/">🅰 404</a>
-    <div class="collapse navbar-collapse">
-      <ul class="navbar-nav ms-auto me-3">
-      	<c:if test="${empty sessionScope.user_id}">
-        <button class="btn btn-buy" onclick="location.href='/login?gubun=customer';">Login</button>
-      	</c:if>
-      	<c:if test="${not empty sessionScope.user_id}">
-        <button class="btn btn-buy" onclick="location.href='/customer/logout';">Logout</button>
-      	</c:if>
-      </ul>
-    </div>
-  </nav>
+<%@ include file="/WEB-INF/views/include/nav.jsp" %>
   
 
   <!-- Hero Text -->

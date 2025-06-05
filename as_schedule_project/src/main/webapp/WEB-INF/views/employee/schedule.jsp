@@ -219,8 +219,10 @@ textarea, input[type="date"] {
 	opacity: 0;
 }
 </style>
+<link href="/resources/css/include/include.css" rel="stylesheet"/>
 </head>
 <body>
+<%@ include file="/WEB-INF/views/include/nav.jsp" %>
 	<div class="container mt-5">
 		<h3>일정</h3>
 		<div class='board-wrapper'>

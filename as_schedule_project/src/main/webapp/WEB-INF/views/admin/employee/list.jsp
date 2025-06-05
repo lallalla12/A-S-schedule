@@ -13,53 +13,15 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
 	rel="stylesheet" />
 <style>
-@import
-	url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css")
-	;
 
 body {
 	background-color: #0d0d0d;
 	color: white;
 	padding: 0px;
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	padding: 2rem;
 }
 
-/* 네비게이션바 */
-.navbar {
-	background-color: #0d0d0d;
-	padding: 1rem 2rem;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	display: flex;
-}
-
-.navbar-brand {
-	font-size: 1.5rem;
-	text-decoration: none;
-	color: white;
-}
-
-.navbar-brand:hover {
-	color: white;
-	text-decoration: none;
-}
-
-.nav-buttons {
-	display: flex;
-	gap: 1rem;
-}
-
-/* 버튼 스타일 */
-.btn-buy {
-	background-color: #29c76f;
-	border: none;
-	padding: 0.4rem 1rem;
-	border-radius: 20px;
-	font-weight: 500;
-	color: white;
-	cursor: pointer;
-}
 
 h3 {
 	text-align: center;
@@ -189,15 +151,12 @@ form.search-form input[type="submit"]:hover {
 	border: 1px solid #39664d;
 }
 </style>
+<link href="/resources/css/include/include.css" rel="stylesheet"/>
 </head>
 <body>
-	<!-- Navbar -->
-	<nav class="navbar">
-		<a class="navbar-brand" href="/">🅰 404</a>
-		<div class="nav-buttons">
-			<button class="btn-buy" onclick="location.href='/customer/logout';">Logout</button>
-		</div>
-	</nav>
+
+<%@ include file="/WEB-INF/views/include/nav.jsp" %>
+
 	<div class="container">
 		<h3>📋직원 목록</h3>
 
