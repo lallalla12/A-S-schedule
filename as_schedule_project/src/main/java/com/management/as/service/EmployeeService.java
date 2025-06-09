@@ -38,6 +38,8 @@ public interface EmployeeService {
 
 	public List<CustomerVO> getCustomerByEmployeeId(String eno);
 
-	public List<ScheduleVO> getASSchedule(); 
+	public List<CustomerVO> searchByEmployeeAndField(String eno, String searchField, String keyword);
+
+
 	 
 }

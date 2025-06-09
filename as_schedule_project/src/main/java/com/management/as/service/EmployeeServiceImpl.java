@@ -1,5 +1,6 @@
 package com.management.as.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,9 +115,10 @@ public class EmployeeServiceImpl implements EmployeeService{
 	}
 
 	@Override
-	public List<ScheduleVO> getASSchedule() {
+	public List<CustomerVO> searchByEmployeeAndField(String eno, String searchField, String keyword) {
 		// TODO Auto-generated method stub
-		return mapper.getASSchedule();
+		return mapper.searchByEmployeeAndField(eno, searchField, keyword);
 	}
+
 
 }

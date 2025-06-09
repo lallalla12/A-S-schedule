@@ -30,4 +30,6 @@ public interface CustomerService {
 	public void updateEndDate(int cnum, LocalDate endDate, String cmt);
 
 	public void detailUpdate(CustomerVO vo);
+
+	public List<CustomerVO> getReviewsByBoardId(String eno);
 }

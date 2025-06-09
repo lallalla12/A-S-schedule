@@ -48,4 +48,6 @@ public interface CustomerMapper {
         @Param("status_keyword") String status_keyword);
 
 	public void detailUpdate(CustomerVO vo);
+
+	public List<CustomerVO> getReviewsByBoardId(String eno);
 }
