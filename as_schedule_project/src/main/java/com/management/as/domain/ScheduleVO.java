@@ -26,4 +26,7 @@ public class ScheduleVO {
 		// 2. ����
 		return datePart + "T" + visittime + ":00"; // ��: "2025-06-12T13:00:00"
 	}
+	
+	private String eno;
+	private String ename;
 }
