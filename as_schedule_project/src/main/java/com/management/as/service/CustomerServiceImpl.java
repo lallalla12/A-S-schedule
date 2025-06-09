@@ -1,6 +1,7 @@
 package com.management.as.service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,4 +73,13 @@ public class CustomerServiceImpl implements CustomerService {
 	public void detailUpdate(CustomerVO vo) {
 		mapper.detailUpdate(vo);
 	}
+
+	@Override
+	public List<CustomerVO> getReviewsByBoardId(String eno) {
+		// TODO Auto-generated method stub
+		return mapper.getReviewsByBoardId(eno);
+	}
+
+
+	
 }

@@ -6,22 +6,13 @@
 <mapper namespace="com.management.as.mapper.EmployeeMapper">
 	<select id="getSchedule"
 		resultType="com.management.as.domain.ScheduleVO">
-		select c.cnum, username, address, u.detail, visitdate, visittime, prostatus
+		select c.cnum, username, address, u.detail, visitdate,
+		visittime, prostatus
 		from user u join
 		customer c on u.uid=c.uid
-		where c.eno=#{eno}
+		where
+		c.eno=#{eno}
 	</select>
-	
-	
-	<select id="getASSchedule"
-		resultType="com.management.as.domain.ScheduleVO">
-		select c.cnum, c.visitdate, c.visittime, c.prostatus, c.eno, e.ename
-		from customer c join
-		employee e on c.eno = e.eno 
-		where c.prostatus in ('P','F')
-	</select>
-	
-
 
 	<select id="selectAll"
 		resultType="com.management.as.domain.EmployeeVO">
@@ -35,7 +26,7 @@
 		values(#{eno}, #{password}, #{ename}, #{ephone},
 		#{hiredate},
 		#{position})
-	</insert> 
+	</insert>
 
 	<select id="selectByKeyword" parameterType="map"
 		resultType="com.management.as.domain.EmployeeVO">
@@ -85,89 +76,126 @@
 			</if>
 		</where>
 	</select>
-	
-	<select id="findById" resultType="com.management.as.domain.EmployeeVO" parameterType="String">
-	select * from employee where eno = #{eno}
+
+	<select id="findById"
+		resultType="com.management.as.domain.EmployeeVO"
+		parameterType="String">
+		select * from employee where eno = #{eno}
 	</select>
 
- 	<select id="idCheck" resultType="int">
+	<select id="idCheck" resultType="int">
 		SELECT COUNT(*) FROM employee
 		WHERE eno = #{id}
 	</select>
-	
-	
-	<select id="getEngineerList" resultType="com.management.as.domain.EmployeeVO">
-	    SELECT 
-	    eno,
+
+
+	<select id="getEngineerList"
+		resultType="com.management.as.domain.EmployeeVO">
+		SELECT
+		eno,
 		ename,
 		position,
 		ephone,
 		hiredate
-	    FROM employee
+		FROM employee
 	</select>
-	
-    <!-- 기사 배정 처리 -->
-    <update id="assignEngineer">
-        UPDATE customer
-        SET eno = #{engineerNo} , prostatus = #{status}
-        WHERE cnum = #{receiptNo}
-    </update>
 
-<!--     처리 상태 변경
-    <update id="updateProStatus">
-        UPDATE customer
-        SET prostatus = #{status}
-        WHERE cnum = #{receiptNo}
-    </update> -->
+	<!-- 기사 배정 처리 -->
+	<update id="assignEngineer">
+		UPDATE customer
+		SET eno = #{engineerNo} , prostatus =
+		#{status}
+		WHERE cnum = #{receiptNo}
+	</update>
+
+	<!-- 처리 상태 변경 <update id="updateProStatus"> UPDATE customer SET prostatus 
+		= #{status} WHERE cnum = #{receiptNo} </update> -->
 
 	<!-- 기사 가능한 시간대 체크 -->
 	<select id="assignCountCheck" resultType="int">
-	SELECT COUNT(*) FROM customer
-	WHERE eno = #{selectedEngineer} AND visitdate = #{visitdate} AND visittime = #{visittime}
+		SELECT COUNT(*) FROM
+		customer
+		WHERE eno = #{selectedEngineer} AND visitdate = #{visitdate}
+		AND visittime
+		= #{visittime}
 	</select>
-	
-	<select id="getEmployeeById" resultType="com.management.as.domain.EmployeeVO" parameterType="String">
-	select * from employee where eno = #{eno}
+
+	<select id="getEmployeeById"
+		resultType="com.management.as.domain.EmployeeVO"
+		parameterType="String">
+		select * from employee where eno = #{eno}
 	</select>
-	
-	<select id="selectCustomersByEmployeeId" parameterType="String" resultType="com.management.as.domain.CustomerVO">
-	SELECT
+
+	<select id="selectCustomersByEmployeeId" parameterType="String"
+		resultType="com.management.as.domain.CustomerVO">
+		SELECT
 		c.cnum,
-	    c.uid,
-	    c.model,
-	    c.issue,
-	    c.visitdate,
-	    c.visitend,
-	    c.prostatus,
-	    c.star,
-	    c.proname,
-	    c.visittime,
-	    c.comment,
-	    u.user_id,
-	    u.username,
-	    u.phone,
-	    u.detail AS user_detail
-	FROM customer c 
-	JOIN user u ON c.uid = u.uid
-	WHERE c.eno = #{eno}
+		c.uid,
+		c.model,
+		c.issue,
+		c.visitdate,
+		c.visitend,
+		c.prostatus,
+		c.star,
+		c.proname,
+		c.visittime,
+		c.comment,
+		u.user_id,
+		u.username,
+		u.phone,
+		u.detail AS user_detail
+		FROM customer c
+		JOIN user u
+		ON c.uid = u.uid
+		WHERE c.eno = #{eno}
 	</select>
-	
-	
-	<select id="searchCustomers" resultType="com.management.as.domain.CustomerVO">
-    SELECT * FROM customer
+
+
+	<select id="searchCustomers"
+		resultType="com.management.as.domain.CustomerVO">
+		SELECT * FROM customer
+		<where>
+			<if test="username != null and username != ''">
+				AND username LIKE CONCAT('%', #{username}, '%')
+			</if>
+			<if test="issue != null and issue != ''">
+				AND issue LIKE CONCAT('%', #{issue}, '%')
+			</if>
+			<if test="proname != null and proname != ''">
+				AND proname LIKE CONCAT('%', #{proname}, '%')
+			</if>
+		</where>
+	</select>
+
+	<!-- 검색 폼 -->
+	<select id="searchByEmployeeAndField"
+        resultType="com.management.as.domain.CustomerVO"
+        parameterType="map">
+    SELECT c.*, u.username
+    FROM customer c
+    JOIN user u ON c.uid = u.uid
     <where>
-        <if test="username != null and username != ''">
-            AND username LIKE CONCAT('%', #{username}, '%')
+        <if test="eno != null and eno != ''">
+            c.eno = #{eno}
         </if>
-        <if test="issue != null and issue != ''">
-            AND issue LIKE CONCAT('%', #{issue}, '%')
-        </if>
-        <if test="proname != null and proname != ''">
-            AND proname LIKE CONCAT('%', #{proname}, '%')
-        </if>
+        <choose>
+            <when test="searchField == 'proname'">
+                AND c.proname LIKE CONCAT('%', #{keyword}, '%')
+            </when>
+            <when test="searchField == 'issue'">
+                AND c.issue LIKE CONCAT('%', #{keyword}, '%')
+            </when>
+            <when test="searchField == 'username'">
+                AND u.username LIKE CONCAT('%', #{keyword}, '%')
+            </when>
+        </choose>
     </where>
 </select>
-	
 
-	
+
+
+
+
+
+
 </mapper>

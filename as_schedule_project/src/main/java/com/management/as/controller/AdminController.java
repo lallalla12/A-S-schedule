@@ -1,8 +1,6 @@
 package com.management.as.controller;
 
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,11 +20,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.management.as.domain.CustomerVO;
 import com.management.as.domain.EmployeeVO;
-import com.management.as.domain.ScheduleVO;
+import com.management.as.service.CustomerService;
 import com.management.as.service.EmployeeService;
 
 import lombok.AllArgsConstructor;
@@ -39,6 +38,7 @@ import lombok.extern.log4j.Log4j;
 public class AdminController {
 	
 	private EmployeeService service;
+	private CustomerService Cservice;
 	
 	@GetMapping("/index")
 	public String index(HttpSession session, RedirectAttributes redirectAttributes) {
@@ -88,47 +88,9 @@ public class AdminController {
 	@GetMapping("/employee/list/json")
 	@ResponseBody
 	public List<EmployeeVO> getEmployeeListJson() {
-	      // 직원 전체 리스트를 가져오는 서비스 메서드 필요
-	    
-		
-
-		 
-		 return service.getEngineerList();
-    
-	}
-	
-	
-	
-	@GetMapping("/calendar/events")
-	@ResponseBody
-	public List<Map<String, Object>> getCalendarEvents() {
-	    List<ScheduleVO> schedules = service.getASSchedule();
-
-	    List<Map<String, Object>> result = new ArrayList<>();
-	    for (ScheduleVO schedule : schedules) {
-	        Map<String, Object> event = new HashMap<>();
-	        event.put("title", schedule.getEname()); // 달력에 표시할 이름
-	        event.put("start", schedule.getVisitDateTime()); // FullCalendar 형식
-	        event.put("allDay", false);
-	        
-	        
-	        String prostatus = String.valueOf(schedule.getProstatus());
-	        
-	        if(prostatus.equals("F")) {
-	        	event.put("backgroundColor", "#333333");
-	        } else {
-	        	event.put("backgroundColor", "#28a745");
-	        }
-	        result.add(event);
-	        
-	        System.out.println(schedule.getUsername() + " => " + schedule.getVisitDateTime());
-	    }
-
-	    return result;
+	    return service.getEngineerList();  // 직원 전체 리스트를 가져오는 서비스 메서드 필요
 	}
 
-
-	
 
 	@GetMapping("/employee/register")
 	public String form(Model model) {
@@ -181,11 +143,35 @@ public class AdminController {
 		
 		model.addAttribute("employee", emp);
 		model.addAttribute("customerList", receptionList);
+		model.addAttribute("eno", eno);  
 		
 		
 		return "admin/employee/detail";
 		
 	}
+	
+	@GetMapping("/employee/searchCustomer")
+	public String searchCustomer(
+		@RequestParam("eno") String eno,  // 세션에서 eno 가져오기  
+	    @RequestParam("searchField") String searchField,
+	    @RequestParam("keyword") String keyword,
+	    Model model) {
+		
+	    List<CustomerVO> results = service.searchByEmployeeAndField(eno, searchField, keyword);
+	    
+	    model.addAttribute("customerList", results);
+	    model.addAttribute("type", searchField);
+	    model.addAttribute("eno", eno);
+	    return "admin/employee/detail";
+	}
+	
+	@GetMapping("/review/list")
+	@ResponseBody
+	public List<CustomerVO> getReviewList(@RequestParam("eno") String eno) {
+	    return Cservice.getReviewsByBoardId(eno); // 서비스에서 boardId 기준으로 후기 조회
+	}
+
+
 	
 	
 

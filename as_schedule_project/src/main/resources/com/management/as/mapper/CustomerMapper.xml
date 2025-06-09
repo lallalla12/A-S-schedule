@@ -303,5 +303,20 @@
     SET visitend = #{endDate}, emp_comment = #{cmt}, prostatus = 'F'
     WHERE cnum = #{cnum}
 	</update>
+	
+	
+<select id="getReviewsByBoardId" parameterType="int" resultType="com.management.as.domain.CustomerVO">
+    SELECT 
+        c.cnum, c.star, c.comment, u.uid
+    FROM 
+        customer c
+    JOIN
+        user u ON c.uid = u.uid
+    WHERE 
+        c.cnum = #{boardId}
+        AND c.comment IS NOT NULL
+</select>
+
+	
 
 </mapper>

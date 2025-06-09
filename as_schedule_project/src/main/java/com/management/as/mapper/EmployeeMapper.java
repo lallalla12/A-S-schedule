@@ -35,7 +35,8 @@ public interface EmployeeMapper {
 
 	public List<CustomerVO> selectCustomersByEmployeeId(@Param("eno") String eno);
 
-	public List<ScheduleVO> getASSchedule();
+	public List<CustomerVO> searchByEmployeeAndField(@Param("eno") String eno, @Param("searchField") String searchField, @Param("keyword") String keyword);
+
 
 	
 //    void updateProStatus(@Param("receiptNo") int receiptNo, @Param("status") String status);
