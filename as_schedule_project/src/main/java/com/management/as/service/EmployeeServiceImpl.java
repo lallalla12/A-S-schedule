@@ -113,4 +113,10 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return mapper.selectCustomersByEmployeeId(eno);
 	}
 
+	@Override
+	public List<ScheduleVO> getASSchedule() {
+		// TODO Auto-generated method stub
+		return mapper.getASSchedule();
+	}
+
 }

@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.management.as.domain.CustomerVO;
+import com.management.as.domain.EmployeeVO;
+import com.management.as.service.EmployeeService;
 import com.management.as.service.YahooService;
 
 import lombok.extern.log4j.Log4j;
@@ -24,6 +26,9 @@ public class YahooController {
 
     @Autowired
     private YahooService yahooService;
+    
+    @Autowired
+	private EmployeeService service;
 
    
 	/*
@@ -52,9 +57,12 @@ public class YahooController {
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("status_keyword", status_keyword);
+        
 
         return "/admin/service/asindex";
     }
+    
+
 }
 
 

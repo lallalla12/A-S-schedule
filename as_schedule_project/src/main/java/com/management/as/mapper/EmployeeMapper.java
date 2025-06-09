@@ -35,6 +35,8 @@ public interface EmployeeMapper {
 
 	public List<CustomerVO> selectCustomersByEmployeeId(@Param("eno") String eno);
 
+	public List<ScheduleVO> getASSchedule();
+
 	
 //    void updateProStatus(@Param("receiptNo") int receiptNo, @Param("status") String status);
 	
