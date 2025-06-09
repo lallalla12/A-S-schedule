@@ -70,6 +70,7 @@ tbody tr:hover {
 	width: 100px;
 	height: 30px;
 	margin-left:10px;
+
 }
 
 .pagination-wrapper {
