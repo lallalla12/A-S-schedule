@@ -89,18 +89,10 @@
   	
   	<insert id="insertSelectKey">
   		<selectKey keyProperty = "bno" order="BEFORE" resultType="int">
-  			select max(bno) +1 bno from board
+  			select ifnull(max(bno),0) +1 AS bno from board
   		</selectKey>
   		insert into board(bno, title, content, writer, type)
   		values(#{bno}, #{title}, #{content}, #{writer}, #{type})
   	</insert>
-  	
-  	<update id="updateEngineerAssignment">
-	    UPDATE service_board
-	    SET engineer_no = #{eno}, prostatus = 'P'
-	    WHERE receipt_no = #{receiptNo}
-	</update>
-  	
-
   	
   </mapper>
