@@ -139,7 +139,7 @@
 			<tr class="no-bg">
 				<td colspan="2">
 					<button class="btn-write" type="button" style="background-color:#da6264;" onclick="return confirmDelete();">삭제</button>
-					<button class="btn-write" type="button" onclick="/admin/board/modify?bno=${board.bno}">수정</button>
+					<button class="btn-write" type="button" onclick="location.href='/admin/board/modify?bno=${board.bno}'">수정</button>
 					<button class="btn-write" type="button" style="background-color:#353535;" onclick="location.href='/admin/board/list';">목록</button>
 				</td>
 			</tr>
