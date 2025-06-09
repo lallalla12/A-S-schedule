@@ -305,7 +305,7 @@
 	</update>
 	
 	
-<select id="getReviewsByBoardId" parameterType="java.lang.String" resultType="com.management.as.domain.CustomerVO">
+<select id="getReviewsByBoardId"  resultType="com.management.as.domain.CustomerVO">
     SELECT 
         c.cnum, c.star, c.comment, u.uid
     FROM 
@@ -313,7 +313,8 @@
     JOIN
         user u ON c.uid = u.uid
     WHERE 
-        c.cnum = #{boardId}
+        c.eno = #{eno}
+        AND c.cnum = #{cnum}
         AND c.comment IS NOT NULL
 </select>
 

@@ -75,9 +75,9 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public List<CustomerVO> getReviewsByBoardId(String eno) {
+	public List<CustomerVO> getReviewsByBoardId(String eno, int cnum) {
 		// TODO Auto-generated method stub
-		return mapper.getReviewsByBoardId(eno);
+		return mapper.getReviewsByBoardId(eno, cnum);
 	}
 
 

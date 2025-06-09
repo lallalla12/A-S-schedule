@@ -31,5 +31,5 @@ public interface CustomerService {
 
 	public void detailUpdate(CustomerVO vo);
 
-	public List<CustomerVO> getReviewsByBoardId(String eno);
+	public List<CustomerVO> getReviewsByBoardId(String eno, int cnum);
 }
