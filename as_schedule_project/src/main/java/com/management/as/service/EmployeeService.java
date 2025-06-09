@@ -40,6 +40,8 @@ public interface EmployeeService {
 
 	public List<CustomerVO> searchByEmployeeAndField(String eno, String searchField, String keyword);
 
+	public List<ScheduleVO> getASSchedule();
+
 
 	 
 }

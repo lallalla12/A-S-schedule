@@ -305,7 +305,7 @@
 	</update>
 	
 	
-<select id="getReviewsByBoardId" parameterType="int" resultType="com.management.as.domain.CustomerVO">
+<select id="getReviewsByBoardId" parameterType="java.lang.String" resultType="com.management.as.domain.CustomerVO">
     SELECT 
         c.cnum, c.star, c.comment, u.uid
     FROM 
