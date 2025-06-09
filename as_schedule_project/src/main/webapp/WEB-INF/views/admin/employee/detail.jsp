@@ -245,23 +245,21 @@
                 url: '/admin/review/list/',
                 method: 'GET',
                 dataType: 'json',
-                data: { cnum : cnum },
+                data: { eno : eno, cnum : cnum },
                 success: function(data) {
-                    console.log(data);
                     if (data.length === 0) {
-                        $('#reviewListDiv').text("등록된 후기가 없습니다.");
+                        $('#reviewList').text("등록된 후기가 없습니다.");
                         return;
                     }
                     $reviewListDiv.empty();
-
-                   	console.log(data);
                     data.forEach(function(review) {
-                        const html = `<p><strong>${review.reviewer}</strong> (${review.date}):<br>${review.content}</p>`;
+                    	const html = "<p>별점 : " + review.star + "<br />" + review.comment + "</p>"
+                        //const html = `<p>(${review.star}):<br>${review.comment}</p>`;
                         $reviewListDiv.append(html);
                     });
                 },
                 error: function(xhr, status, error) {
-                    $('#reviewListDiv').text("후기 불러오기 실패");
+                    $('#reviewList').text("후기 불러오기 실패");
                     console.error(error);
                 }
             });

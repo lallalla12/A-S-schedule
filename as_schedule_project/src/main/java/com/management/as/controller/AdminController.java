@@ -192,13 +192,9 @@ public class AdminController {
 	
 	@GetMapping("/review/list/")
 	@ResponseBody
-	public List<CustomerVO> getReviewList(@RequestParam("eno") String eno) {
-	    return Cservice.getReviewsByBoardId(eno); // 서비스에서 boardId 기준으로 후기 조회
+	public List<CustomerVO> getReviewList(@RequestParam("eno") String eno, @RequestParam("cnum") int cnum) {
+	    return Cservice.getReviewsByBoardId(eno, cnum); // 서비스에서 boardId 기준으로 후기 조회
 	}
-
-
-	
-	
 
 }
 
