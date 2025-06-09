@@ -36,6 +36,8 @@ public interface EmployeeService {
 
 	public EmployeeVO getEmployeeById(String eno);
 
-	public List<CustomerVO> getCustomerByEmployeeId(String eno); 
+	public List<CustomerVO> getCustomerByEmployeeId(String eno);
+
+	public List<ScheduleVO> getASSchedule(); 
 	 
 }
