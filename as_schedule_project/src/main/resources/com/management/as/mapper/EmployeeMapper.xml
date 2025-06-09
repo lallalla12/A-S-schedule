@@ -13,6 +13,14 @@
 		where
 		c.eno=#{eno}
 	</select>
+	
+	<select id="getASSchedule"
+		resultType="com.management.as.domain.ScheduleVO">
+		select c.cnum, c.visitdate, c.visittime, c.prostatus, c.eno, e.ename
+		from customer c join
+		employee e on c.eno = e.eno 
+		where c.prostatus in ('P','F')
+	</select>
 
 	<select id="selectAll"
 		resultType="com.management.as.domain.EmployeeVO">
@@ -124,6 +132,7 @@
 		resultType="com.management.as.domain.EmployeeVO"
 		parameterType="String">
 		select * from employee where eno = #{eno}
+		
 	</select>
 
 	<select id="selectCustomersByEmployeeId" parameterType="String"

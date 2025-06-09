@@ -1,6 +1,8 @@
 package com.management.as.controller;
 
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +27,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.management.as.domain.CustomerVO;
 import com.management.as.domain.EmployeeVO;
+import com.management.as.domain.ScheduleVO;
 import com.management.as.service.CustomerService;
 import com.management.as.service.EmployeeService;
 
@@ -106,6 +109,30 @@ public class AdminController {
 		return "redirect:/admin/employee/list";
 	}
 	
+	@GetMapping("/calendar/events")
+	@ResponseBody
+		public List<Map<String, Object>> getCalendarEvents() {
+		    List<ScheduleVO> schedules = service.getASSchedule();
+	
+		    List<Map<String, Object>> result = new ArrayList<>();
+		    for (ScheduleVO schedule : schedules) {
+		        Map<String, Object> event = new HashMap<>();
+		        event.put("title", schedule.getEname()); // 달력에 표시할 이름
+		        event.put("start", schedule.getVisitDateTime()); // FullCalendar 형식
+		        event.put("allDay", false);
+		        
+		        String prostatus = String.valueOf(schedule.getProstatus());
+		        
+		        if(prostatus.equals("F")) {
+		        	event.put("backgroundColor", "#333333");
+		        } else {
+		        	event.put("backgroundColor", "#28a745");
+		        }
+		        result.add(event);
+		    }
+		    return result;
+	 }
+	
 	@PostMapping("/service/assignEngineer/{receiptNo}/{selectedEngineer}/{visitdate}/{visittime}")
 	@ResponseBody
 	//public ResponseEntity<?> assignEngineer(@RequestBody EmployeeVo employee) {
@@ -138,13 +165,11 @@ public class AdminController {
 		
 		EmployeeVO emp = service.getEmployeeById(eno);
 		
-		
 		List<CustomerVO> receptionList = service.getCustomerByEmployeeId(eno);
 		
 		model.addAttribute("employee", emp);
 		model.addAttribute("customerList", receptionList);
 		model.addAttribute("eno", eno);  
-		
 		
 		return "admin/employee/detail";
 		
@@ -165,7 +190,7 @@ public class AdminController {
 	    return "admin/employee/detail";
 	}
 	
-	@GetMapping("/review/list")
+	@GetMapping("/review/list/")
 	@ResponseBody
 	public List<CustomerVO> getReviewList(@RequestParam("eno") String eno) {
 	    return Cservice.getReviewsByBoardId(eno); // 서비스에서 boardId 기준으로 후기 조회

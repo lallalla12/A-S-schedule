@@ -190,7 +190,7 @@
                         <c:choose>
                             <c:when test="${item.prostatus eq 'F'}">
                                 <button type="button" class="finishbtn btn btn-success btn-sm"
-                                    data-eno="${item.eno}" 
+                                    data-eno="${param.eno}" data-cnum="${item.cnum}" 
                                     data-proname="${item.proname}"
                                     data-username="${item.username}">
                                     후기
@@ -225,41 +225,46 @@
     </div>
 </div>
 <div id="popupBackground"></div>
-
+<script src="/resources/js/jquery-3.7.1.min.js"></script>
 <script>
     // 후기 버튼 클릭 시
     document.querySelectorAll('.finishbtn').forEach(button => {
         button.addEventListener('click', () => {
             const eno = button.dataset.eno;
+            const cnum = button.dataset.cnum;
             const username = button.dataset.username;
             const proname = button.dataset.proname;
 
             document.getElementById('popupUsername').textContent = username;
             document.getElementById('popupProname').textContent = proname;
-            const reviewListDiv = document.getElementById('reviewList');
-
-            reviewListDiv.textContent = "후기 로딩 중...";
+            const $reviewListDiv = $('#reviewList');
+            $reviewListDiv.text("후기 로딩 중...");
 
             // AJAX로 후기 리스트 요청 (아래 URL, 파라미터, 응답 형식은 서버 구현에 맞게 변경 필요)
-            fetch('/admin/review/list?eno=' + eno)
-                .then(response => response.json())
-                .then(data => {
-                    if(data.length === 0) {
-                        reviewListDiv.textContent = "등록된 후기가 없습니다.";
+            $.ajax({
+                url: '/admin/review/list/',
+                method: 'GET',
+                dataType: 'json',
+                data: { cnum : cnum },
+                success: function(data) {
+                    console.log(data);
+                    if (data.length === 0) {
+                        $('#reviewListDiv').text("등록된 후기가 없습니다.");
                         return;
                     }
-                    reviewListDiv.innerHTML = '';
-                    data.forEach(review => {
-                        // 예시: 리뷰 작성자, 날짜, 내용
-                        const p = document.createElement('p');
-                        p.innerHTML = `<strong>${review.reviewer}</strong> (${review.date}):<br>${review.content}`;
-                        reviewListDiv.appendChild(p);
+                    $reviewListDiv.empty();
+
+                   	console.log(data);
+                    data.forEach(function(review) {
+                        const html = `<p><strong>${review.reviewer}</strong> (${review.date}):<br>${review.content}</p>`;
+                        $reviewListDiv.append(html);
                     });
-                })
-                .catch(err => {
-                    reviewListDiv.textContent = "후기 불러오기 실패";
-                    console.error(err);
-                });
+                },
+                error: function(xhr, status, error) {
+                    $('#reviewListDiv').text("후기 불러오기 실패");
+                    console.error(error);
+                }
+            });
 
             // 팝업 및 배경 보이기
             document.getElementById('reviewPopup').style.display = 'block';
@@ -279,6 +284,5 @@
         document.getElementById('popupBackground').style.display = 'none';
     });
 </script>
-
 </body>
 </html>
