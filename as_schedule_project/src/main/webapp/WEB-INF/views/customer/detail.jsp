@@ -175,7 +175,7 @@
 							<c:if test="${customer.prostatus eq 'W' or  customer.prostatus eq 'P'}">
 								<input type="submit" class="btn-write" value="수정하기" />
 							</c:if>
-							<input type="button" class="btn-write" value="홈으로"  onclick="location.href='/customer/index';"/>
+							<input type="button" class="btn-write" value="목록"  onclick="location.href='/customer/mypage';"/>
 						</td>
 					</tr>					
 				</table>
