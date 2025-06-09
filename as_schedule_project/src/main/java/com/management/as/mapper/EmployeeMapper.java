@@ -39,6 +39,7 @@ public interface EmployeeMapper {
 
 	public List<ScheduleVO> getASSchedule();
 	
+	
 //    void updateProStatus(@Param("receiptNo") int receiptNo, @Param("status") String status);
 	
 	

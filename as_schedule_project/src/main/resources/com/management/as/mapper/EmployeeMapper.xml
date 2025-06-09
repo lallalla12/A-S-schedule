@@ -132,6 +132,7 @@
 		resultType="com.management.as.domain.EmployeeVO"
 		parameterType="String">
 		select * from employee where eno = #{eno}
+		
 	</select>
 
 	<select id="selectCustomersByEmployeeId" parameterType="String"

@@ -317,6 +317,4 @@
         AND c.comment IS NOT NULL
 </select>
 
-	
-
 </mapper>

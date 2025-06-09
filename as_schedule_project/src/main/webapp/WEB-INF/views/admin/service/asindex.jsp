@@ -558,7 +558,6 @@ $(document).on('click', '.assignBtn', function () {
 	
  		setTimeout(function () {
  			  const calendarEl = document.getElementById('calendar');
-  
  			  // 이미 렌더된 캘린더가 있다면 초기화
  			  calendarEl.innerHTML = '';
  			  const calendar = new FullCalendar.Calendar(calendarEl, {
@@ -586,7 +585,6 @@ $(document).on('click', '.assignBtn', function () {
  		  });
 		  calendar.render();
 		}, 100);
-	  
 	  
 	}); 
 

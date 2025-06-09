@@ -165,7 +165,6 @@ public class AdminController {
 		
 		EmployeeVO emp = service.getEmployeeById(eno);
 		
-		
 		List<CustomerVO> receptionList = service.getCustomerByEmployeeId(eno);
 		
 		model.addAttribute("employee", emp);
