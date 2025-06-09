@@ -97,16 +97,6 @@ public class AdminController {
     
 	}
 	
-	/*
-	 * @GetMapping("/employee/calendar/json") public String schedule(HttpSession
-	 * session, Model model) { EmployeeVO emp = (EmployeeVO)
-	 * session.getAttribute("loginEmp");
-	 * 
-	 * 
-	 * model.addAttribute("schedule", service.getASSchedule());
-	 * 
-	 * }
-	 */
 	
 	
 	@GetMapping("/calendar/events")
