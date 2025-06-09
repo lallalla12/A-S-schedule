@@ -120,5 +120,9 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return mapper.searchByEmployeeAndField(eno, searchField, keyword);
 	}
 
+	@Override
+	public List<ScheduleVO> getASSchedule() {
+		return mapper.getASSchedule();
+	}
 
 }

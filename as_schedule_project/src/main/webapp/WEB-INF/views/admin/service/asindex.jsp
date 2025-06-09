@@ -555,6 +555,37 @@ $(document).on('click', '.assignBtn', function () {
 	        alert(xhr.responseText);
 	    }
 	  });
+	
+ 		setTimeout(function () {
+ 			  const calendarEl = document.getElementById('calendar');
+ 			  // 이미 렌더된 캘린더가 있다면 초기화
+ 			  calendarEl.innerHTML = '';
+ 			  const calendar = new FullCalendar.Calendar(calendarEl, {
+ 			    themeSystem: 'bootstrap5',
+ 			    locale: 'ko',
+ 			    nowIndicator: true,
+ 			    editable: true,
+ 			    selectable: true,
+ 			    businessHours: true,
+ 			    dayMaxEvents: true,
+ 		    	events: function(fetchInfo, successCallback, failureCallback) {
+ 			      $.ajax({
+ 			        url: '/admin/calendar/events',
+ 			        method: 'GET',
+ 		        dataType: 'json',
+ 			        success: function(events) {
+ 			          successCallback(events);
+ 			        },
+ 			        error: function(xhr, status, error) {
+ 			            console.error("이벤트 로드 실패:", error);
+ 			            failureCallback(new Error("이벤트 데이터를 불러오지 못했습니다."));
+ 			          }
+ 			      });
+ 			    },
+ 		  });
+		  calendar.render();
+		}, 100);
+	  
 	}); 
 
 	$('#closePopup').on('click', function () {
