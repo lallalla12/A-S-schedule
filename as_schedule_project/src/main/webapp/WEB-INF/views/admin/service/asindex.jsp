@@ -480,37 +480,7 @@ $(document).on('click', '.assignBtn', function () {
 	      alert('기사 목록을 불러오는 데 실패했습니다.');
 	    }
 	  });
-		
-	  
-	  
-	  
-		// customer 데이터
-		const eventsData = [
-	      <c:forEach items="${schedule}" var="sche" varStatus="status">
-	         {
-	            title: '${sche.username}',
-	            start: '${sche.visitDateTime}',
-	            extendedProps: {
-	               addr: '${sche.address}',
-	               addrDetail: '${sche.detail}',
-	               cnum: '${sche.cnum}',
-	               prostatus: '${sche.prostatus}',
-	               star: '${sche.star}',
-	               comment: '${sche.comment}'
-	            },
-	            <c:choose>
-	               <c:when test="${sche.prostatus eq 'F'}">
-	                  backgroundColor: '#333333',  // 검정색
-	               </c:when>
-	               <c:otherwise>
-	                  backgroundColor: '#28a745',  // 초록색 (진행 상태)
-	               </c:otherwise>
-	            </c:choose>
-	         }<c:if test="${!status.last}">,</c:if>
-	      </c:forEach>
-	   ];
-	  
-		
+
 	  
 		setTimeout(function () {
 			  const calendarEl = document.getElementById('calendar');
@@ -542,15 +512,12 @@ $(document).on('click', '.assignBtn', function () {
 			            failureCallback(new Error("이벤트 데이터를 불러오지 못했습니다."));
 			          }
 			      });
-			    }, // <-- 이 뒤에 콤마가 필요
+			    }, 
 			  });
 
 			  calendar.render();
 			}, 100);
-	  
-	  
 
-	  
 });
 	
 
