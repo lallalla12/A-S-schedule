@@ -89,10 +89,10 @@
 	            <th width="8%">번호</th>
 	            <th width="15%">제품</th>
 	            <th width="*">고장증상</th>
-	            <th width="13%">방문예정일</th>
-	            <th width="13%">방문종료일</th>
+	            <th width="14%">방문예정일</th>
+	            <th width="14%">방문종료일</th>
 	            <th width="10%">상태</th>
-	            <th width="15%">후기등록</th>
+	            <th width="13%">후기등록</th>
 	        </thead>
 	        <tbody>
 	        	<c:if test="${not empty clist}">
@@ -101,13 +101,13 @@
 		        		<td style="font-weight:bold;">${list.rownum }</td>
 		        		<td><a href="/customer/detail?cnum=${list.cnum}" >${list.proname }</a></td>
 		        		<td><a href="/customer/detail?cnum=${list.cnum}" >${list.issue }</a></td>
-		        		<td><fmt:formatDate pattern="yyyy-MM-dd" value="${list.visitdate}" /></td>
+		        		<td><fmt:formatDate pattern="yyyy.MM.dd (E)" value="${list.visitdate}" />&nbsp;${list.visittime}</td>
 		        		<td>
 		        			<c:if test="${empty list.visitend}" >
 		        			<c:out value="-" />
 		        			</c:if>
 		        			<c:if test="${not empty list.visitend}">
-		        			<fmt:formatDate pattern="yyyy-MM-dd" value="${list.visitend}" />
+		        			<fmt:formatDate pattern="yyyy.MM.dd (E)" value="${list.visitend}" />
 		        			</c:if>
 		        		</td>
 		        		<td>
