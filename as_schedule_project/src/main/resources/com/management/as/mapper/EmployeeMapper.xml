@@ -7,7 +7,7 @@
 	<select id="getSchedule"
 		resultType="com.management.as.domain.ScheduleVO">
 		select c.cnum, username, address, u.detail, visitdate,
-		visittime, prostatus
+		visittime, prostatus, star, comment
 		from user u join
 		customer c on u.uid=c.uid
 		where

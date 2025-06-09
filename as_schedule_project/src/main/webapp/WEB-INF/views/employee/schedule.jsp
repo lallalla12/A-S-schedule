@@ -52,10 +52,10 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             <c:choose>
                <c:when test="${sche.prostatus eq 'F'}">
-                  backgroundColor: '#333333',  // 검정색
+                  backgroundColor: '#333333'  // 검정색
                </c:when>
                <c:otherwise>
-                  backgroundColor: '#28a745',  // 초록색 (진행 상태)
+                  backgroundColor: '#28a745'  // 초록색 (진행 상태)
                </c:otherwise>
             </c:choose>
          }<c:if test="${!status.last}">,</c:if>
@@ -229,6 +229,7 @@ textarea {
 
 textarea, input[type="date"] {
 	border-radius: 4px;
+	padding: 3px;
 }
 
 .star-img {
@@ -308,10 +309,9 @@ textarea, input[type="date"] {
 						</div>
 						
 						<!-- 방문종료일 -->
-						<div id='endDateSection' style="padding:0px 3px;">
-							<input type="date" id="endDate"> <br>
-							<div class='mt-1'
-								style="display: flex; align-items: flex-end; gap: 5px;">
+						<div id='endDateSection' style="padding:0px 2px;">
+							<input type="date" id="endDate" style="border: 1px solid #212529"> <br>
+							<div class='mt-1' style="display: flex; align-items: flex-end; gap: 5px;">
 								<textarea id="empComment" rows="5" cols="67" placeholder="특이사항"></textarea>
 								<button class='btn btn-secondary' onclick='submitEndDate()'>방문종료</button>
 							</div>
