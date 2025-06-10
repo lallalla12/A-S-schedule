@@ -107,8 +107,11 @@
 	    }
 	}
 	</script>
+	<link href="/resources/css/include/include.css" rel="stylesheet"/>
 </head>
 <body>
+
+<%@ include file="/WEB-INF/views/include/nav.jsp" %>
 	<div class="container mt-5">
 		<h3>게시글 수정</h3>
 		<div class="board-wrapper">

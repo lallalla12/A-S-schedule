@@ -169,7 +169,7 @@ text-align:right;
 		
 		<div id="btn">
         	<input type="submit"  class="btn-write" value="등록">
-        	<input type="button"  class="btn-write" onclick="location.href='/admin/index';" value="홈">
+        	<input type="button"  class="btn-write" onclick="location.href='/admin/employee/list';" value="목록">
         </div>
     </form>
 </div>

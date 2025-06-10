@@ -307,7 +307,7 @@ form.search-form input[type="submit"] {
 							<td>${item.model}</td>
 							<td>${item.issue}</td>
 							<td><fmt:formatDate value="${item.visitdate}"
-									pattern="yyyy.MM.dd (E) a hh:mm" /></td>
+									pattern="yyyy.MM.dd (E) " />${item.visittime}</td>
 							<td><c:choose>
 									<c:when test="${empty item.visitend}">
                                 -
@@ -346,7 +346,7 @@ form.search-form input[type="submit"] {
 			</table>
 			<div style="text-align: right;">
 			<button class="btn-write" 
-					onclick="location.href='<c:url value='/admin/index' />'">홈</button>
+					onclick="location.href='<c:url value='/admin/employee/list' />'">목록</button>
 			</div>
 		</div>
 	</div>

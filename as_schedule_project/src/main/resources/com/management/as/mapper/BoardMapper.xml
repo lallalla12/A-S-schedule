@@ -67,7 +67,8 @@
   		update board
 		set title = #{title},
 			content = #{content},
-		    updatedate = sysdate()
+		    updatedate = sysdate(),
+		    type = #{type}
 		where bno = #{bno}
   	</update>
   	

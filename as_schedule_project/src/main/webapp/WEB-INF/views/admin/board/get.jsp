@@ -102,7 +102,10 @@
 	  .no-bg td:first-child {
 	  	background-color: transparent !important;
 	  }
+	  
+	  
 </style>
+<link href="/resources/css/include/include.css" rel="stylesheet"/>
 <script>
 function confirmDelete(bno) {
 	  if (confirm("정말 삭제하시겠습니까?")) {
@@ -112,6 +115,7 @@ function confirmDelete(bno) {
 </script>
 </head>
 <body>
+<%@ include file="/WEB-INF/views/include/nav.jsp" %>
 	<div class="container mt-5">
 		<h3>상세내용</h3>
 		<div class="board-wrapper">
