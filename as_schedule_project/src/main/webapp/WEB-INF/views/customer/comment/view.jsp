@@ -38,7 +38,7 @@
 				</tr>
 				<tr>
 					<td>
-						<textarea name="comment" placeholder="후기를 입력해주세요.">${comment.comment }</textarea>
+						<textarea name="comment" readonly >${comment.comment }</textarea>
 					</td>		
 				</tr>
 				<tr>
