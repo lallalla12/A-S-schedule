@@ -165,6 +165,12 @@ public class CustomerController {
 		return "redirect:/customer/mypage";
 	}
 
+	@GetMapping("/comment/view")
+	public String popupView(@RequestParam("cnum") int cnum, Model model) {
+		model.addAttribute("comment", service.get(cnum));
+		return "/customer/comment/view";
+	}
+	
 	@GetMapping("/comment/add")
 	public String popup(@RequestParam("cnum") int cnum, Model model) {
 		model.addAttribute("cnum", cnum);

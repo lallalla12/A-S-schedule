@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>후기등록</title>
+<title>후기</title>
 <style>
 .star-img {
   width: 32px;
@@ -16,21 +16,41 @@
 </style>
 </head>
 <body>
-	<form name="commentForm" id="commentForm" action="/customer/comment" method="post" onsubmit="return confirm()">
-		<input type="hidden" name="star" id="star" value="1" />
-		별점 : 
-		<div id="rating">
-		  <img src="/resources/images/star_off.png" class="star-img" data-value="1" />
-		  <img src="/resources/images/star_off.png" class="star-img" data-value="2" />
-		  <img src="/resources/images/star_off.png" class="star-img" data-value="3" />
-		  <img src="/resources/images/star_off.png" class="star-img" data-value="4" />
-		  <img src="/resources/images/star_off.png" class="star-img" data-value="5" />
+	<div class="popup-content">
+		<div id="commentForm">
+			<input type="hidden" name="star" id="star" value="${comment.star}" />
+			<table>
+				<tr>
+					<td>* 별점</td>
+				</tr>
+				<tr>
+					<td>
+						<span class="stars">
+					    <c:forEach var="i" begin="1" end="5">
+					        <img src="/resources/img/<c:choose><c:when test="${i <= comment.star}">star_on.png</c:when><c:otherwise>star_off.png</c:otherwise></c:choose>"
+					             class="star-img" />
+					    </c:forEach>
+					</span>
+					</td>
+				</tr>
+				<tr>
+					<td>후기</td>
+				</tr>
+				<tr>
+					<td>
+						<textarea name="comment" placeholder="후기를 입력해주세요.">${comment.comment }</textarea>
+					</td>		
+				</tr>
+				<tr>
+					<td>
+						<div class="button-group">
+							<input type="button" value="닫기" onclick="closePopup();" class="btn popup_close" />
+						</div>
+					</td>
+				</tr>
+			</table>
 		</div>
-		<br />
-		후기 : <textarea name="comment" id="comment"></textarea>
-		<input type="submit" value="등록" />
-		<input type="button" value="목록" onclick="location.href='/customer/mypage';" />
-	</form>
+	</div>
 </body>
 <script>
 document.addEventListener("DOMContentLoaded", function () {

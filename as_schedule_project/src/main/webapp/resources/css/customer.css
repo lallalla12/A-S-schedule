@@ -266,6 +266,16 @@ a.notcurrent:hover {
 }
 
 
+.view_btn {
+  padding: 6px 12px;
+  font-size: 13px;
+  background-color: #771f81;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
 .comment_btn:not(:disabled) {
   padding: 6px 12px;
   font-size: 13px;
