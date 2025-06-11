@@ -318,11 +318,12 @@ form.search-form input[type="submit"] {
 									</c:otherwise>
 								</c:choose></td>
 
-							<td><c:choose>
-									<c:when test="${item.prostatus eq 'W'}">대기중</c:when>
-									<c:when test="${item.prostatus eq 'P'}">진행중</c:when>
-									<c:when test="${item.prostatus eq 'F'}">완료</c:when>
-								</c:choose></td>
+							<td>
+								<c:choose>
+									<c:when test="${item.prostatus eq 'P'}"><span style="font-weight:bold; color:#da6264;">진행</span></c:when>
+									<c:when test="${item.prostatus eq 'F'}"><span style="font-weight:bold; color:#330066;">완료</span></c:when>
+								</c:choose>
+							</td>
 							<td><c:choose>
 									<c:when test="${item.prostatus eq 'F'}">
 										<button type="button" class="finishbtn btn btn-success btn-sm"
