@@ -118,7 +118,9 @@
 		        		<td>
 		        			<c:if test="${list.star > 0 }">
 		        				<!-- <span style="font-weight:bold">등록완료</span> -->
-		        				<input type="button" value="완료" class="view_btn" onclick="openView(${list.cnum})" />
+		        				<c:if test="${list.prostatus eq 'F' }" >
+		        					<input type="button" value="완료" class="view_btn" onclick="openView(${list.cnum})" />
+		        				</c:if>
 		        			</c:if>
 		        			<c:if test ="${list.star == 0 }">
 	        				<input type="button" value="등록" class="comment_btn" onclick="openPopup(${list.cnum})"  
