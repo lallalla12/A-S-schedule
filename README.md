@@ -1,9 +1,10 @@
 # ❄️🔥 냉난방 AS기사 스케줄 관리 시스템
 
+## 💡 프로젝트 개요
 냉·난방 AS 업무를 효율적으로 처리하기 위해, **AS기사의 스케줄 및 방문 일정을 관리**할 수 있는 웹 기반 시스템입니다.  
 일정 등록, 지도 기반 방문 위치 확인, 캘린더 UI를 활용한 편리한 관리 기능을 제공합니다.
 
----
+
 
 ## 🛠 사용 기술 스택
 
@@ -17,7 +18,34 @@
 | 서버환경 | Apache Tomcat 9.x |
 | IDE | STS (Spring Tool Suite 3) |
 
----
+
+
+## 📁 프로젝트 구조
+```
+📁A-S-schedule/
+├── 📁src/
+│   └── 📁main/
+│       ├── 📁java/
+│       │   └── 📁com/management/as/
+│       │       ├── 📁controller/         # REST API Controller
+│       │       ├── 📁domain/             # VO 클래스 (DTO 포함)
+│       │       ├── 📁mapper/             # MyBatis 인터페이스
+│       │       ├── 📁scheduler/          # 기사 스케줄 작업
+│       │       └── 📁service/            # 비즈니스 로직 처리
+│       └── 📁resources/
+│           ├── 📁mapper/                 # MyBatis XML SQL 매핑 파일
+│           ├── 📑application.properties  # DB 연결 및 설정 파일
+│           └── 📑log4j.xml               # 로깅 설정
+├── 📁sql/                                # DB 테이블 및 초기 데이터
+│   ├── 📑board.sql                       # 게시판 관리
+│   ├── 📑customer.sql                    # AS 접수 정보
+│   ├── 📑employee.sql                    # AS 기사님 스케줄
+│   ├── 📑user.sql                        # AS 고객님 정보
+│   └── 📑product.sql                     # AS 제품 정보
+│  
+├── 📑pom.xml                              # Maven 의존성 관리 파일
+```
+
 
 ## ✨ 주요 기능
 
@@ -47,7 +75,7 @@
 ### 🔄 상태별 필터 및 정렬
 - 전체 스케줄에서 `처리중`, `완료`, `미배정` 등 상태별로 필터링하여 볼 수 있습니다.
 - 기사 이름 또는 날짜 기준으로 정렬 기능도 제공합니다.
----
+
 
 ## 📷 주요 화면 스크린샷
 
@@ -55,7 +83,24 @@
 |---------------|----------------|
 | <img src="https://github.com/user-attachments/assets/0777ed1c-af12-42e1-aec5-58cb6a4b74dc" alt="스케줄 캘린더" width="400"/> | <img src="https://github.com/user-attachments/assets/5051e421-1bd5-453d-90d1-bb2695a72961" alt="기사 배정 팝업" width="400"/> |
 | AS기사별 일정 확인 및 관리 | 팝업을 통한 기사 배정 및 상태 변경 |
----
+
+
+## 🧩 시스템 플로우
+```markdown
+[1] 사용자 A/S 신청
+        ↓
+[2] DB 저장 (Spring → MyBatis → MySQL)
+        ↓
+[3] 관리자 캘린더에서 할당 및 일정 확인
+        ↓
+[4] 기사님 사용자 시간과 주소로 배정
+        ↓
+[5] 처리 진행 상태로 변경
+        ↓
+[6] 기사님 방문 후 날짜 지정 
+        ↓
+[7] 처리 완료 상태로 변경
+```
 
 ## 🚀 실행 방법
 
@@ -89,24 +134,9 @@
 
 > ⚠️ 실행 오류 시 Java, DB 연결 설정, Maven 빌드 상태를 확인하세요.
 
----
-## 🧩 시스템 플로우
-```markdown
-[1] 사용자 A/S 신청
-        ↓
-[2] DB 저장 (Spring → MyBatis → MySQL)
-        ↓
-[3] 관리자 캘린더에서 할당 및 일정 확인
-        ↓
-[4] 기사님 사용자 시간과 주소로 배정
-        ↓
-[5] 처리 진행 상태로 변경
-        ↓
-[6] 기사님 방문 후 날짜 지정 
-        ↓
-[7] 처리 완료 상태로 변경
-```
----
+
+
+
 ## 📷 시연 영상
 
 <div align="center">
