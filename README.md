@@ -53,9 +53,8 @@
 
 | 스케줄 캘린더 | 기사 배정 팝업 |
 |---------------|----------------|
-| ![calendar](screenshots/calendar.png) | ![popup](screenshots/popup.png) |
-
-
+| <img src="https://github.com/user-attachments/assets/0777ed1c-af12-42e1-aec5-58cb6a4b74dc" alt="스케줄 캘린더" width="400"/> | <img src="https://github.com/user-attachments/assets/5051e421-1bd5-453d-90d1-bb2695a72961" alt="기사 배정 팝업" width="400"/> |
+| AS기사별 일정 확인 및 관리 | 팝업을 통한 기사 배정 및 상태 변경 |
 ---
 
 ## 🚀 실행 방법
@@ -91,10 +90,8 @@
 > ⚠️ 실행 오류 시 Java, DB 연결 설정, Maven 빌드 상태를 확인하세요.
 
 ---
-
-```markdown
 ## 🧩 시스템 플로우
-
+```markdown
 [1] 사용자 A/S 신청
         ↓
 [2] DB 저장 (Spring → MyBatis → MySQL)
@@ -108,6 +105,18 @@
 [6] 기사님 방문 후 날짜 지정 
         ↓
 [7] 처리 완료 상태로 변경
+```
+---
+## 📷 시연 영상
+
+<div align="center">
+
+<video src="https://github.com/user-attachments/assets/26107459-42bd-451d-af97-2a4bc6e360b3" controls width="800"></video>
+
+</div>
+---
+
+
 
 
 
